@@ -25,7 +25,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 1
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/core/physiology/state.py"
@@ -41,26 +41,7 @@ technical_notes: |
   Include validation for physiological parameter ranges.
   Implement __eq__ and __hash__ for state comparison.
 code_template: |
-  ```python
-  from dataclasses import dataclass
-  from typing import Dict, Optional
-  import numpy as np
-  
-  @dataclass(frozen=True)
-  class PhysiologicalState:
-      # Environmental
-      po2: float  # kPa, range: 5-21
-      temperature: float  # Celsius, range: -40 to 50
-      altitude: float  # meters, range: 0-5000
-      
-      # Cardiovascular
-      heart_mass: float  # g/kg body mass, range: 3-15
-      hematocrit: float  # %, range: 20-70
-      
-      def validate(self) -> None:
-          """Validate physiological parameters are within bounds"""
-          pass
-  ```
+  # COMPLETED
 ```
 
 ### CORE-002: State Space Management System
@@ -105,7 +86,6 @@ code_template: |
                         radius: float) -> List[PhysiologicalState]:
           """Find states within radius using KDTree"""
           pass
-  ```
 ```
 
 ### CORE-003: Metabolic Calculator Module
@@ -208,7 +188,6 @@ code_template: |
           # Calculate tissue performance
           # Return integrated fitness
           pass
-  ```
 ```
 
 ### GAME-003: Thermogenesis Trade-off Game
@@ -290,7 +269,6 @@ code_template: |
       def plasticity_magnitude(self) -> float:
           """Calculate range of phenotypic variation"""
           pass
-  ```
 ```
 
 ### PLAS-002: Maladaptive Plasticity Detection
@@ -366,7 +344,6 @@ code_template: |
               offspring = self.reproduction(survivors)
               self.individuals = offspring
               yield self.get_statistics()
-  ```
 ```
 
 ### EVOL-002: Selection Mechanism
@@ -531,7 +508,6 @@ code_template: |
       </Canvas>
     )
   }
-  ```
 ```
 
 ### VIZ-002: Plasticity Landscape Viewer
@@ -627,7 +603,6 @@ code_template: |
   async def create_simulation(params: SimulationParams):
       # Create and start simulation
       pass
-  ```
 ```
 
 ### API-002: WebSocket Real-time Updates
@@ -1403,7 +1378,6 @@ research_milestones:
 - Add inline comments for complex logic
 - Update README if needed
 - Generate API docs if applicable
-```
 
 ## Progress Tracking
 
