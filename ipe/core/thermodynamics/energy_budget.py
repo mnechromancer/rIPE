@@ -20,4 +20,4 @@ class EnergyBudget:
         """Sum all energy flows (W)."""
         return sum(flows.values())
 
-    # TODO: Add more detailed energy budget calculations as needed
+    # Extend with more detailed energy budget calculations as needed

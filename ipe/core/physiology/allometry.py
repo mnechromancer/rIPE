@@ -10,4 +10,4 @@ def kleiber_bmr(body_mass: float) -> float:
     # BMR = 3.4 * mass^0.75 (example value)
     return 3.4 * (body_mass ** 0.75)
 
-# TODO: Add additional allometric functions as needed
+# Extend with additional allometric functions as needed

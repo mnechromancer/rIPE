@@ -12,4 +12,4 @@ def pca_reduce(states: np.ndarray, n_components: int = 2) -> np.ndarray:
     pca = PCA(n_components=n_components)
     return pca.fit_transform(states)
 
-# TODO: Add UMAP support and caching utilities
+# Extend with UMAP support and caching utilities as needed

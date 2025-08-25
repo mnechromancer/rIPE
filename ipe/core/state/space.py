@@ -49,4 +49,4 @@ class StateSpace:
             state.hematocrit
         ])
 
-    # TODO: Implement PCA/UMAP and reachability calculations
+    # Extend with PCA/UMAP and reachability calculations as needed
