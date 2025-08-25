@@ -120,7 +120,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-003"]
 files_to_create:
   - "ipe/core/thermodynamics/constraints.py"
@@ -131,6 +131,7 @@ acceptance_criteria:
   - "Heat transfer calculations"
   - "Thermodynamic efficiency limits"
   - "Constraint violation detection"
+# COMPLETED
 ```
 
 ## Epic 2: Game Theory Framework [GAME]
