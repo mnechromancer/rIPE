@@ -51,7 +51,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 1
-status: "todo"
+status: "done" # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/state/space.py"
@@ -95,7 +95,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/physiology/metabolism.py"
@@ -110,6 +110,7 @@ technical_notes: |
   Implement Kleiber's law for BMR scaling.
   Use Q10 temperature coefficients.
   Include altitude corrections for O2 availability.
+# COMPLETED
 ```
 
 ### CORE-004: Thermodynamic Constraints Engine
