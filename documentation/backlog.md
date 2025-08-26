@@ -169,7 +169,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001", "CORE-003"]
 files_to_create:
   - "ipe/core/games/hypoxia_game.py"
@@ -180,18 +180,8 @@ acceptance_criteria:
   - "Tissue-specific minimum requirements"
   - "Environmental PO2 integration"
   - "Fitness calculation from allocation"
-code_template: |
-  ```python
-  class HypoxiaAllocationGame(GameSpecification):
-      tissues = ['brain', 'heart', 'muscle', 'brown_fat']
-      
-      def compute_payoff(self, allocation: np.ndarray, 
-                        environment: PhysiologicalState) -> float:
-          # Validate allocation sums to 1
-          # Check minimum tissue requirements
-          # Calculate tissue performance
-          # Return integrated fitness
-          pass
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met. Ready for integration and review.
 ```
 
 ### GAME-003: Thermogenesis Trade-off Game
