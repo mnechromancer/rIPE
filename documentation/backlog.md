@@ -143,7 +143,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/games/base.py"
@@ -158,6 +158,8 @@ technical_notes: |
   Use ABC for abstract base class.
   Support both symmetric and asymmetric games.
   Include JSON schema for game definitions.
+completion_notes: |
+  Initial implementation, tests, and validation complete. All acceptance criteria met. Ready for integration and review.
 ```
 
 ### GAME-002: Hypoxia Allocation Game
