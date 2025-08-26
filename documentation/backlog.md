@@ -212,7 +212,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001"]
 files_to_create:
   - "ipe/core/games/equilibrium.py"
@@ -223,10 +223,8 @@ acceptance_criteria:
   - "ESS detection"
   - "Invasion fitness calculations"
   - "Convergence guarantees"
-technical_notes: |
-  Use nashpy library for equilibrium finding.
-  Implement iterative best response dynamics.
-  Include stability analysis.
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met. Ready for integration and review.
 ```
 
 ## Epic 3: Plasticity Module [PLAS]
