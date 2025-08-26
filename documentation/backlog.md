@@ -191,7 +191,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001", "CORE-004"]
 files_to_create:
   - "ipe/core/games/thermal_game.py"
@@ -201,6 +201,8 @@ acceptance_criteria:
   - "O2 cost calculations"
   - "Heat balance equations"
   - "Environmental temperature response"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met. Ready for integration and review.
 ```
 
 ### GAME-004: Equilibrium Solver
