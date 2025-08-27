@@ -475,7 +475,7 @@ type: "story"
 priority: "P1"
 effort: "L"
 sprint: 7
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/molecular/rnaseq_import.py"
@@ -486,6 +486,18 @@ acceptance_criteria:
   - "Gene ID mapping"
   - "Expression matrix handling"
   - "Pathway enrichment integration"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - RNASeqImporter with full support for DESeq2, EdgeR, and generic expression matrix import
+  - Comprehensive gene ID mapping system with support for multiple identifier types
+  - Expression matrix handling with sample group management and raw count storage
+  - DESeqParser for pathway enrichment integration (GSEA, DAVID, topGO support)
+  - Multi-contrast comparison tools for differential expression analysis
+  - Pathway-expression integration with overlap analysis and statistical summaries
+  - Quality assessment and data filtering capabilities
+  - Comprehensive export functionality (CSV, TSV, JSON formats)
+  - 19 comprehensive unit tests including full workflow integration scenarios
+# COMPLETED
 ```
 
 ### DATA-003: Field Data Connectors
@@ -495,7 +507,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 7
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/field/environmental.py"
@@ -506,6 +518,19 @@ acceptance_criteria:
   - "GPS coordinate handling"
   - "Morphometric data parsing"
   - "Time series alignment"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - EnvironmentalDataImporter with full weather station data support (CSV, JSON formats)
+  - Comprehensive GPS coordinate handling with distance calculations and time alignment
+  - MorphologyDataImporter for morphometric data processing with museum specimen support
+  - Advanced time series interpolation and gap filling capabilities
+  - Multi-station data import with batch processing functionality
+  - GPS track alignment with environmental readings using spatial-temporal matching
+  - Quality control framework with outlier detection and data completeness assessment
+  - Unit standardization system for morphometric measurements
+  - Multiple export formats (CSV, JSON, wide/long formats)
+  - 26 comprehensive unit tests including full field data workflow integration
+# COMPLETED
 ```
 
 ## Epic 6: Visualization [VIZ]
