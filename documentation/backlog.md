@@ -291,7 +291,7 @@ type: "story"
 priority: "P1"
 effort: "L"
 sprint: 5
-status: "todo"
+status: "done"  # Completed
 dependencies: ["PLAS-001", "PLAS-002"]
 files_to_create:
   - "ipe/core/plasticity/assimilation.py"
@@ -302,6 +302,15 @@ acceptance_criteria:
   - "Track constitutive trait evolution"
   - "Calculate assimilation rate"
   - "Predict canalization trajectories"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - GeneticAssimilationEngine with full trajectory simulation and analysis
+  - CanalizationEngine with multiple canalization type measurements
+  - Evolutionary trajectory modeling with rate calculations
+  - Predictive modeling for assimilation endpoints and timescales
+  - Comprehensive integration between assimilation and canalization processes
+  - Full test coverage (31 unit tests) including complex integration scenarios
+# COMPLETED
 ```
 
 ## Epic 4: Evolution Simulator [EVOL]

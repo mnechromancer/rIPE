@@ -11,6 +11,8 @@ from .reaction_norm import ReactionNorm, PlasticityMagnitude
 from .gxe import GxEInteraction
 from .maladaptive import MaladaptiveDetector, MaladaptiveResponse, MaladaptationType
 from .maladaptive import quadratic_fitness, linear_fitness, thermal_fitness
+from .assimilation import GeneticAssimilationEngine, AssimilationTrajectory, AssimilationStage
+from .canalization import CanalizationEngine, CanalizationTrajectory, CanalizationMeasure, CanalizationType
 
 __all__ = [
     "ReactionNorm", 
@@ -21,5 +23,12 @@ __all__ = [
     "MaladaptationType",
     "quadratic_fitness",
     "linear_fitness", 
-    "thermal_fitness"
+    "thermal_fitness",
+    "GeneticAssimilationEngine",
+    "AssimilationTrajectory",
+    "AssimilationStage",
+    "CanalizationEngine",
+    "CanalizationTrajectory", 
+    "CanalizationMeasure",
+    "CanalizationType"
 ]
