@@ -21,6 +21,14 @@ from .mutation import (
     MutationParameters, MutationStrategy, GaussianMutation,
     PleiotopicMutation, MutationEngine, create_default_mutation_engine
 )
+from .rapid_evolution import (
+    EnvironmentalChange, PlasticityEvolutionTracker, RapidEvolutionSimulator,
+    create_freshwater_invasion_scenario, create_altitude_adaptation_scenario
+)
+from .contemporary import (
+    ContemporaryEvolutionModel, ExperimentalEvolutionModel,
+    create_predefined_scenarios
+)
 
 __all__ = [
     'Population',
@@ -44,5 +52,13 @@ __all__ = [
     'GaussianMutation',
     'PleiotopicMutation',
     'MutationEngine',
-    'create_default_mutation_engine'
+    'create_default_mutation_engine',
+    'EnvironmentalChange',
+    'PlasticityEvolutionTracker',
+    'RapidEvolutionSimulator',
+    'create_freshwater_invasion_scenario',
+    'create_altitude_adaptation_scenario',
+    'ContemporaryEvolutionModel',
+    'ExperimentalEvolutionModel',
+    'create_predefined_scenarios'
 ]

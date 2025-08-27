@@ -407,7 +407,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 6
-status: "todo"
+status: "done"  # Completed
 dependencies: ["EVOL-001", "EVOL-002", "EVOL-003", "PLAS-001"]
 files_to_create:
   - "ipe/simulation/rapid_evolution.py"
@@ -418,6 +418,17 @@ acceptance_criteria:
   - "Environmental change scenarios"
   - "Plasticity evolution tracking"
   - "Real-time visualization hooks"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - RapidEvolutionSimulator for 10-100 generation contemporary evolution studies
+  - Comprehensive environmental change scenarios with gradual, sudden, and oscillating patterns
+  - Plasticity evolution tracking with maladaptive response detection integration
+  - Real-time visualization callback system for generation-by-generation monitoring
+  - Contemporary evolution models for urban adaptation, climate change, and biological invasions
+  - Experimental evolution frameworks for selection experiments and common gardens
+  - Predefined scenario library for common research applications
+  - Full test coverage (29 unit tests) including end-to-end integration scenarios
+# COMPLETED
 ```
 
 ## Epic 5: Data Integration [DATA]
