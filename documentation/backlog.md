@@ -440,7 +440,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 6
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/respirometry/sable_import.py"
@@ -455,6 +455,17 @@ technical_notes: |
   File formats: .exp, .csv
   Handle drift correction
   Temperature standardization
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - SableSystemsImporter with full support for .exp and .csv file parsing
+  - Complete extraction of VO2, VCO2, RER measurements with validation
+  - Advanced baseline drift correction using linear interpolation
+  - Batch import capability for directory processing
+  - Temperature standardization to STP conditions
+  - Quality assessment tools and data filtering capabilities
+  - Generic respirometry parser framework for extensibility
+  - Comprehensive test coverage (19 unit tests) including integration scenarios
+# COMPLETED
 ```
 
 ### DATA-002: RNA-seq Integration
