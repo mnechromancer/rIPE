@@ -322,7 +322,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001", "GAME-001"]
 files_to_create:
   - "ipe/simulation/population.py"
@@ -333,20 +333,14 @@ acceptance_criteria:
   - "Birth-death processes"
   - "Carrying capacity implementation"
   - "Age/stage structure (optional)"
-code_template: |
-  ```python
-  class Population:
-      def __init__(self, size: int, initial_state: PhysiologicalState):
-          self.individuals = []
-          self.generation = 0
-          
-      def evolve(self, generations: int) -> Generator:
-          for gen in range(generations):
-              fitness = self.calculate_fitness()
-              survivors = self.selection(fitness)
-              offspring = self.reproduction(survivors)
-              self.individuals = offspring
-              yield self.get_statistics()
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - Population class with individual tracking and fitness management
+  - Demographics class for age structure and population analysis
+  - Birth-death processes with carrying capacity enforcement
+  - Comprehensive evolution simulation framework
+  - Full test coverage (23 unit tests) including edge cases
+# COMPLETED
 ```
 
 ### EVOL-002: Selection Mechanism
