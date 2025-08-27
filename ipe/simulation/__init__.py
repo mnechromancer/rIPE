@@ -8,9 +8,41 @@ and rapid evolution scenarios.
 
 from .population import Population, Individual
 from .demographics import Demographics
+from .selection import (
+    SelectionStrategy, TruncationSelection, ProportionalSelection,
+    TournamentSelection, FrequencyDependentSelection, MultiTraitSelection,
+    SelectionAnalyzer, SelectionDifferential
+)
+from .genetic_architecture import (
+    GeneticLocus, TraitArchitecture, TraitType, GeneticArchitecture,
+    create_default_architecture
+)
+from .mutation import (
+    MutationParameters, MutationStrategy, GaussianMutation,
+    PleiotopicMutation, MutationEngine, create_default_mutation_engine
+)
 
 __all__ = [
     'Population',
     'Individual', 
-    'Demographics'
+    'Demographics',
+    'SelectionStrategy',
+    'TruncationSelection',
+    'ProportionalSelection', 
+    'TournamentSelection',
+    'FrequencyDependentSelection',
+    'MultiTraitSelection',
+    'SelectionAnalyzer',
+    'SelectionDifferential',
+    'GeneticLocus',
+    'TraitArchitecture',
+    'TraitType',
+    'GeneticArchitecture',
+    'create_default_architecture',
+    'MutationParameters',
+    'MutationStrategy',
+    'GaussianMutation',
+    'PleiotopicMutation',
+    'MutationEngine',
+    'create_default_mutation_engine'
 ]
