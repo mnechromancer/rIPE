@@ -9,9 +9,17 @@ This module implements phenotypic plasticity modeling including:
 
 from .reaction_norm import ReactionNorm, PlasticityMagnitude
 from .gxe import GxEInteraction
+from .maladaptive import MaladaptiveDetector, MaladaptiveResponse, MaladaptationType
+from .maladaptive import quadratic_fitness, linear_fitness, thermal_fitness
 
 __all__ = [
     "ReactionNorm", 
     "PlasticityMagnitude",
-    "GxEInteraction"
+    "GxEInteraction",
+    "MaladaptiveDetector",
+    "MaladaptiveResponse", 
+    "MaladaptationType",
+    "quadratic_fitness",
+    "linear_fitness", 
+    "thermal_fitness"
 ]

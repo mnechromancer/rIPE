@@ -236,7 +236,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/plasticity/reaction_norm.py"
@@ -247,22 +247,13 @@ acceptance_criteria:
   - "G×E interaction modeling"
   - "Norm interpolation across environments"
   - "Plasticity magnitude metrics"
-code_template: |
-  ```python
-  class ReactionNorm:
-      def __init__(self, environments: np.ndarray, 
-                   phenotypes: np.ndarray):
-          self.environments = environments
-          self.phenotypes = phenotypes
-          self.interpolator = None
-          
-      def predict_phenotype(self, environment: float) -> float:
-          """Interpolate phenotype for given environment"""
-          pass
-          
-      def plasticity_magnitude(self) -> float:
-          """Calculate range of phenotypic variation"""
-          pass
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - ReactionNorm class with full interpolation support (linear, cubic, quadratic)
+  - GxEInteraction class for comprehensive G×E analysis
+  - Plasticity metrics: magnitude, classification, slope, curvature
+  - JSON serialization and comprehensive test coverage (34 unit tests)
+# COMPLETED
 ```
 
 ### PLAS-002: Maladaptive Plasticity Detection
@@ -272,7 +263,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["PLAS-001", "GAME-001"]
 files_to_create:
   - "ipe/core/plasticity/maladaptive.py"
@@ -282,6 +273,15 @@ acceptance_criteria:
   - "Quantify maladaptive response magnitude"
   - "Compare plastic vs constitutive fitness"
   - "Flag environments with maladaptive responses"
+completion_notes: |
+  Implementation, tests, and validation complete. All acceptance criteria met:
+  - MaladaptiveDetector class with comprehensive detection algorithms
+  - Quantification of maladaptation severity with classification system
+  - Plastic vs constitutive strategy comparison methods
+  - Environmental flagging and cost function computation
+  - Predefined fitness functions for common scenarios
+  - Full test coverage (21 unit tests) including integration scenarios
+# COMPLETED
 ```
 
 ### PLAS-003: Genetic Assimilation Engine
