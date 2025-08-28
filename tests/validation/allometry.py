@@ -89,8 +89,8 @@ class TestAllometricScaling:
 
         # Check scaling exponent matches Kleiber's law
         assert abs(slope - ref["exponent"]) <= ref["tolerance"], (
-            f"BMR scaling exponent {slope:.3f} differs from Kleiber's {ref['exponent']} "
-            f"by more than {ref['tolerance']}"
+            f"BMR scaling exponent {slope:.3f} differs from Kleiber's "
+            f"{ref['exponent']} by more than {ref['tolerance']}"
         )
 
         # Check goodness of fit
@@ -129,7 +129,8 @@ class TestAllometricScaling:
         assert r_value**2 > 0.95, f"Poor fit to power law: R² = {r_value**2:.3f}"
 
         print(
-            f"✅ Heart rate scaling validated: HR ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
+            f"✅ Heart rate scaling validated: "
+            f"HR ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
         )
 
     @pytest.mark.validation
@@ -158,7 +159,8 @@ class TestAllometricScaling:
         assert r_value**2 > 0.8, f"Poor fit to power law: R² = {r_value**2:.3f}"
 
         print(
-            f"✅ Lifespan scaling validated: Lifespan ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
+            f"✅ Lifespan scaling validated: "
+            f"Lifespan ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
         )
 
     @pytest.mark.validation
@@ -184,7 +186,8 @@ class TestAllometricScaling:
         assert r_value**2 > 0.99, f"Poor fit to power law: R² = {r_value**2:.3f}"
 
         print(
-            f"✅ Surface area scaling validated: SA ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
+            f"✅ Surface area scaling validated: "
+            f"SA ∝ M^{slope:.3f} (R² = {r_value**2:.3f})"
         )
 
     @pytest.mark.validation
@@ -252,7 +255,10 @@ class TestAllometricScaling:
 
         assert (
             exponent_cv <= max_cv
-        ), f"Scaling exponent varies too much with temperature: CV = {exponent_cv:.3f} > {max_cv}"
+        ), (
+            f"Scaling exponent varies too much with temperature: "
+            f"CV = {exponent_cv:.3f} > {max_cv}"
+        )
 
         mean_exponent = np.mean(scaling_exponents)
         assert (
@@ -289,7 +295,8 @@ class TestAllometricScaling:
             )
 
             assert adapted_heart_ratio <= max_heart_ratio * 1.2, (
-                f"Heart enlargement {adapted_heart_ratio:.2f} exceeds allometric limits "
+                f"Heart enlargement {adapted_heart_ratio:.2f} exceeds "
+                f"allometric limits "
                 f"for {mass:.2f} kg organism"
             )
 

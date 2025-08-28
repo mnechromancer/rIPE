@@ -8,6 +8,7 @@ import logging
 import os
 from logging.config import fileConfig
 
+import sqlalchemy as sa
 from sqlalchemy import engine_from_config, pool
 from alembic import context
 
@@ -119,7 +120,8 @@ def _create_hypertables(connection):
             # Check if hypertable already exists
             result = connection.execute(
                 sa.text(
-                    "SELECT * FROM timescaledb_information.hypertables WHERE hypertable_name = %s"
+                    "SELECT * FROM timescaledb_information.hypertables "
+                    "WHERE hypertable_name = %s"
                 ),
                 (table_name,),
             )
@@ -142,7 +144,8 @@ def _create_hypertables(connection):
                 )
                 connection.execute(
                     sa.text(
-                        f"SELECT add_compression_policy('{table_name}', INTERVAL '7 days');"
+                        f"SELECT add_compression_policy('{table_name}', "
+                        f"INTERVAL '7 days');"
                     )
                 )
 

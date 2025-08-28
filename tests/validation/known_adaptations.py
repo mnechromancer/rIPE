@@ -116,7 +116,8 @@ class TestKnownAdaptations:
 
         print(
             f"✅ Andean pika lung capacity validated: "
-            f"{simulated_capacity:.3f} ml/g (literature: {expected_lung_capacity:.3f} ml/g)"
+            f"{simulated_capacity:.3f} ml/g "
+            f"(literature: {expected_lung_capacity:.3f} ml/g)"
         )
 
     @pytest.mark.validation
@@ -200,7 +201,7 @@ class TestKnownAdaptations:
 
     @pytest.mark.validation
     def test_fitness_landscape_consistency(self):
-        """Test that fitness landscapes are consistent with known selection pressures."""
+        """Test fitness landscapes are consistent with known selection pressures."""
         phenotype_manager = PhenotypeManager()
 
         # Test various phenotype combinations
