@@ -3,33 +3,731 @@
 
 ## Backlog Format Specification
 ```yaml
-id: TEST-003
-type: story
-priority: P0
-effort: L
-sprint: 11
-status: "done"  # Completed
-dependencies:
-- API-001
-- VIZ-001
+task_structure:
+  id: "UNIQUE_ID"
+  type: "epic|feature|story|task|bug"
+  priority: "P0|P1|P2|P3"
+  effort: "XS|S|M|L|XL"  # 1|3|5|8|13 story points
+  sprint: "number or backlog"
+  status: "todo|in_progress|review|done|blocked"
+  dependencies: ["TASK_ID", "TASK_ID"]
+  assigned_to: "role or name"
+  acceptance_criteria: ["criterion1", "criterion2"]
+  technical_notes: "implementation details"
+```
+
+## Epic 1: Core State Space Engine [CORE]
+
+### CORE-001: Physiological State Vector Implementation
+```yaml
+id: "CORE-001"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 1
+status: "todo"
+dependencies: []
 files_to_create:
-- tests/integration/test_workflow.py
-- tests/integration/test_data_pipeline.py
-- tests/e2e/test_simulation_flow.py
+  - "ipe/core/physiology/state.py"
+  - "ipe/core/physiology/state_vector.py"
+  - "tests/unit/test_state_vector.py"
 acceptance_criteria:
-- Full workflow testing
-- Multi-service integration
-- Data pipeline validation
-- UI interaction testing
-completion_notes: "Implemented comprehensive integration and end-to-end testing suite\
-  \ including workflow integration, data pipeline testing, and complete simulation\
-  \ flow validation. Tests cover multi-service integration, concurrent execution,\
-  \ API client integration, and performance validation. Framework is ready for full\
-  \ IPE system integration.\n\nImplementation completed on 2025-08-28 03:29:47.\n\n\
-  Acceptance Criteria Status:\n  \u2713 Full workflow testing\n  \u2713 Multi-service\
-  \ integration\n  \u2713 Data pipeline validation\n  \u2713 UI interaction testing\n\
-  \nFiles Created:\n  \u2713 tests/integration/test_workflow.py\n  \u2713 tests/integration/test_data_pipeline.py\n\
-  \  \u2713 tests/e2e/test_simulation_flow.py\n# COMPLETED"
+  - "PhysiologicalState dataclass with all parameters from design doc"
+  - "Immutable state vectors with distance calculations"
+  - "State vector serialization/deserialization"
+  - "100% test coverage for state operations"
+technical_notes: |
+  Use frozen dataclasses for immutability.
+  Include validation for physiological parameter ranges.
+  Implement __eq__ and __hash__ for state comparison.
+code_template: |
+  ```python
+  from dataclasses import dataclass
+  from typing import Dict, Optional
+  import numpy as np
+  
+  @dataclass(frozen=True)
+  class PhysiologicalState:
+      # Environmental
+      po2: float  # kPa, range: 5-21
+      temperature: float  # Celsius, range: -40 to 50
+      altitude: float  # meters, range: 0-5000
+      
+      # Cardiovascular
+      heart_mass: float  # g/kg body mass, range: 3-15
+      hematocrit: float  # %, range: 20-70
+      
+      def validate(self) -> None:
+          """Validate physiological parameters are within bounds"""
+          pass
+  ```
+```
+
+### CORE-002: State Space Management System
+```yaml
+id: "CORE-002"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 1
+status: "todo"
+dependencies: ["CORE-001"]
+files_to_create:
+  - "ipe/core/state/space.py"
+  - "ipe/core/state/indexing.py"
+  - "tests/unit/test_state_space.py"
+acceptance_criteria:
+  - "Efficient state storage with spatial indexing"
+  - "K-nearest neighbor search < 100ms for 10^6 states"
+  - "State space dimensionality reduction (PCA/UMAP)"
+  - "Reachability calculations with constraints"
+technical_notes: |
+  Use scipy.spatial.KDTree for indexing.
+  Implement lazy loading for large state spaces.
+  Cache frequently accessed regions.
+code_template: |
+  ```python
+  from scipy.spatial import KDTree
+  from typing import List, Optional
+  import numpy as np
+  
+  class StateSpace:
+      def __init__(self, dimensions: Dict[str, int]):
+          self.dimensions = dimensions
+          self.states: List[PhysiologicalState] = []
+          self.index: Optional[KDTree] = None
+          
+      def add_state(self, state: PhysiologicalState) -> int:
+          """Add state and return ID"""
+          pass
+          
+      def find_neighbors(self, state: PhysiologicalState, 
+                        radius: float) -> List[PhysiologicalState]:
+          """Find states within radius using KDTree"""
+          pass
+  ```
+```
+
+### CORE-003: Metabolic Calculator Module
+```yaml
+id: "CORE-003"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 2
+status: "todo"
+dependencies: ["CORE-001"]
+files_to_create:
+  - "ipe/core/physiology/metabolism.py"
+  - "ipe/core/physiology/allometry.py"
+  - "tests/unit/test_metabolism.py"
+acceptance_criteria:
+  - "BMR calculation with allometric scaling"
+  - "VO2max estimation from physiological parameters"
+  - "Thermal performance curves"
+  - "Aerobic scope calculations"
+technical_notes: |
+  Implement Kleiber's law for BMR scaling.
+  Use Q10 temperature coefficients.
+  Include altitude corrections for O2 availability.
+```
+
+### CORE-004: Thermodynamic Constraints Engine
+```yaml
+id: "CORE-004"
+type: "story"
+priority: "P1"
+effort: "M"
+sprint: 2
+status: "todo"
+dependencies: ["CORE-003"]
+files_to_create:
+  - "ipe/core/thermodynamics/constraints.py"
+  - "ipe/core/thermodynamics/energy_budget.py"
+  - "tests/unit/test_thermodynamics.py"
+acceptance_criteria:
+  - "Energy balance validation"
+  - "Heat transfer calculations"
+  - "Thermodynamic efficiency limits"
+  - "Constraint violation detection"
+```
+
+## Epic 2: Game Theory Framework [GAME]
+
+### GAME-001: Base Game Specification System
+```yaml
+id: "GAME-001"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 2
+status: "todo"
+dependencies: ["CORE-001"]
+files_to_create:
+  - "ipe/core/games/base.py"
+  - "ipe/core/games/specification.py"
+  - "tests/unit/test_game_base.py"
+acceptance_criteria:
+  - "Abstract GameSpecification class"
+  - "Payoff matrix computation"
+  - "Strategy constraint validation"
+  - "Game serialization format"
+technical_notes: |
+  Use ABC for abstract base class.
+  Support both symmetric and asymmetric games.
+  Include JSON schema for game definitions.
+```
+
+### GAME-002: Hypoxia Allocation Game
+```yaml
+id: "GAME-002"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 3
+status: "todo"
+dependencies: ["GAME-001", "CORE-003"]
+files_to_create:
+  - "ipe/core/games/hypoxia_game.py"
+  - "ipe/core/games/tissue_allocation.py"
+  - "tests/unit/test_hypoxia_game.py"
+acceptance_criteria:
+  - "Multi-tissue O2 allocation optimization"
+  - "Tissue-specific minimum requirements"
+  - "Environmental PO2 integration"
+  - "Fitness calculation from allocation"
+code_template: |
+  ```python
+  class HypoxiaAllocationGame(GameSpecification):
+      tissues = ['brain', 'heart', 'muscle', 'brown_fat']
+      
+      def compute_payoff(self, allocation: np.ndarray, 
+                        environment: PhysiologicalState) -> float:
+          # Validate allocation sums to 1
+          # Check minimum tissue requirements
+          # Calculate tissue performance
+          # Return integrated fitness
+          pass
+  ```
+```
+
+### GAME-003: Thermogenesis Trade-off Game
+```yaml
+id: "GAME-003"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 3
+status: "todo"
+dependencies: ["GAME-001", "CORE-004"]
+files_to_create:
+  - "ipe/core/games/thermal_game.py"
+  - "tests/unit/test_thermal_game.py"
+acceptance_criteria:
+  - "Shivering vs non-shivering thermogenesis"
+  - "O2 cost calculations"
+  - "Heat balance equations"
+  - "Environmental temperature response"
+```
+
+### GAME-004: Equilibrium Solver
+```yaml
+id: "GAME-004"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 3
+status: "todo"
+dependencies: ["GAME-001"]
+files_to_create:
+  - "ipe/core/games/equilibrium.py"
+  - "ipe/core/games/nash_solver.py"
+  - "tests/unit/test_equilibrium.py"
+acceptance_criteria:
+  - "Nash equilibrium computation"
+  - "ESS detection"
+  - "Invasion fitness calculations"
+  - "Convergence guarantees"
+technical_notes: |
+  Use nashpy library for equilibrium finding.
+  Implement iterative best response dynamics.
+  Include stability analysis.
+```
+
+## Epic 3: Plasticity Module [PLAS]
+
+### PLAS-001: Reaction Norm Representation
+```yaml
+id: "PLAS-001"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 4
+status: "todo"
+dependencies: ["CORE-001"]
+files_to_create:
+  - "ipe/core/plasticity/reaction_norm.py"
+  - "ipe/core/plasticity/gxe.py"
+  - "tests/unit/test_reaction_norm.py"
+acceptance_criteria:
+  - "Reaction norm data structure"
+  - "G×E interaction modeling"
+  - "Norm interpolation across environments"
+  - "Plasticity magnitude metrics"
+code_template: |
+  ```python
+  class ReactionNorm:
+      def __init__(self, environments: np.ndarray, 
+                   phenotypes: np.ndarray):
+          self.environments = environments
+          self.phenotypes = phenotypes
+          self.interpolator = None
+          
+      def predict_phenotype(self, environment: float) -> float:
+          """Interpolate phenotype for given environment"""
+          pass
+          
+      def plasticity_magnitude(self) -> float:
+          """Calculate range of phenotypic variation"""
+          pass
+  ```
+```
+
+### PLAS-002: Maladaptive Plasticity Detection
+```yaml
+id: "PLAS-002"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 4
+status: "todo"
+dependencies: ["PLAS-001", "GAME-001"]
+files_to_create:
+  - "ipe/core/plasticity/maladaptive.py"
+  - "tests/unit/test_maladaptive.py"
+acceptance_criteria:
+  - "Identify fitness-reducing plastic responses"
+  - "Quantify maladaptive response magnitude"
+  - "Compare plastic vs constitutive fitness"
+  - "Flag environments with maladaptive responses"
+```
+
+### PLAS-003: Genetic Assimilation Engine
+```yaml
+id: "PLAS-003"
+type: "story"
+priority: "P1"
+effort: "L"
+sprint: 5
+status: "todo"
+dependencies: ["PLAS-001", "PLAS-002"]
+files_to_create:
+  - "ipe/core/plasticity/assimilation.py"
+  - "ipe/core/plasticity/canalization.py"
+  - "tests/unit/test_assimilation.py"
+acceptance_criteria:
+  - "Model reduction in plasticity over time"
+  - "Track constitutive trait evolution"
+  - "Calculate assimilation rate"
+  - "Predict canalization trajectories"
+```
+
+## Epic 4: Evolution Simulator [EVOL]
+
+### EVOL-001: Population Dynamics Core
+```yaml
+id: "EVOL-001"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 4
+status: "todo"
+dependencies: ["CORE-001", "GAME-001"]
+files_to_create:
+  - "ipe/simulation/population.py"
+  - "ipe/simulation/demographics.py"
+  - "tests/unit/test_population.py"
+acceptance_criteria:
+  - "Population state tracking"
+  - "Birth-death processes"
+  - "Carrying capacity implementation"
+  - "Age/stage structure (optional)"
+code_template: |
+  ```python
+  class Population:
+      def __init__(self, size: int, initial_state: PhysiologicalState):
+          self.individuals = []
+          self.generation = 0
+          
+      def evolve(self, generations: int) -> Generator:
+          for gen in range(generations):
+              fitness = self.calculate_fitness()
+              survivors = self.selection(fitness)
+              offspring = self.reproduction(survivors)
+              self.individuals = offspring
+              yield self.get_statistics()
+  ```
+```
+
+### EVOL-002: Selection Mechanism
+```yaml
+id: "EVOL-002"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 5
+status: "todo"
+dependencies: ["EVOL-001"]
+files_to_create:
+  - "ipe/simulation/selection.py"
+  - "tests/unit/test_selection.py"
+acceptance_criteria:
+  - "Multiple selection modes (truncation, proportional, tournament)"
+  - "Selection differential calculation"
+  - "Frequency-dependent selection"
+  - "Multi-trait selection"
+```
+
+### EVOL-003: Mutation Model
+```yaml
+id: "EVOL-003"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 5
+status: "todo"
+dependencies: ["EVOL-001"]
+files_to_create:
+  - "ipe/simulation/mutation.py"
+  - "ipe/simulation/genetic_architecture.py"
+  - "tests/unit/test_mutation.py"
+acceptance_criteria:
+  - "Mutational variance parameters"
+  - "Pleiotropic effects"
+  - "Mutation rate evolution"
+  - "Standing variation maintenance"
+```
+
+### EVOL-004: Rapid Evolution Mode
+```yaml
+id: "EVOL-004"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 6
+status: "todo"
+dependencies: ["EVOL-001", "EVOL-002", "EVOL-003", "PLAS-001"]
+files_to_create:
+  - "ipe/simulation/rapid_evolution.py"
+  - "ipe/simulation/contemporary.py"
+  - "tests/unit/test_rapid_evolution.py"
+acceptance_criteria:
+  - "10-100 generation simulations"
+  - "Environmental change scenarios"
+  - "Plasticity evolution tracking"
+  - "Real-time visualization hooks"
+```
+
+## Epic 5: Data Integration [DATA]
+
+### DATA-001: Respirometry Data Import
+```yaml
+id: "DATA-001"
+type: "story"
+priority: "P0"
+effort: "M"
+sprint: 6
+status: "todo"
+dependencies: []
+files_to_create:
+  - "ipe/lab_integration/respirometry/sable_import.py"
+  - "ipe/lab_integration/respirometry/parser.py"
+  - "tests/unit/test_respirometry_import.py"
+acceptance_criteria:
+  - "Parse Sable Systems ExpeData files"
+  - "Extract VO2, VCO2, RER"
+  - "Handle baseline corrections"
+  - "Batch import capability"
+technical_notes: |
+  File formats: .exp, .csv
+  Handle drift correction
+  Temperature standardization
+```
+
+### DATA-002: RNA-seq Integration
+```yaml
+id: "DATA-002"
+type: "story"
+priority: "P1"
+effort: "L"
+sprint: 7
+status: "todo"
+dependencies: []
+files_to_create:
+  - "ipe/lab_integration/molecular/rnaseq_import.py"
+  - "ipe/lab_integration/molecular/deseq_parser.py"
+  - "tests/unit/test_rnaseq_import.py"
+acceptance_criteria:
+  - "Import DESeq2/EdgeR results"
+  - "Gene ID mapping"
+  - "Expression matrix handling"
+  - "Pathway enrichment integration"
+```
+
+### DATA-003: Field Data Connectors
+```yaml
+id: "DATA-003"
+type: "story"
+priority: "P1"
+effort: "M"
+sprint: 7
+status: "todo"
+dependencies: []
+files_to_create:
+  - "ipe/lab_integration/field/environmental.py"
+  - "ipe/lab_integration/field/morphology.py"
+  - "tests/unit/test_field_import.py"
+acceptance_criteria:
+  - "Weather station data import"
+  - "GPS coordinate handling"
+  - "Morphometric data parsing"
+  - "Time series alignment"
+```
+
+## Epic 6: Visualization [VIZ]
+
+### VIZ-001: 3D State Space Visualizer
+```yaml
+id: "VIZ-001"
+type: "story"
+priority: "P0"
+effort: "XL"
+sprint: 8
+status: "todo"
+dependencies: ["CORE-002"]
+files_to_create:
+  - "web/src/components/StateSpaceExplorer.tsx"
+  - "web/src/visualizers/StateSpace3D.tsx"
+  - "web/src/hooks/useStateSpace.ts"
+acceptance_criteria:
+  - "Three.js 3D rendering"
+  - "60 FPS with 10^4 points"
+  - "Interactive navigation"
+  - "Color mapping for fitness"
+technical_notes: |
+  Use React Three Fiber
+  Implement LOD for large datasets
+  GPU instancing for particles
+code_template: |
+  ```typescript
+  import { Canvas } from '@react-three/fiber'
+  import { OrbitControls } from '@react-three/drei'
+  
+  export const StateSpace3D: React.FC<Props> = ({ states }) => {
+    return (
+      <Canvas>
+        <OrbitControls />
+        <StatePoints states={states} />
+      </Canvas>
+    )
+  }
+  ```
+```
+
+### VIZ-002: Plasticity Landscape Viewer
+```yaml
+id: "VIZ-002"
+type: "story"
+priority: "P1"
+effort: "L"
+sprint: 8
+status: "todo"
+dependencies: ["PLAS-001"]
+files_to_create:
+  - "web/src/components/PlasticityLandscape.tsx"
+  - "web/src/visualizers/ReactionNorm.tsx"
+acceptance_criteria:
+  - "G×E interaction surface plot"
+  - "Maladaptive region highlighting"
+  - "Animation of genetic assimilation"
+  - "Interactive parameter adjustment"
+```
+
+### VIZ-003: Organ System Dashboard
+```yaml
+id: "VIZ-003"
+type: "story"
+priority: "P1"
+effort: "L"
+sprint: 9
+status: "todo"
+dependencies: ["CORE-003"]
+files_to_create:
+  - "web/src/components/OrganSystemDashboard.tsx"
+  - "web/src/visualizers/PhysiologyMonitor.tsx"
+acceptance_criteria:
+  - "Real-time physiological parameters"
+  - "Multi-organ visualization"
+  - "Resource flow animations"
+  - "Comparative views (low vs high altitude)"
+```
+
+### VIZ-004: Phylogenetic Network Builder
+```yaml
+id: "VIZ-004"
+type: "story"
+priority: "P2"
+effort: "L"
+sprint: 10
+status: "todo"
+dependencies: ["EVOL-004"]
+files_to_create:
+  - "web/src/components/PhylogenyNetwork.tsx"
+  - "web/src/visualizers/TreeBuilder.tsx"
+acceptance_criteria:
+  - "Interactive tree/network view"
+  - "Strategy-based branching"
+  - "Time slider for evolution"
+  - "Export to Newick format"
+```
+
+## Epic 7: API Development [API]
+
+### API-001: Core REST API
+```yaml
+id: "API-001"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 7
+status: "todo"
+dependencies: ["CORE-001", "EVOL-001"]
+files_to_create:
+  - "ipe/api/main.py"
+  - "ipe/api/routes/simulations.py"
+  - "ipe/api/routes/states.py"
+  - "tests/integration/test_api.py"
+acceptance_criteria:
+  - "FastAPI setup with OpenAPI docs"
+  - "CRUD operations for simulations"
+  - "State space endpoints"
+  - "Authentication/authorization"
+technical_notes: |
+  Use FastAPI with Pydantic models
+  JWT authentication
+  Rate limiting
+code_template: |
+  ```python
+  from fastapi import FastAPI, HTTPException
+  from pydantic import BaseModel
+  
+  app = FastAPI(title="IPE API")
+  
+  @app.post("/simulations")
+  async def create_simulation(params: SimulationParams):
+      # Create and start simulation
+      pass
+  ```
+```
+
+### API-002: WebSocket Real-time Updates
+```yaml
+id: "API-002"
+type: "story"
+priority: "P1"
+effort: "M"
+sprint: 8
+status: "todo"
+dependencies: ["API-001"]
+files_to_create:
+  - "ipe/api/websocket/realtime.py"
+  - "web/src/services/websocket.ts"
+acceptance_criteria:
+  - "WebSocket connection management"
+  - "Real-time simulation updates"
+  - "Client reconnection handling"
+  - "Message queuing for reliability"
+```
+
+### API-003: Data Export Endpoints
+```yaml
+id: "API-003"
+type: "story"
+priority: "P1"
+effort: "M"
+sprint: 9
+status: "todo"
+dependencies: ["API-001"]
+files_to_create:
+  - "ipe/api/routes/export.py"
+  - "ipe/api/formatters/outputs.py"
+acceptance_criteria:
+  - "Export to CSV/JSON/HDF5"
+  - "Publication figure generation"
+  - "Statistical summary export"
+  - "Batch download support"
+```
+
+## Epic 8: Testing & Validation [TEST]
+
+### TEST-001: Unit Test Suite
+```yaml
+id: "TEST-001"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: "continuous"
+status: "todo"
+dependencies: []
+files_to_create:
+  - "tests/unit/test_*.py"
+  - "tests/conftest.py"
+  - "tests/fixtures/*.json"
+acceptance_criteria:
+  - ">80% code coverage"
+  - "All core algorithms tested"
+  - "Edge case coverage"
+  - "Performance benchmarks"
+```
+
+### TEST-002: Scientific Validation Suite
+```yaml
+id: "TEST-002"
+type: "story"
+priority: "P0"
+effort: "XL"
+sprint: 10
+status: "todo"
+dependencies: ["EVOL-004"]
+files_to_create:
+  - "tests/validation/known_adaptations.py"
+  - "tests/validation/thermodynamics.py"
+  - "tests/validation/allometry.py"
+acceptance_criteria:
+  - "Reproduce known evolutionary outcomes"
+  - "Validate against published data"
+  - "Thermodynamic consistency"
+  - "Allometric scaling verification"
+```
+
+### TEST-003: Integration Testing
+```yaml
+id: "TEST-003"
+type: "story"
+priority: "P0"
+effort: "L"
+sprint: 11
+status: "todo"
+dependencies: ["API-001", "VIZ-001"]
+files_to_create:
+  - "tests/integration/test_workflow.py"
+  - "tests/integration/test_data_pipeline.py"
+  - "tests/e2e/test_simulation_flow.py"
+acceptance_criteria:
+  - "Full workflow testing"
+  - "Multi-service integration"
+  - "Data pipeline validation"
+  - "UI interaction testing"
 ```
 
 ## Epic 9: Infrastructure [INFRA]
@@ -705,6 +1403,7 @@ research_milestones:
 - Add inline comments for complex logic
 - Update README if needed
 - Generate API docs if applicable
+```
 
 ## Progress Tracking
 
