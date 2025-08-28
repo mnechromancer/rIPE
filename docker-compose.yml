@@ -1,0 +1,95 @@
+version: '3.8'
+
+services:
+  # PostgreSQL database with TimescaleDB extension
+  db:
+    image: timescale/timescaledb:latest-pg15
+    environment:
+      POSTGRES_DB: ipe_db
+      POSTGRES_USER: ipe_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ipe_dev_password}
+      POSTGRES_HOST_AUTH_METHOD: md5
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ipe_user -d ipe_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+    restart: unless-stopped
+
+  # IPE API server (development mode)
+  ipe-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://ipe_user:${POSTGRES_PASSWORD:-ipe_dev_password}@db:5432/ipe_db
+      - REDIS_URL=redis://redis:6379
+      - DEBUG=true
+      - ENVIRONMENT=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.pytest_cache
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    command: ["python", "-m", "ipe.api.server", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+
+  # Web frontend (if Node.js build exists)
+  ipe-web:
+    build:
+      context: ./web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8000
+      - NODE_ENV=development
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    depends_on:
+      - ipe-api
+    profiles:
+      - web
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
