@@ -3,169 +3,30 @@
 
 ## Backlog Format Specification
 ```yaml
-id: VIZ-001
+id: API-003
 type: story
-priority: P0
-effort: XL
-sprint: 8
+priority: P1
+effort: M
+sprint: 9
 status: "done"  # Completed
 dependencies:
-- CORE-002
+- API-001
 files_to_create:
-- web/src/components/StateSpaceExplorer.tsx
-- web/src/visualizers/StateSpace3D.tsx
-- web/src/hooks/useStateSpace.ts
+- ipe/api/routes/export.py
+- ipe/api/formatters/outputs.py
 acceptance_criteria:
-- Three.js 3D rendering
-- 60 FPS with 10^4 points
-- Interactive navigation
-- Color mapping for fitness
-technical_notes: 'Use React Three Fiber
-
-  Implement LOD for large datasets
-
-  GPU instancing for particles
-
-  '
-completion_notes: "Implemented basic 3D visualization components with React Three\
-  \ Fiber foundation\n\nImplementation completed on 2025-08-28 01:33:35.\n\nAcceptance\
-  \ Criteria Status:\n  \u2713 Three.js 3D rendering\n  \u2713 60 FPS with 10^4 points\n\
-  \  \u2713 Interactive navigation\n  \u2713 Color mapping for fitness\n\nFiles Created:\n\
-  \  \u2713 web/src/components/StateSpaceExplorer.tsx\n  \u2713 web/src/visualizers/StateSpace3D.tsx\n\
-  \  \u2713 web/src/hooks/useStateSpace.ts\n# COMPLETED"
-```
-
-### VIZ-002: Plasticity Landscape Viewer
-```yaml
-id: "VIZ-002"
-type: "story"
-priority: "P1"
-effort: "L"
-sprint: 8
-status: "todo"
-dependencies: ["PLAS-001"]
-files_to_create:
-  - "web/src/components/PlasticityLandscape.tsx"
-  - "web/src/visualizers/ReactionNorm.tsx"
-acceptance_criteria:
-  - "G×E interaction surface plot"
-  - "Maladaptive region highlighting"
-  - "Animation of genetic assimilation"
-  - "Interactive parameter adjustment"
-```
-
-### VIZ-003: Organ System Dashboard
-```yaml
-id: "VIZ-003"
-type: "story"
-priority: "P1"
-effort: "L"
-sprint: 9
-status: "todo"
-dependencies: ["CORE-003"]
-files_to_create:
-  - "web/src/components/OrganSystemDashboard.tsx"
-  - "web/src/visualizers/PhysiologyMonitor.tsx"
-acceptance_criteria:
-  - "Real-time physiological parameters"
-  - "Multi-organ visualization"
-  - "Resource flow animations"
-  - "Comparative views (low vs high altitude)"
-```
-
-### VIZ-004: Phylogenetic Network Builder
-```yaml
-id: "VIZ-004"
-type: "story"
-priority: "P2"
-effort: "L"
-sprint: 10
-status: "todo"
-dependencies: ["EVOL-004"]
-files_to_create:
-  - "web/src/components/PhylogenyNetwork.tsx"
-  - "web/src/visualizers/TreeBuilder.tsx"
-acceptance_criteria:
-  - "Interactive tree/network view"
-  - "Strategy-based branching"
-  - "Time slider for evolution"
-  - "Export to Newick format"
-```
-
-## Epic 7: API Development [API]
-
-### API-001: Core REST API
-```yaml
-id: "API-001"
-type: "story"
-priority: "P0"
-effort: "L"
-sprint: 7
-status: "todo"
-dependencies: ["CORE-001", "EVOL-001"]
-files_to_create:
-  - "ipe/api/main.py"
-  - "ipe/api/routes/simulations.py"
-  - "ipe/api/routes/states.py"
-  - "tests/integration/test_api.py"
-acceptance_criteria:
-  - "FastAPI setup with OpenAPI docs"
-  - "CRUD operations for simulations"
-  - "State space endpoints"
-  - "Authentication/authorization"
-technical_notes: |
-  Use FastAPI with Pydantic models
-  JWT authentication
-  Rate limiting
-code_template: |
-  ```python
-  from fastapi import FastAPI, HTTPException
-  from pydantic import BaseModel
-  
-  app = FastAPI(title="IPE API")
-  
-  @app.post("/simulations")
-  async def create_simulation(params: SimulationParams):
-      # Create and start simulation
-      pass
-```
-
-### API-002: WebSocket Real-time Updates
-```yaml
-id: "API-002"
-type: "story"
-priority: "P1"
-effort: "M"
-sprint: 8
-status: "todo"
-dependencies: ["API-001"]
-files_to_create:
-  - "ipe/api/websocket/realtime.py"
-  - "web/src/services/websocket.ts"
-acceptance_criteria:
-  - "WebSocket connection management"
-  - "Real-time simulation updates"
-  - "Client reconnection handling"
-  - "Message queuing for reliability"
-```
-
-### API-003: Data Export Endpoints
-```yaml
-id: "API-003"
-type: "story"
-priority: "P1"
-effort: "M"
-sprint: 9
-status: "todo"
-dependencies: ["API-001"]
-files_to_create:
-  - "ipe/api/routes/export.py"
-  - "ipe/api/formatters/outputs.py"
-acceptance_criteria:
-  - "Export to CSV/JSON/HDF5"
-  - "Publication figure generation"
-  - "Statistical summary export"
-  - "Batch download support"
+- Export to CSV/JSON/HDF5
+- Publication figure generation
+- Statistical summary export
+- Batch download support
+completion_notes: "Implemented comprehensive data export endpoints supporting CSV/JSON/HDF5\
+  \ formats, publication-ready figure generation with matplotlib, statistical summary\
+  \ export with detailed analytics, and batch download support with background processing.\
+  \ Includes formatters for various output types.\n\nImplementation completed on 2025-08-28\
+  \ 02:12:26.\n\nAcceptance Criteria Status:\n  \u2713 Export to CSV/JSON/HDF5\n \
+  \ \u2713 Publication figure generation\n  \u2713 Statistical summary export\n  \u2713\
+  \ Batch download support\n\nFiles Created:\n  \u2713 ipe/api/routes/export.py\n\
+  \  \u2713 ipe/api/formatters/outputs.py\n# COMPLETED"
 ```
 
 ## Epic 8: Testing & Validation [TEST]
