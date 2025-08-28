@@ -152,7 +152,8 @@ class TestKnownAdaptations:
 
         print(
             f"✅ Altitude-hematocrit correlation validated: "
-            f"+{hematocrit_increase:.3f} increase at {high_altitude_environment['elevation_m']}m"
+            f"+{hematocrit_increase:.3f} increase at "
+            f"{high_altitude_environment['elevation_m']}m"
         )
 
     @pytest.mark.validation
@@ -193,7 +194,8 @@ class TestKnownAdaptations:
 
         print(
             f"✅ Evolutionary convergence validated: "
-            f"Hematocrit CV={hematocrit_cv:.3f}, Heart mass CV={heart_mass_cv:.3f}"
+            f"Hematocrit CV={hematocrit_cv:.3f}, "
+            f"Heart mass CV={heart_mass_cv:.3f}"
         )
 
     @pytest.mark.validation
@@ -227,7 +229,8 @@ class TestKnownAdaptations:
             fitness = phenotype_manager.calculate_fitness(phenotype, environment)
             fitnesses.append(fitness)
 
-        # Altitude-adapted phenotype should have highest fitness in low-oxygen environment
+        # Altitude-adapted phenotype should have highest fitness in
+        # low-oxygen environment
         assert (
             fitnesses[1] > fitnesses[0]
         ), "Altitude-adapted should outperform sea-level"

@@ -154,7 +154,8 @@ class TestThermodynamicConsistency:
             )
 
         print(
-            f"✅ Metabolic efficiency limits validated for {len(test_conditions)} conditions"
+            f"✅ Metabolic efficiency limits validated for "
+            f"{len(test_conditions)} conditions"
         )
 
     @pytest.mark.validation

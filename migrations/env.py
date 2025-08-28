@@ -95,7 +95,9 @@ def run_migrations_online() -> None:
 
         with context.begin_transaction():
             # Enable TimescaleDB extension if not already enabled
-            connection.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;")
+            connection.execute(
+                sa.text("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;")
+            )
 
             # Run the standard migrations
             context.run_migrations()
@@ -116,7 +118,9 @@ def _create_hypertables(connection):
         try:
             # Check if hypertable already exists
             result = connection.execute(
-                "SELECT * FROM timescaledb_information.hypertables WHERE hypertable_name = %s",
+                sa.text(
+                    "SELECT * FROM timescaledb_information.hypertables WHERE hypertable_name = %s"
+                ),
                 (table_name,),
             )
 
@@ -124,16 +128,22 @@ def _create_hypertables(connection):
                 # Create hypertable
                 logger.info(f"Creating hypertable for {table_name}")
                 connection.execute(
-                    f"SELECT create_hypertable('{table_name}', '{time_column}', "
-                    f"chunk_time_interval => INTERVAL '{chunk_interval}');"
+                    sa.text(
+                        f"SELECT create_hypertable('{table_name}', '{time_column}', "
+                        f"chunk_time_interval => INTERVAL '{chunk_interval}');"
+                    )
                 )
 
                 # Add compression policy (compress data older than 7 days)
                 connection.execute(
-                    f"ALTER TABLE {table_name} SET (timescaledb.compress = true);"
+                    sa.text(
+                        f"ALTER TABLE {table_name} SET (timescaledb.compress = true);"
+                    )
                 )
                 connection.execute(
-                    f"SELECT add_compression_policy('{table_name}', INTERVAL '7 days');"
+                    sa.text(
+                        f"SELECT add_compression_policy('{table_name}', INTERVAL '7 days');"
+                    )
                 )
 
                 logger.info(f"Successfully created hypertable for {table_name}")

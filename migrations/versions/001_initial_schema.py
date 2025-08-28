@@ -19,7 +19,7 @@ depends_on = None
 
 def upgrade() -> None:
     # Enable TimescaleDB extension
-    op.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;")
+    op.execute(sa.text("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;"))
 
     # Create simulations table
     op.create_table(
