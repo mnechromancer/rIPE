@@ -294,7 +294,8 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.CheckConstraint(
-            "allele_frequency IS NULL OR (allele_frequency >= 0 AND allele_frequency <= 1)",
+            "allele_frequency IS NULL OR "
+            "(allele_frequency >= 0 AND allele_frequency <= 1)",
             name="valid_allele_frequency",
         ),
         sa.CheckConstraint(
@@ -353,6 +354,26 @@ def upgrade() -> None:
     )
     op.create_index(
         "idx_experiment_type", "experimental_data", ["data_type"], unique=False
+    )
+
+    # Convert time-series tables to hypertables
+    op.execute(
+        sa.text(
+            "SELECT create_hypertable('environmental_conditions', 'timestamp', "
+            "chunk_time_interval => INTERVAL '1 day');"
+        )
+    )
+    op.execute(
+        sa.text(
+            "SELECT create_hypertable('physiology_measurements', 'measurement_time', "
+            "chunk_time_interval => INTERVAL '1 day');"
+        )
+    )
+    op.execute(
+        sa.text(
+            "SELECT create_hypertable('evolutionary_events', 'event_time', "
+            "chunk_time_interval => INTERVAL '1 day');"
+        )
     )
 
 

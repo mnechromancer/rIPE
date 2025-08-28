@@ -111,7 +111,8 @@ completion_notes: "This was completed earlier"
 
         available = parser.get_available_stories()
 
-        # Only TEST-001 should be available (TEST-002 depends on TEST-001, TEST-003 is done)
+        # Only TEST-001 should be available (TEST-002 depends on TEST-001,
+        # TEST-003 is done)
         assert len(available) == 1
         assert available[0].id == "TEST-001"
 
@@ -144,7 +145,8 @@ completion_notes: "This was completed earlier"
         assert not success
 
     def test_complete_already_done_story(self):
-        """Test that completing an already done story succeeds but doesn't change anything."""
+        """Test that completing an already done story succeeds but doesn't change
+        anything."""
         parser = BacklogParser(self.backlog_file)
         parser.load_backlog()
 
@@ -211,7 +213,8 @@ def test_epic6_backlog_update_mechanism():
     # This is the main test for Epic 6 requirement:
     # "Update the backlog after every story"
 
-    # Use correct path - we're in tests/unit/, so backlog is ../../documentation/backlog.md
+    # Use correct path - we're in tests/unit/, so backlog is
+    # ../../documentation/backlog.md
     test_file_dir = Path(__file__).parent
     repo_root = test_file_dir.parent.parent
     backlog_path = repo_root / "documentation" / "backlog.md"
@@ -253,10 +256,12 @@ def test_epic6_backlog_update_mechanism():
     # This is proven by having VIZ-001 marked as completed
     assert (
         len(completed_viz) > 0
-    ), "At least one VIZ story should be marked as completed (demonstrating backlog updates)"
+    ), (
+        "At least one VIZ story should be marked as completed "
+        "(demonstrating backlog updates)"
+    )
 
     # Test dependency resolution works
-    completed_story_ids = {s.id for s in stories.values() if s.status == "done"}
     for story in todo_viz:
         if story.dependencies:
             for dep in story.dependencies:

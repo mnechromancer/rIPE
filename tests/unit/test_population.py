@@ -285,7 +285,8 @@ class TestDemographics:
         demographics = Demographics(sample_population)
         age_structure = demographics.get_age_structure()
 
-        # Expected: age 0 (2 individuals), age 1 (3), age 2 (2), age 3 (1), age 4 (1), age 5 (1)
+        # Expected: age 0 (2 individuals), age 1 (3), age 2 (2), age 3 (1), age 4 (1),
+        # age 5 (1)
         assert len(age_structure) == 6
 
         age_counts = {ac.age: ac.count for ac in age_structure}

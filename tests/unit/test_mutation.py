@@ -172,7 +172,8 @@ class TestGeneticArchitecture:
         assert "trait2" in phenotypes
 
         # Phenotype should be breeding value + environmental noise
-        # We can't test exact values due to randomness, but should be approximately correct
+        # We can't test exact values due to randomness, but should be approximately
+        # correct
         assert (
             abs(phenotypes["trait1"] - 0.5) < 1.0
         )  # Should be around 0.5 ± environmental variance
