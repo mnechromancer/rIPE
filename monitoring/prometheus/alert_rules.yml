@@ -1,0 +1,107 @@
+# Alert rules for IPE Platform
+groups:
+  - name: ipe_platform_alerts
+    rules:
+      # Application Health
+      - alert: IPEApplicationDown
+        expr: up{job="ipe-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "IPE Application is down"
+          description: "IPE application has been down for more than 1 minute."
+
+      - alert: IPEHighErrorRate
+        expr: rate(ipe_http_requests_total{status=~"5.."}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High error rate in IPE API"
+          description: "Error rate is {{ $value }} requests per second."
+
+      # Database Health
+      - alert: PostgreSQLDown
+        expr: up{job="postgres-exporter"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL database has been down for more than 1 minute."
+
+      - alert: DatabaseConnectionsHigh
+        expr: ipe_database_connections > 80
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High number of database connections"
+          description: "Database has {{ $value }} active connections."
+
+      # System Resources
+      - alert: HighCPUUsage
+        expr: ipe_cpu_usage_percent > 85
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value }}% for more than 5 minutes."
+
+      - alert: HighMemoryUsage
+        expr: ipe_memory_usage_percent > 90
+        for: 3m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value }}% for more than 3 minutes."
+
+      - alert: DiskSpaceLow
+        expr: (ipe_disk_usage_bytes{type="free"} / ipe_disk_usage_bytes{type="total"}) * 100 < 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is below 10% on device {{ $labels.device }}."
+
+      # Simulation Monitoring
+      - alert: SimulationFailureRate
+        expr: rate(ipe_simulations_total{status="failed"}[10m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High simulation failure rate"
+          description: "Simulation failure rate is {{ $value }} per second."
+
+      - alert: LongRunningSimulation
+        expr: ipe_simulation_duration_seconds > 3600
+        for: 0m
+        labels:
+          severity: info
+        annotations:
+          summary: "Long running simulation detected"
+          description: "Simulation has been running for more than 1 hour."
+
+      # Performance Alerts
+      - alert: SlowAPIResponse
+        expr: histogram_quantile(0.95, rate(ipe_http_request_duration_seconds_bucket[5m])) > 2
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow API responses"
+          description: "95th percentile response time is {{ $value }} seconds."
+
+      - alert: SlowDatabaseQueries
+        expr: histogram_quantile(0.95, rate(ipe_database_query_duration_seconds_bucket[5m])) > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Slow database queries"
+          description: "95th percentile query time is {{ $value }} seconds."
