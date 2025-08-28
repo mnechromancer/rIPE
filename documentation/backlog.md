@@ -3,75 +3,30 @@
 
 ## Backlog Format Specification
 ```yaml
-id: API-001
+id: API-003
 type: story
-priority: P0
-effort: L
-sprint: 7
-status: "done"  # Completed
-dependencies: []
-files_to_create:
-- ipe/api/main.py
-- ipe/api/routes/simulations.py
-- ipe/api/routes/states.py
-- tests/integration/test_api.py
-acceptance_criteria:
-- FastAPI setup with OpenAPI docs
-- CRUD operations for simulations
-- State space endpoints
-- Authentication/authorization
-technical_notes: 'Use FastAPI with Pydantic models
-
-  JWT authentication
-
-  Rate limiting
-
-  '
-completion_notes: "Implemented FastAPI setup with OpenAPI docs, CRUD operations for\
-  \ simulations, state space endpoints, and basic authentication. All acceptance criteria\
-  \ met.\n\nImplementation completed on 2025-08-28 02:00:56.\n\nAcceptance Criteria\
-  \ Status:\n  \u2713 FastAPI setup with OpenAPI docs\n  \u2713 CRUD operations for\
-  \ simulations\n  \u2713 State space endpoints\n  \u2713 Authentication/authorization\n\
-  \nFiles Created:\n  \u2713 ipe/api/main.py\n  \u2713 ipe/api/routes/simulations.py\n\
-  \  \u2713 ipe/api/routes/states.py\n  \u2713 tests/integration/test_api.py\n# COMPLETED"
-```
-
-### API-002: WebSocket Real-time Updates
-```yaml
-id: "API-002"
-type: "story"
-priority: "P1"
-effort: "M"
-sprint: 8
-status: "todo"
-dependencies: ["API-001"]
-files_to_create:
-  - "ipe/api/websocket/realtime.py"
-  - "web/src/services/websocket.ts"
-acceptance_criteria:
-  - "WebSocket connection management"
-  - "Real-time simulation updates"
-  - "Client reconnection handling"
-  - "Message queuing for reliability"
-```
-
-### API-003: Data Export Endpoints
-```yaml
-id: "API-003"
-type: "story"
-priority: "P1"
-effort: "M"
+priority: P1
+effort: M
 sprint: 9
-status: "todo"
-dependencies: ["API-001"]
+status: "done"  # Completed
+dependencies:
+- API-001
 files_to_create:
-  - "ipe/api/routes/export.py"
-  - "ipe/api/formatters/outputs.py"
+- ipe/api/routes/export.py
+- ipe/api/formatters/outputs.py
 acceptance_criteria:
-  - "Export to CSV/JSON/HDF5"
-  - "Publication figure generation"
-  - "Statistical summary export"
-  - "Batch download support"
+- Export to CSV/JSON/HDF5
+- Publication figure generation
+- Statistical summary export
+- Batch download support
+completion_notes: "Implemented comprehensive data export endpoints supporting CSV/JSON/HDF5\
+  \ formats, publication-ready figure generation with matplotlib, statistical summary\
+  \ export with detailed analytics, and batch download support with background processing.\
+  \ Includes formatters for various output types.\n\nImplementation completed on 2025-08-28\
+  \ 02:12:26.\n\nAcceptance Criteria Status:\n  \u2713 Export to CSV/JSON/HDF5\n \
+  \ \u2713 Publication figure generation\n  \u2713 Statistical summary export\n  \u2713\
+  \ Batch download support\n\nFiles Created:\n  \u2713 ipe/api/routes/export.py\n\
+  \  \u2713 ipe/api/formatters/outputs.py\n# COMPLETED"
 ```
 
 ## Epic 8: Testing & Validation [TEST]

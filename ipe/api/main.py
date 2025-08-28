@@ -14,7 +14,8 @@ import uuid
 from datetime import datetime
 
 # Import route modules
-from .routes import simulations, states
+from .routes import simulations, states, export
+from .websocket import realtime
 
 logger = logging.getLogger(__name__)
 
@@ -73,6 +74,8 @@ def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)) 
 # Include routers
 app.include_router(simulations.router)
 app.include_router(states.router)
+app.include_router(export.router)
+app.include_router(realtime.router)
 
 # Root endpoints
 @app.get("/")
