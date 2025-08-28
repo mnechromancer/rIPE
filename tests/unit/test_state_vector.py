@@ -183,7 +183,8 @@ class TestPhysiologicalState:
                 temperature=25.0,
                 altitude=1000.0,
                 tissue_perfusion={
-                    Tissue.BRAIN: 1.5,  # Too high - should trigger individual range error first
+                    # Too high - should trigger individual range error first
+                    Tissue.BRAIN: 1.5,
                 },
             )
             state.validate()

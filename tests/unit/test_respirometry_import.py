@@ -145,7 +145,8 @@ class TestSableSystemsImporter:
                 flow = 500.0
 
                 f.write(
-                    f"{timestamp},{vo2:.3f},{vco2:.3f},{temp:.1f},{humidity:.1f},{pressure:.1f},{flow:.1f}\n"
+                    f"{timestamp},{vo2:.3f},{vco2:.3f},{temp:.1f},"
+                    f"{humidity:.1f},{pressure:.1f},{flow:.1f}\n"
                 )
 
         return filepath

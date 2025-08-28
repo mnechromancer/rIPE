@@ -1,7 +1,8 @@
 """
 Tests for Thermodynamic Constraints Engine
 
-Ensures energy balance, heat transfer, efficiency limits, and constraint violation detection work as expected.
+Ensures energy balance, heat transfer, efficiency limits, and constraint 
+violation detection work as expected.
 """
 
 import numpy as np

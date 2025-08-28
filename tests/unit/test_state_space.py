@@ -1,7 +1,8 @@
 """
 Tests for State Space Management System
 
-Ensures spatial indexing, neighbor search, and dimensionality reduction work as expected.
+Ensures spatial indexing, neighbor search, and dimensionality reduction 
+work as expected.
 """
 
 import numpy as np
