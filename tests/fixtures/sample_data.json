@@ -1,0 +1,114 @@
+{
+  "test_organisms": [
+    {
+      "id": "pikas_001",
+      "species": "Ochotona princeps",
+      "population": "Mount Evans",
+      "elevation": 3500,
+      "phenotype": {
+        "body_mass_g": 150,
+        "metabolic_rate_ml_o2_min_g": 3.2,
+        "heart_rate_bpm": 320,
+        "hematocrit_percent": 48,
+        "organ_masses": {
+          "heart_g": 0.8,
+          "liver_g": 4.2,
+          "kidney_g": 1.1,
+          "brain_g": 2.1
+        }
+      },
+      "environment": {
+        "temperature_c": 12,
+        "oxygen_percent": 12.8,
+        "pressure_kpa": 65.4,
+        "humidity_percent": 45
+      }
+    },
+    {
+      "id": "pikas_002", 
+      "species": "Ochotona princeps",
+      "population": "Niwot Ridge",
+      "elevation": 3750,
+      "phenotype": {
+        "body_mass_g": 145,
+        "metabolic_rate_ml_o2_min_g": 3.5,
+        "heart_rate_bpm": 340,
+        "hematocrit_percent": 52,
+        "organ_masses": {
+          "heart_g": 0.9,
+          "liver_g": 4.0,
+          "kidney_g": 1.2,
+          "brain_g": 2.0
+        }
+      },
+      "environment": {
+        "temperature_c": 8,
+        "oxygen_percent": 12.2,
+        "pressure_kpa": 63.1,
+        "humidity_percent": 52
+      }
+    }
+  ],
+  "test_scenarios": [
+    {
+      "name": "hypoxia_adaptation",
+      "description": "Test organism adaptation to low oxygen",
+      "parameters": {
+        "initial_oxygen": 21.0,
+        "final_oxygen": 10.0,
+        "generations": 100,
+        "population_size": 1000
+      },
+      "expected_outcomes": {
+        "hematocrit_increase": true,
+        "heart_mass_increase": true,
+        "metabolic_efficiency_increase": true,
+        "fitness_improvement": 0.15
+      }
+    },
+    {
+      "name": "thermal_stress",
+      "description": "Test organism response to temperature variation",
+      "parameters": {
+        "temperature_range": [-5, 25],
+        "exposure_duration_hours": 24,
+        "acclimation_period_days": 7
+      },
+      "expected_outcomes": {
+        "metabolic_plasticity": true,
+        "behavioral_thermoregulation": true,
+        "survival_threshold_c": -3
+      }
+    }
+  ],
+  "validation_data": {
+    "known_adaptations": [
+      {
+        "population": "Tibetan pikas",
+        "trait": "hemoglobin_concentration",
+        "value": 16.8,
+        "units": "g/dl",
+        "reference": "Zhang et al. 2019"
+      },
+      {
+        "population": "Andean pikas", 
+        "trait": "lung_capacity",
+        "value": 0.082,
+        "units": "ml/g",
+        "reference": "Martinez et al. 2020"
+      }
+    ],
+    "thermodynamic_constraints": {
+      "basal_metabolic_rate": {
+        "allometric_coefficient": 0.75,
+        "temperature_coefficient": 0.069,
+        "activation_energy_kj_mol": 65.4
+      },
+      "oxygen_transport": {
+        "diffusion_coefficient": 2.1e-5,
+        "solubility_ml_l_kpa": 0.031,
+        "binding_capacity_ml_g": 1.34
+      }
+    }
+  }
+}
