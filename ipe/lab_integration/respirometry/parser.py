@@ -10,7 +10,6 @@ from dataclasses import dataclass
 from typing import Dict, List, Optional, Union, Any
 from pathlib import Path
 import numpy as np
-from datetime import datetime
 
 from .sable_import import SableSessionData, RespirometryMeasurement
 
@@ -25,17 +24,14 @@ class RespirometryParser(ABC):
     @abstractmethod
     def parse_file(self, filepath: Union[str, Path]) -> SableSessionData:
         """Parse a single respirometry file"""
-        pass
 
     @abstractmethod
     def get_supported_formats(self) -> List[str]:
         """Return list of supported file extensions"""
-        pass
 
     @abstractmethod
     def validate_format(self, filepath: Union[str, Path]) -> bool:
         """Check if file format is supported by this parser"""
-        pass
 
 
 @dataclass

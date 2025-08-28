@@ -10,7 +10,6 @@ import pytest
 import numpy as np
 import tempfile
 import os
-from typing import Dict
 
 from ipe.core.physiology.state import PhysiologicalState, Tissue
 from ipe.core.physiology.state_vector import StateVector
@@ -276,12 +275,12 @@ class TestPhysiologicalState:
         )
 
         # Using state's own temperature
-        assert state.is_in_thermal_neutral_zone() == True
+        assert state.is_in_thermal_neutral_zone() is True
 
         # Using custom temperatures
-        assert state.is_in_thermal_neutral_zone(15.0) == True
-        assert state.is_in_thermal_neutral_zone(5.0) == False
-        assert state.is_in_thermal_neutral_zone(40.0) == False
+        assert state.is_in_thermal_neutral_zone(15.0) is True
+        assert state.is_in_thermal_neutral_zone(5.0) is False
+        assert state.is_in_thermal_neutral_zone(40.0) is False
 
 
 class TestStateVector:

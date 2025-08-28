@@ -8,7 +8,6 @@ the complete physiological state of an organism in the IPE simulation.
 from dataclasses import dataclass
 from typing import Dict, Optional
 from enum import Enum
-import numpy as np
 
 
 class Tissue(Enum):

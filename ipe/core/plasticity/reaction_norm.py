@@ -116,7 +116,7 @@ class ReactionNorm:
                         bounds_error=False,
                         fill_value="extrapolate",
                     )
-        except Exception as e:
+        except Exception:
             # Fall back to linear interpolation if anything goes wrong
             self.interpolator = interpolate.interp1d(
                 self.environments,
@@ -205,7 +205,7 @@ class ReactionNorm:
         try:
             coefficients = np.polyfit(self.environments, self.phenotypes, 2)
             return 2 * coefficients[0]  # Second derivative coefficient
-        except:
+        except Exception:
             return 0.0
 
     def inflection_points(self) -> List[float]:
@@ -239,7 +239,7 @@ class ReactionNorm:
                     inflections.append(env_interp)
 
             return inflections
-        except:
+        except Exception:
             return []
 
     def environmental_optimum(self) -> Optional[float]:

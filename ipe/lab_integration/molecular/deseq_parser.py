@@ -7,12 +7,11 @@ and pathway enrichment analysis integration.
 
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Dict, List, Optional, Union, Set, Any, Tuple
-import numpy as np
+from typing import Dict, List, Optional, Union, Set, Any
 import pandas as pd
 from datetime import datetime
 
-from .rnaseq_import import RNASeqExperiment, ExpressionData, Gene
+from .rnaseq_import import RNASeqExperiment
 
 
 @dataclass

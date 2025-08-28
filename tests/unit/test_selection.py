@@ -7,12 +7,10 @@ functionality for evolutionary simulations.
 
 import pytest
 import numpy as np
-from typing import List
 
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.simulation.population import Individual
 from ipe.simulation.selection import (
-    SelectionStrategy,
     TruncationSelection,
     ProportionalSelection,
     TournamentSelection,

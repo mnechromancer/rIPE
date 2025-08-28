@@ -5,16 +5,14 @@ WebSocket connection management, real-time simulation updates,
 client reconnection handling, and message queuing for reliability.
 """
 
-from fastapi import WebSocket, WebSocketDisconnect, HTTPException
+from fastapi import WebSocket, WebSocketDisconnect
 from fastapi.routing import APIRouter
-from typing import Dict, List, Any, Optional
-import asyncio
+from typing import Dict, List, Any
 import json
 import logging
 import uuid
 from datetime import datetime
 from queue import Queue
-import threading
 
 logger = logging.getLogger(__name__)
 

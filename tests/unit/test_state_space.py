@@ -5,7 +5,6 @@ Ensures spatial indexing, neighbor search, and dimensionality reduction work as 
 """
 
 import numpy as np
-import pytest
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.core.state.space import StateSpace
 from ipe.core.state.indexing import pca_reduce

@@ -5,7 +5,6 @@ Implements heat transfer and energy flow calculations for physiological systems.
 """
 
 from typing import Dict
-import numpy as np
 
 
 class EnergyBudget:

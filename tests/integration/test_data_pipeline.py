@@ -8,11 +8,8 @@ processing pipeline and maintains integrity at each stage.
 
 import pytest
 import json
-import pandas as pd
-import numpy as np
 from pathlib import Path
-from typing import Dict, List, Any
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 import tempfile
 
 # Import IPE modules with graceful degradation
@@ -192,7 +189,7 @@ class TestDataPipelineIntegration:
 
         # Step 4: Aggregate and analyze
         resp_aggregated = processor.aggregate_data(resp_normalized)
-        field_aggregated = processor.aggregate_data(field_normalized)
+        processor.aggregate_data(field_normalized)
 
         assert "summary_stats" in resp_aggregated, "No summary statistics generated"
 
@@ -264,7 +261,7 @@ class TestDataPipelineIntegration:
     @pytest.mark.integration
     def test_data_lineage_tracking(self):
         """Test that data lineage is tracked throughout pipeline."""
-        import_manager = DataImportManager()
+        DataImportManager()
         processor = DataProcessor()
 
         # Mock data with lineage tracking

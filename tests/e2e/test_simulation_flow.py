@@ -7,19 +7,13 @@ testing realistic user workflows and scientific use cases.
 """
 
 import pytest
-import json
 import time
 import requests
-from pathlib import Path
-from typing import Dict, List, Any
-from unittest.mock import Mock, patch, MagicMock
-import subprocess
-import tempfile
+from unittest.mock import Mock, patch
 
 # Import IPE modules with graceful degradation
 try:
     from ipe.api.client import IPEClient
-    from ipe.core.simulation import SimulationEngine
     from ipe.ui.dashboard import Dashboard
     from ipe.core.workflow import WorkflowManager
 except ImportError:

@@ -7,7 +7,7 @@ become constitutively expressed.
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple, Union, Callable
+from typing import Dict, List, Optional, Tuple, Union
 from enum import Enum
 import numpy as np
 import json

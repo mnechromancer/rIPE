@@ -5,7 +5,7 @@ This module provides demographic analysis tools for population data,
 including age structure, survival curves, and population growth metrics.
 """
 
-from typing import List, Dict, Any, Optional, Tuple
+from typing import List, Dict, Any
 import numpy as np
 from dataclasses import dataclass
 from .population import Population, Individual

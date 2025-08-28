@@ -5,13 +5,13 @@ This module implements mutation mechanisms for evolutionary simulations,
 including mutational variance, pleiotropic effects, and mutation rate evolution.
 """
 
-from typing import Dict, List, Optional, Callable, Any
-from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Any
+from dataclasses import dataclass
 from abc import ABC, abstractmethod
 import numpy as np
 
 from .population import Individual
-from .genetic_architecture import GeneticArchitecture, GeneticLocus
+from .genetic_architecture import GeneticArchitecture
 
 
 @dataclass
@@ -60,7 +60,6 @@ class MutationStrategy(ABC):
         Returns:
             Mutated individual
         """
-        pass
 
 
 class GaussianMutation(MutationStrategy):
@@ -140,7 +139,7 @@ class PleiotopicMutation(MutationStrategy):
             return gaussian_mutator.mutate(individual, architecture)
 
         locus_names = list(architecture.loci.keys())
-        trait_names = list(architecture.traits.keys())
+        list(architecture.traits.keys())
 
         # Generate correlated mutational effects
         n_loci = len(locus_names)

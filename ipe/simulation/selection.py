@@ -51,7 +51,6 @@ class SelectionStrategy(ABC):
         Returns:
             List of selected individuals
         """
-        pass
 
     def calculate_selection_differential(
         self,

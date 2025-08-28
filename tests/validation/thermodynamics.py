@@ -10,7 +10,6 @@ import pytest
 import numpy as np
 import json
 from pathlib import Path
-from typing import Dict, List, Tuple, Any
 from dataclasses import dataclass
 
 # Import IPE modules with graceful degradation

@@ -7,7 +7,7 @@ import pytest
 import tempfile
 import shutil
 from pathlib import Path
-from scripts.backlog_parser import BacklogParser, Story
+from scripts.backlog_parser import BacklogParser
 
 
 class TestBacklogManagement:
@@ -149,7 +149,7 @@ completion_notes: "This was completed earlier"
         parser.load_backlog()
 
         # TEST-003 is already done
-        original_notes = parser.get_story("TEST-003").completion_notes
+        parser.get_story("TEST-003").completion_notes
         success = parser.complete_story("TEST-003", "Additional notes")
         assert success
 

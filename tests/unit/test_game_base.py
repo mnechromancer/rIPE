@@ -2,7 +2,6 @@
 Tests for GAME-001: Base Game Specification System
 """
 
-import pytest
 import numpy as np
 from ipe.core.games.base import GameSpecification
 

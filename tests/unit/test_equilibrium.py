@@ -2,7 +2,6 @@
 Tests for GAME-004: Equilibrium Solver
 """
 
-import pytest
 import numpy as np
 from ipe.core.games.equilibrium import EquilibriumSolver
 from ipe.core.games.nash_solver import iterative_best_response, stability_analysis

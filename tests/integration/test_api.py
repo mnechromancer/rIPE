@@ -2,7 +2,6 @@
 Integration tests for API-001: Core REST API
 """
 
-import pytest
 from fastapi.testclient import TestClient
 import sys
 from pathlib import Path

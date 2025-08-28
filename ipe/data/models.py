@@ -4,8 +4,6 @@ Includes models for organisms, simulations, environmental data, and temporal ser
 Optimized for PostgreSQL with TimescaleDB for time-series performance.
 """
 
-from datetime import datetime
-from typing import Dict, List, Optional, Any
 import uuid
 
 from sqlalchemy import (
@@ -19,7 +17,6 @@ from sqlalchemy import (
     JSON,
     ForeignKey,
     Index,
-    UniqueConstraint,
     CheckConstraint,
 )
 from sqlalchemy.dialects.postgresql import UUID, ARRAY

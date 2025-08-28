@@ -9,15 +9,12 @@ to produce coherent simulation results and scientific outputs.
 import pytest
 import json
 import time
-from pathlib import Path
-from typing import Dict, List, Any
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 # Import IPE modules with graceful degradation
 try:
     from ipe.core.workflow import WorkflowManager
     from ipe.core.simulation import SimulationEngine
-    from ipe.api.routes import simulation_routes
     from ipe.data.import_manager import DataImportManager
 except ImportError:
     # Mock classes for testing when modules don't exist yet

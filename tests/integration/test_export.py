@@ -2,11 +2,8 @@
 Tests for API-003: Data Export Endpoints
 """
 
-import pytest
 from fastapi.testclient import TestClient
 import sys
-import io
-import json
 from pathlib import Path
 
 # Add the project root to the path so we can import from ipe

@@ -115,7 +115,7 @@ class BacklogParser:
             def replace_status(match):
                 header = match.group(1)
                 yaml_before = match.group(2)
-                status_line = match.group(3)
+                match.group(3)
                 yaml_after = match.group(4)
 
                 # Replace the status

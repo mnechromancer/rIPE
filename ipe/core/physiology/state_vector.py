@@ -9,7 +9,7 @@ serialization/deserialization capabilities.
 import json
 import numpy as np
 from typing import List, Dict, Any, Union, Optional
-from dataclasses import asdict, fields
+from dataclasses import asdict
 from .state import PhysiologicalState, Tissue
 
 

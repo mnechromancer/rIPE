@@ -7,7 +7,6 @@ plasticity evolution tracking, and contemporary evolution models.
 
 import pytest
 import numpy as np
-from typing import List, Dict
 
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.simulation.population import Population, Individual

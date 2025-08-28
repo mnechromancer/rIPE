@@ -284,7 +284,7 @@ class MorphologyDataImporter:
             if "collection_date" in df.columns:
                 try:
                     collection_date = pd.to_datetime(row["collection_date"])
-                except:
+                except Exception:
                     pass
 
             # Create specimen
@@ -423,7 +423,7 @@ class MorphologyDataImporter:
             if "date_measured" in df.columns:
                 try:
                     date_measured = pd.to_datetime(row["date_measured"])
-                except:
+                except Exception:
                     pass
 
             # Create measurement

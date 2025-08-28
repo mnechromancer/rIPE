@@ -12,7 +12,7 @@ from typing import List
 
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.simulation.population import Population, Individual
-from ipe.simulation.demographics import Demographics, AgeClass
+from ipe.simulation.demographics import Demographics
 
 
 class TestIndividual:

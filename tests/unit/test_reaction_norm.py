@@ -10,7 +10,6 @@ import pytest
 import numpy as np
 import tempfile
 import os
-from typing import Dict
 
 from ipe.core.plasticity.reaction_norm import ReactionNorm, PlasticityMagnitude
 from ipe.core.plasticity.gxe import GxEInteraction

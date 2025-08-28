@@ -10,7 +10,7 @@ import sys
 import traceback
 import uuid
 from datetime import datetime
-from typing import Dict, Any, Optional, Union
+from typing import Dict, Any, Optional
 from dataclasses import dataclass, field
 from contextlib import contextmanager
 from threading import local

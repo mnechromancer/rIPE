@@ -10,7 +10,6 @@ import pytest
 import numpy as np
 import json
 from pathlib import Path
-from typing import Dict, List, Any
 
 # Import IPE modules - using try/except for graceful degradation
 try:

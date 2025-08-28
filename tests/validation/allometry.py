@@ -8,9 +8,6 @@ scaling laws that govern biological systems across different body sizes.
 
 import pytest
 import numpy as np
-import json
-from pathlib import Path
-from typing import Dict, List, Tuple, Any
 from scipy import stats
 
 # Import IPE modules with graceful degradation
@@ -230,7 +227,7 @@ class TestAllometricScaling:
     def test_metabolic_scaling_temperature_independence(self):
         """Test that allometric scaling is independent of temperature."""
         calculator = MetabolicCalculator()
-        scaler = AllometricScaler()
+        AllometricScaler()
 
         test_masses = np.logspace(-1, 1.5, 20)  # 0.1 to ~30 kg
         temperatures = [5, 15, 25, 35]  # Test range of temperatures
@@ -327,7 +324,7 @@ class TestAllometricScaling:
         bmr = calculator.basal_metabolic_rate(test_mass)
         heart_rate = physio_calc.calculate_heart_rate(test_mass)
         heart_mass = scaler.scale_organ_mass("heart", test_mass)
-        surface_area = scaler.scale_surface_area(test_mass)
+        scaler.scale_surface_area(test_mass)
 
         # Check cardiac output consistency
         # Stroke volume ∝ heart mass, Cardiac output = HR × SV

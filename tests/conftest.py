@@ -6,10 +6,8 @@ supporting the TEST-001 requirement for comprehensive unit testing.
 """
 
 import pytest
-import json
 import numpy as np
 from pathlib import Path
-from typing import Dict, List, Any
 
 
 @pytest.fixture

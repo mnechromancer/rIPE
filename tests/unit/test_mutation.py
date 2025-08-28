@@ -7,7 +7,6 @@ and evolutionary dynamics of mutation rates.
 
 import pytest
 import numpy as np
-from typing import Dict, List
 
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.simulation.population import Individual
@@ -20,7 +19,6 @@ from ipe.simulation.genetic_architecture import (
 )
 from ipe.simulation.mutation import (
     MutationParameters,
-    MutationStrategy,
     GaussianMutation,
     PleiotopicMutation,
     MutationEngine,
@@ -424,7 +422,7 @@ class TestMutationEngine:
         params = MutationParameters(mutation_rate_heritability=0.5)
         engine = MutationEngine(params, arch)
 
-        original_rates = engine.current_mutation_rates.copy()
+        engine.current_mutation_rates.copy()
 
         # Run mutation rate evolution
         np.random.seed(42)

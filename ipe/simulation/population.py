@@ -6,7 +6,7 @@ population states and managing evolutionary dynamics in IPE simulations.
 """
 
 from typing import List, Dict, Any, Generator, Optional, Callable
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 import numpy as np
 from ..core.physiology.state import PhysiologicalState
 

@@ -11,8 +11,7 @@ import json
 import h5py
 import io
 import zipfile
-from typing import Dict, List, Any, Union, Optional
-from pathlib import Path
+from typing import Dict, Any, Union, Optional
 import logging
 
 logger = logging.getLogger(__name__)

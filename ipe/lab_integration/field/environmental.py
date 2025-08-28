@@ -10,9 +10,8 @@ import json
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, List, Optional, Union, Tuple, Any
-import numpy as np
 import pandas as pd
-from datetime import datetime, timedelta
+from datetime import datetime
 import pytz
 
 
@@ -569,7 +568,7 @@ class EnvironmentalDataImporter:
                     try:
                         df["timestamp"] = pd.to_datetime(df[col])
                         break
-                    except:
+                    except Exception:
                         continue
 
             if "timestamp" not in df.columns:

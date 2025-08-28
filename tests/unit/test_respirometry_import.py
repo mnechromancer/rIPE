@@ -10,7 +10,6 @@ import tempfile
 import numpy as np
 from datetime import datetime, timedelta
 from pathlib import Path
-from unittest.mock import patch
 
 from ipe.lab_integration.respirometry.sable_import import (
     SableSystemsImporter,
@@ -302,7 +301,7 @@ class TestGenericRespirometryParser:
 
         assert len(filtered.measurements) <= len(session.measurements)
         assert all(2.0 <= m.vo2_ml_min <= 3.0 for m in filtered.measurements)
-        assert filtered.metadata["filtered"] == True
+        assert filtered.metadata["filtered"] is True
 
     def test_smooth_measurements(self):
         """Test measurement smoothing"""
@@ -310,7 +309,7 @@ class TestGenericRespirometryParser:
         smoothed = self.parser.smooth_measurements(session, window_size=5)
 
         assert len(smoothed.measurements) == len(session.measurements)
-        assert smoothed.metadata["smoothed"] == True
+        assert smoothed.metadata["smoothed"] is True
         assert smoothed.metadata["smooth_window"] == 5
 
         # Smoothed data should have lower variance
@@ -519,7 +518,7 @@ class TestPerformance:
                 f.write(f"# Subject_ID: BATCH_{file_num}\n")
 
                 for i in range(100):  # Small files for batch test
-                    timestamp = f"{i//3600:02d}:{(i%3600)//60:02d}:{i%60:02d}"
+                    timestamp = f"{i//3600:02d}:{(i % 3600)//60:02d}:{i % 60:02d}"
                     vo2 = 2.5 + 0.1 * np.random.randn()
                     vco2 = 2.0 + 0.08 * np.random.randn()
                     f.write(

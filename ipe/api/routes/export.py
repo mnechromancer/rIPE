@@ -5,26 +5,22 @@ Export to CSV/JSON/HDF5, publication figure generation,
 statistical summary export, and batch download support.
 """
 
-from fastapi import APIRouter, HTTPException, Response, Query, BackgroundTasks
-from fastapi.responses import StreamingResponse, FileResponse
-from pydantic import BaseModel
-from typing import List, Dict, Any, Optional, Union
-import pandas as pd
-import json
-import h5py
+import io
+import logging
+import uuid
+from datetime import datetime
+from typing import List, Dict, Any, Optional
+
 import numpy as np
+import pandas as pd
+from fastapi import APIRouter, HTTPException, BackgroundTasks
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+
 import matplotlib
 
 matplotlib.use("Agg")  # Use non-GUI backend
 import matplotlib.pyplot as plt
-import seaborn as sns
-import io
-import tempfile
-import zipfile
-import os
-from datetime import datetime
-import uuid
-import logging
 
 logger = logging.getLogger(__name__)
 
@@ -233,7 +229,10 @@ async def generate_publication_figure(
         io.BytesIO(buffer.read()),
         media_type=media_types.get(figure_request.format, "image/png"),
         headers={
-            "Content-Disposition": f"attachment; filename={simulation_id}_figure.{figure_request.format}"
+            "Content-Disposition": (
+                f"attachment; filename={simulation_id}_figure."
+                f"{figure_request.format}"
+            )
         },
     )
 

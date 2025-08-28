@@ -3,7 +3,6 @@ Tests for GAME-003: Thermogenesis Trade-off Game
 """
 
 import pytest
-import numpy as np
 from ipe.core.games.thermal_game import ThermalGame
 
 

@@ -5,7 +5,6 @@ Ensures BMR, VO2max, thermal performance, and aerobic scope calculations are cor
 """
 
 import numpy as np
-import pytest
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.core.physiology.metabolism import MetabolicCalculator
 from ipe.core.physiology.allometry import kleiber_bmr

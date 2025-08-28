@@ -11,8 +11,7 @@ from enum import Enum
 import numpy as np
 import json
 
-from .reaction_norm import ReactionNorm, PlasticityMagnitude
-from ..physiology.state import PhysiologicalState
+from .reaction_norm import ReactionNorm
 
 
 class MaladaptationType(Enum):

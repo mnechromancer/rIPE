@@ -6,12 +6,12 @@ for phenotypic plasticity analysis.
 """
 
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Optional, Tuple
 import numpy as np
 from scipy import stats
 import json
 
-from .reaction_norm import ReactionNorm, PlasticityMagnitude
+from .reaction_norm import ReactionNorm
 
 
 @dataclass

@@ -46,7 +46,6 @@ class GameSpecification(ABC):
         Returns:
             np.ndarray: Payoff matrix of shape (n_strategies, n_strategies) or appropriate for game type.
         """
-        pass
 
     @abstractmethod
     def validate_strategies(self, strategies: List[str]) -> bool:
@@ -57,7 +56,6 @@ class GameSpecification(ABC):
         Returns:
             bool: True if valid, False otherwise.
         """
-        pass
 
     def serialize(self) -> str:
         """

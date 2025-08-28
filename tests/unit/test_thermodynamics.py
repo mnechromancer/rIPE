@@ -5,7 +5,6 @@ Ensures energy balance, heat transfer, efficiency limits, and constraint violati
 """
 
 import numpy as np
-import pytest
 from ipe.core.thermodynamics.constraints import ThermodynamicConstraints
 from ipe.core.thermodynamics.energy_budget import EnergyBudget
 

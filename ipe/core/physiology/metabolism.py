@@ -4,7 +4,6 @@ Metabolic Calculator Module
 Implements BMR, VO2max, thermal performance, and aerobic scope calculations.
 """
 
-from typing import Optional
 import numpy as np
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.core.physiology.allometry import kleiber_bmr

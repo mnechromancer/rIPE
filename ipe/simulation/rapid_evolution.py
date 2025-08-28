@@ -6,16 +6,15 @@ timescales, integrating population dynamics, selection, mutation, and
 plasticity evolution for contemporary evolutionary studies.
 """
 
-from typing import List, Dict, Any, Optional, Generator, Callable, Tuple
+from typing import List, Dict, Any, Optional, Generator, Callable
 from dataclasses import dataclass, field
 import numpy as np
 from ..core.physiology.state import PhysiologicalState
 from ..core.plasticity.reaction_norm import ReactionNorm
-from ..core.plasticity.gxe import GxEInteraction
 from ..core.plasticity.maladaptive import MaladaptiveDetector
 
 from .population import Population, Individual
-from .selection import SelectionStrategy, TruncationSelection
+from .selection import SelectionStrategy
 from .mutation import MutationEngine
 from .genetic_architecture import GeneticArchitecture
 
@@ -188,7 +187,7 @@ class PlasticityEvolutionTracker:
                 plasticity_data["maladaptive_fraction"] = maladaptive_count / len(
                     population
                 )
-            except:
+            except Exception:
                 plasticity_data["maladaptive_fraction"] = 0.0
 
         self.generation_data.append(plasticity_data)

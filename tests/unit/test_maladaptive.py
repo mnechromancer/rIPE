@@ -7,7 +7,6 @@ classes, ensuring detection and quantification of maladaptive plasticity.
 
 import pytest
 import numpy as np
-from typing import Callable
 
 from ipe.core.plasticity.maladaptive import (
     MaladaptiveDetector,

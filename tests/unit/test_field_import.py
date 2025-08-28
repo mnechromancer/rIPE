@@ -15,10 +15,8 @@ import json
 
 from ipe.lab_integration.field.environmental import (
     EnvironmentalDataImporter,
-    EnvironmentalDataset,
     EnvironmentalReading,
     GPSCoordinate,
-    WeatherStation,
 )
 from ipe.lab_integration.field.morphology import (
     MorphologyDataImporter,
@@ -266,11 +264,11 @@ class TestEnvironmentalDataImporter:
         assert len(aligned_dataset.readings) <= len(
             dataset.readings
         )  # Some may not align
-        assert aligned_dataset.metadata["gps_aligned"] == True
+        assert aligned_dataset.metadata["gps_aligned"] is True
 
         # Check that aligned readings have GPS metadata
         for reading in aligned_dataset.readings:
-            assert reading.metadata.get("gps_aligned") == True
+            assert reading.metadata.get("gps_aligned") is True
             assert "alignment_distance_m" in reading.metadata
             assert "alignment_time_diff_min" in reading.metadata
 
@@ -291,7 +289,7 @@ class TestEnvironmentalDataImporter:
         # Interpolate
         interpolated = self.importer.interpolate_missing_data(dataset, method="linear")
 
-        assert interpolated.metadata["interpolated"] == True
+        assert interpolated.metadata["interpolated"] is True
         assert interpolated.metadata["interpolation_method"] == "linear"
 
         # Check that gaps were filled (approximately)
@@ -522,13 +520,13 @@ class TestMorphologyDataImporter:
                 "collection_date": (
                     datetime.now() - timedelta(days=np.random.randint(1, 365))
                 ).date(),
-                "collection_location": f"Site {i%3 + 1}",
+                "collection_location": f"Site {i % 3 + 1}",
                 "latitude": 40.0 + np.random.uniform(-1, 1),
                 "longitude": -74.0 + np.random.uniform(-1, 1),
                 "elevation_m": np.random.uniform(0, 1000),
                 "sex": np.random.choice(["M", "F", "U"]),
                 "age_class": np.random.choice(["adult", "juvenile", "subadult"]),
-                "collector": f"Researcher {i%2 + 1}",
+                "collector": f"Researcher {i % 2 + 1}",
                 "catalog_number": f"CAT{i:05d}",
                 "museum_code": "TEST",
                 # Morphometric measurements

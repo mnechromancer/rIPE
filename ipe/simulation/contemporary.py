@@ -6,14 +6,14 @@ studies, focusing on rapid evolutionary responses to environmental
 change typical in modern ecological contexts.
 """
 
-from typing import List, Dict, Any, Optional, Callable
+from typing import List, Dict
 import numpy as np
 
 from ..core.physiology.state import PhysiologicalState
 from .population import Population, Individual
 from .rapid_evolution import RapidEvolutionSimulator, EnvironmentalChange
-from .genetic_architecture import GeneticArchitecture, create_default_architecture
-from .mutation import MutationEngine, create_default_mutation_engine
+from .genetic_architecture import create_default_architecture
+from .mutation import create_default_mutation_engine
 from .selection import TruncationSelection
 
 

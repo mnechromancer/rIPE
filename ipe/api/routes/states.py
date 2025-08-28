@@ -2,10 +2,9 @@
 State space management routes for the IPE API.
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, Query
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
-import uuid
 import logging
 
 logger = logging.getLogger(__name__)

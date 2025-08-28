@@ -5,14 +5,13 @@ Provides comprehensive monitoring of simulation performance, system resources, a
 
 import time
 import psutil
-from typing import Dict, Any, Optional, List
-from datetime import datetime, timedelta
+from typing import Optional, List
+from datetime import datetime
 from dataclasses import dataclass, field
 from prometheus_client import (
     Counter,
     Histogram,
     Gauge,
-    Summary,
     Info,
     Enum,
     CollectorRegistry,
@@ -410,7 +409,7 @@ class IPEMetrics:
                 # Population size by species
                 species_counts = (
                     db_session.query(Organism.species_id, func.count(Organism.id))
-                    .filter(Organism.simulation_id == sim.id, Organism.is_alive == True)
+                    .filter(Organism.simulation_id == sim.id, Organism.is_alive is True)
                     .group_by(Organism.species_id)
                     .all()
                 )
