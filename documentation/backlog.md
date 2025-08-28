@@ -25,7 +25,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 1
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/core/physiology/state.py"
@@ -70,7 +70,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 1
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/state/space.py"
@@ -115,7 +115,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/physiology/metabolism.py"
@@ -139,7 +139,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-003"]
 files_to_create:
   - "ipe/core/thermodynamics/constraints.py"
@@ -161,7 +161,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/games/base.py"
@@ -185,7 +185,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001", "CORE-003"]
 files_to_create:
   - "ipe/core/games/hypoxia_game.py"
@@ -218,7 +218,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001", "CORE-004"]
 files_to_create:
   - "ipe/core/games/thermal_game.py"
@@ -237,7 +237,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 3
-status: "todo"
+status: "done"  # Completed
 dependencies: ["GAME-001"]
 files_to_create:
   - "ipe/core/games/equilibrium.py"
@@ -263,7 +263,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001"]
 files_to_create:
   - "ipe/core/plasticity/reaction_norm.py"
@@ -300,7 +300,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["PLAS-001", "GAME-001"]
 files_to_create:
   - "ipe/core/plasticity/maladaptive.py"
@@ -319,7 +319,7 @@ type: "story"
 priority: "P1"
 effort: "L"
 sprint: 5
-status: "todo"
+status: "done"  # Completed
 dependencies: ["PLAS-001", "PLAS-002"]
 files_to_create:
   - "ipe/core/plasticity/assimilation.py"
@@ -341,7 +341,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 4
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001", "GAME-001"]
 files_to_create:
   - "ipe/simulation/population.py"
@@ -376,7 +376,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 5
-status: "todo"
+status: "done"  # Completed
 dependencies: ["EVOL-001"]
 files_to_create:
   - "ipe/simulation/selection.py"
@@ -395,7 +395,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 5
-status: "todo"
+status: "done"  # Completed
 dependencies: ["EVOL-001"]
 files_to_create:
   - "ipe/simulation/mutation.py"
@@ -415,7 +415,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 6
-status: "todo"
+status: "done"  # Completed
 dependencies: ["EVOL-001", "EVOL-002", "EVOL-003", "PLAS-001"]
 files_to_create:
   - "ipe/simulation/rapid_evolution.py"
@@ -437,7 +437,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 6
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/respirometry/sable_import.py"
@@ -461,7 +461,7 @@ type: "story"
 priority: "P1"
 effort: "L"
 sprint: 7
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/molecular/rnaseq_import.py"
@@ -481,7 +481,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 7
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/lab_integration/field/environmental.py"
@@ -503,7 +503,7 @@ type: "story"
 priority: "P0"
 effort: "XL"
 sprint: 8
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-002"]
 files_to_create:
   - "web/src/components/StateSpaceExplorer.tsx"
@@ -600,7 +600,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 7
-status: "todo"
+status: "done"  # Completed
 dependencies: ["CORE-001", "EVOL-001"]
 files_to_create:
   - "ipe/api/main.py"
@@ -637,7 +637,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 8
-status: "todo"
+status: "done"  # Completed
 dependencies: ["API-001"]
 files_to_create:
   - "ipe/api/websocket/realtime.py"
@@ -656,7 +656,7 @@ type: "story"
 priority: "P1"
 effort: "M"
 sprint: 9
-status: "todo"
+status: "done"  # Completed
 dependencies: ["API-001"]
 files_to_create:
   - "ipe/api/routes/export.py"
@@ -677,7 +677,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: "continuous"
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "tests/unit/test_*.py"
@@ -697,7 +697,7 @@ type: "story"
 priority: "P0"
 effort: "XL"
 sprint: 10
-status: "todo"
+status: "done"  # Completed
 dependencies: ["EVOL-004"]
 files_to_create:
   - "tests/validation/known_adaptations.py"
@@ -717,7 +717,7 @@ type: "story"
 priority: "P0"
 effort: "L"
 sprint: 11
-status: "todo"
+status: "done"  # Completed
 dependencies: ["API-001", "VIZ-001"]
 files_to_create:
   - "tests/integration/test_workflow.py"
