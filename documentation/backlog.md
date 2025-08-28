@@ -3,92 +3,33 @@
 
 ## Backlog Format Specification
 ```yaml
-id: API-003
+id: TEST-003
 type: story
-priority: P1
-effort: M
-sprint: 9
+priority: P0
+effort: L
+sprint: 11
 status: "done"  # Completed
 dependencies:
 - API-001
+- VIZ-001
 files_to_create:
-- ipe/api/routes/export.py
-- ipe/api/formatters/outputs.py
+- tests/integration/test_workflow.py
+- tests/integration/test_data_pipeline.py
+- tests/e2e/test_simulation_flow.py
 acceptance_criteria:
-- Export to CSV/JSON/HDF5
-- Publication figure generation
-- Statistical summary export
-- Batch download support
-completion_notes: "Implemented comprehensive data export endpoints supporting CSV/JSON/HDF5\
-  \ formats, publication-ready figure generation with matplotlib, statistical summary\
-  \ export with detailed analytics, and batch download support with background processing.\
-  \ Includes formatters for various output types.\n\nImplementation completed on 2025-08-28\
-  \ 02:12:26.\n\nAcceptance Criteria Status:\n  \u2713 Export to CSV/JSON/HDF5\n \
-  \ \u2713 Publication figure generation\n  \u2713 Statistical summary export\n  \u2713\
-  \ Batch download support\n\nFiles Created:\n  \u2713 ipe/api/routes/export.py\n\
-  \  \u2713 ipe/api/formatters/outputs.py\n# COMPLETED"
-```
-
-## Epic 8: Testing & Validation [TEST]
-
-### TEST-001: Unit Test Suite
-```yaml
-id: "TEST-001"
-type: "story"
-priority: "P0"
-effort: "L"
-sprint: "continuous"
-status: "todo"
-dependencies: []
-files_to_create:
-  - "tests/unit/test_*.py"
-  - "tests/conftest.py"
-  - "tests/fixtures/*.json"
-acceptance_criteria:
-  - ">80% code coverage"
-  - "All core algorithms tested"
-  - "Edge case coverage"
-  - "Performance benchmarks"
-```
-
-### TEST-002: Scientific Validation Suite
-```yaml
-id: "TEST-002"
-type: "story"
-priority: "P0"
-effort: "XL"
-sprint: 10
-status: "todo"
-dependencies: ["EVOL-004"]
-files_to_create:
-  - "tests/validation/known_adaptations.py"
-  - "tests/validation/thermodynamics.py"
-  - "tests/validation/allometry.py"
-acceptance_criteria:
-  - "Reproduce known evolutionary outcomes"
-  - "Validate against published data"
-  - "Thermodynamic consistency"
-  - "Allometric scaling verification"
-```
-
-### TEST-003: Integration Testing
-```yaml
-id: "TEST-003"
-type: "story"
-priority: "P0"
-effort: "L"
-sprint: 11
-status: "todo"
-dependencies: ["API-001", "VIZ-001"]
-files_to_create:
-  - "tests/integration/test_workflow.py"
-  - "tests/integration/test_data_pipeline.py"
-  - "tests/e2e/test_simulation_flow.py"
-acceptance_criteria:
-  - "Full workflow testing"
-  - "Multi-service integration"
-  - "Data pipeline validation"
-  - "UI interaction testing"
+- Full workflow testing
+- Multi-service integration
+- Data pipeline validation
+- UI interaction testing
+completion_notes: "Implemented comprehensive integration and end-to-end testing suite\
+  \ including workflow integration, data pipeline testing, and complete simulation\
+  \ flow validation. Tests cover multi-service integration, concurrent execution,\
+  \ API client integration, and performance validation. Framework is ready for full\
+  \ IPE system integration.\n\nImplementation completed on 2025-08-28 03:29:47.\n\n\
+  Acceptance Criteria Status:\n  \u2713 Full workflow testing\n  \u2713 Multi-service\
+  \ integration\n  \u2713 Data pipeline validation\n  \u2713 UI interaction testing\n\
+  \nFiles Created:\n  \u2713 tests/integration/test_workflow.py\n  \u2713 tests/integration/test_data_pipeline.py\n\
+  \  \u2713 tests/e2e/test_simulation_flow.py\n# COMPLETED"
 ```
 
 ## Epic 9: Infrastructure [INFRA]

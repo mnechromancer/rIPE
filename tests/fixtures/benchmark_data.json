@@ -1,0 +1,63 @@
+{
+  "benchmark_scenarios": [
+    {
+      "name": "small_population",
+      "population_size": 100,
+      "generations": 50,
+      "expected_runtime_seconds": 2.0,
+      "expected_memory_mb": 50
+    },
+    {
+      "name": "medium_population", 
+      "population_size": 1000,
+      "generations": 100,
+      "expected_runtime_seconds": 10.0,
+      "expected_memory_mb": 150
+    },
+    {
+      "name": "large_population",
+      "population_size": 10000, 
+      "generations": 200,
+      "expected_runtime_seconds": 60.0,
+      "expected_memory_mb": 400
+    }
+  ],
+  "stress_tests": [
+    {
+      "name": "extreme_hypoxia",
+      "oxygen_percent": 3.0,
+      "survival_threshold": 0.1,
+      "adaptation_required": true
+    },
+    {
+      "name": "temperature_shock",
+      "temperature_delta": 30,
+      "shock_duration_minutes": 15,
+      "recovery_expected": true
+    },
+    {
+      "name": "resource_limitation",
+      "food_availability": 0.2,
+      "water_availability": 0.3, 
+      "population_decline_expected": 0.4
+    }
+  ],
+  "edge_cases": [
+    {
+      "name": "zero_population",
+      "population_size": 0,
+      "expected_error": "EmptyPopulationError"
+    },
+    {
+      "name": "negative_temperature",
+      "temperature": -50,
+      "expected_behavior": "freeze_response"
+    },
+    {
+      "name": "extreme_altitude",
+      "elevation_m": 8848,
+      "oxygen_percent": 7.0,
+      "adaptation_difficulty": "extreme"
+    }
+  ]
+}
