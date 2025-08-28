@@ -152,7 +152,7 @@ def upgrade() -> None:
             ["simulation_id"],
             ["simulations.id"],
         ),
-        sa.PrimaryKeyConstraint("id"),
+        sa.PrimaryKeyConstraint("id", "timestamp"),
     )
     op.create_index(
         "idx_env_generation", "environmental_conditions", ["generation"], unique=False
@@ -202,7 +202,7 @@ def upgrade() -> None:
             ["organism_id"],
             ["organisms.id"],
         ),
-        sa.PrimaryKeyConstraint("id"),
+        sa.PrimaryKeyConstraint("id", "measurement_time"),
     )
     op.create_index(
         "idx_physiology_organism_time",
@@ -255,7 +255,7 @@ def upgrade() -> None:
             ["simulation_id"],
             ["simulations.id"],
         ),
-        sa.PrimaryKeyConstraint("id"),
+        sa.PrimaryKeyConstraint("id", "event_time"),
     )
     op.create_index(
         "idx_event_simulation_generation",

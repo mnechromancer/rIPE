@@ -254,9 +254,7 @@ def test_epic6_backlog_update_mechanism():
 
     # The key test for Epic 6: backlog should be updated after every story completion
     # This is proven by having VIZ-001 marked as completed
-    assert (
-        len(completed_viz) > 0
-    ), (
+    assert len(completed_viz) > 0, (
         "At least one VIZ story should be marked as completed "
         "(demonstrating backlog updates)"
     )
