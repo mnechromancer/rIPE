@@ -1,0 +1,305 @@
+name: IPE Platform Deploy
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+          - staging
+          - production
+      image_tag:
+        description: 'Docker image tag to deploy'
+        required: false
+        default: 'latest'
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}/ipe
+
+jobs:
+  # Build and push Docker images
+  build-and-push:
+    runs-on: ubuntu-latest
+    name: Build and Push Docker Images
+    permissions:
+      contents: read
+      packages: write
+      
+    outputs:
+      image_tag: ${{ steps.meta.outputs.tags }}
+      image_digest: ${{ steps.build.outputs.digest }}
+      
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        
+      - name: Log in to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Extract metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=sha,prefix={{branch}}-
+            type=raw,value=latest,enable={{is_default_branch}}
+            
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile
+          target: production
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64,linux/arm64
+          
+      - name: Verify image size
+        run: |
+          # Pull the image and check size
+          docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          SIZE_BYTES=$(docker inspect ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest --format='{{.Size}}')
+          MAX_SIZE_BYTES=$((1024*1024*1024))  # 1GB
+          
+          if [ $SIZE_BYTES -gt $MAX_SIZE_BYTES ]; then
+            echo "❌ Image size exceeds 1GB limit: $(( SIZE_BYTES / 1024 / 1024 )) MB"
+            exit 1
+          else
+            echo "✅ Image size is within 1GB limit: $(( SIZE_BYTES / 1024 / 1024 )) MB"
+          fi
+          
+      - name: Sign container image
+        uses: cosign/cosign-installer@v3
+        
+      - name: Sign the published Docker image
+        env:
+          COSIGN_EXPERIMENTAL: 1
+        run: |
+          cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}@${{ steps.build.outputs.digest }}
+
+  # Deploy to staging
+  deploy-staging:
+    runs-on: ubuntu-latest
+    name: Deploy to Staging
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main' || github.event.inputs.environment == 'staging'
+    environment: staging
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Deploy to staging
+        run: |
+          ./scripts/deploy.sh \
+            --environment staging \
+            --image-tag ${{ needs.build-and-push.outputs.image_tag }} \
+            --registry ${{ env.REGISTRY }} \
+            --verify-health
+            
+      - name: Run smoke tests
+        run: |
+          # Basic health checks
+          curl -f https://staging.ipe.example.com/health || exit 1
+          curl -f https://staging.ipe.example.com/api/v1/status || exit 1
+          
+      - name: Notify staging deployment
+        if: success()
+        run: |
+          echo "✅ Staging deployment successful"
+          echo "🔗 Staging URL: https://staging.ipe.example.com"
+
+  # Security scan on deployed image
+  security-scan-production:
+    runs-on: ubuntu-latest
+    name: Production Security Scan
+    needs: build-and-push
+    if: github.event_name == 'release'
+    
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ needs.build-and-push.outputs.image_tag }}
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
+  # Deploy to production
+  deploy-production:
+    runs-on: ubuntu-latest
+    name: Deploy to Production
+    needs: [build-and-push, deploy-staging, security-scan-production]
+    if: github.event_name == 'release' || github.event.inputs.environment == 'production'
+    environment: production
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Create backup before deployment
+        run: |
+          ./scripts/deploy.sh \
+            --environment production \
+            --backup-only \
+            --backup-name "pre-deploy-$(date +%Y%m%d-%H%M%S)"
+            
+      - name: Deploy to production
+        id: deploy
+        run: |
+          ./scripts/deploy.sh \
+            --environment production \
+            --image-tag ${{ needs.build-and-push.outputs.image_tag }} \
+            --registry ${{ env.REGISTRY }} \
+            --verify-health \
+            --zero-downtime
+            
+      - name: Run production health checks
+        run: |
+          # Comprehensive health checks
+          curl -f https://api.ipe.example.com/health || exit 1
+          curl -f https://api.ipe.example.com/api/v1/status || exit 1
+          
+          # Database connectivity check
+          curl -f https://api.ipe.example.com/api/v1/db/health || exit 1
+          
+      - name: Update deployment status
+        if: success()
+        run: |
+          echo "✅ Production deployment successful"
+          echo "🔗 Production URL: https://ipe.example.com"
+          echo "📊 API URL: https://api.ipe.example.com"
+          
+      - name: Rollback on failure
+        if: failure()
+        run: |
+          echo "❌ Production deployment failed - initiating rollback"
+          ./scripts/deploy.sh \
+            --environment production \
+            --rollback \
+            --previous-version
+
+  # Rollback workflow
+  rollback:
+    runs-on: ubuntu-latest
+    name: Rollback Deployment
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.environment != ''
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Rollback deployment
+        run: |
+          ./scripts/deploy.sh \
+            --environment ${{ github.event.inputs.environment }} \
+            --rollback \
+            --previous-version
+            
+      - name: Verify rollback
+        run: |
+          if [ "${{ github.event.inputs.environment }}" = "production" ]; then
+            URL="https://api.ipe.example.com"
+          else
+            URL="https://staging.ipe.example.com"
+          fi
+          
+          curl -f $URL/health || exit 1
+          echo "✅ Rollback successful"
+
+  # Update deployment documentation
+  update-docs:
+    runs-on: ubuntu-latest
+    name: Update Deployment Documentation
+    needs: [deploy-production]
+    if: github.event_name == 'release'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Update deployment record
+        run: |
+          # Create deployment record
+          mkdir -p docs/deployments
+          cat > docs/deployments/$(date +%Y%m%d-%H%M%S).md << EOF
+          # Deployment Record
+          
+          **Date:** $(date)
+          **Version:** ${{ github.ref_name }}
+          **Commit:** ${{ github.sha }}
+          **Image:** ${{ needs.build-and-push.outputs.image_tag }}
+          **Environment:** Production
+          
+          ## Changes
+          ${{ github.event.release.body }}
+          
+          ## Deployment Details
+          - Image Digest: ${{ needs.build-and-push.outputs.image_digest }}
+          - Registry: ${{ env.REGISTRY }}
+          - Deployment Method: GitHub Actions
+          
+          ## Health Checks
+          - ✅ API Health
+          - ✅ Database Connectivity
+          - ✅ Security Scan
+          EOF
+          
+      - name: Commit deployment record
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/deployments/
+          git commit -m "Add deployment record for ${{ github.ref_name }}" || exit 0
+          git push
+
+  # Notify stakeholders
+  notify:
+    runs-on: ubuntu-latest
+    name: Notify Stakeholders
+    needs: [deploy-production]
+    if: always() && github.event_name == 'release'
+    
+    steps:
+      - name: Send notification
+        run: |
+          if [ "${{ needs.deploy-production.result }}" = "success" ]; then
+            STATUS="✅ Success"
+            MESSAGE="IPE Platform ${{ github.ref_name }} has been successfully deployed to production."
+          else
+            STATUS="❌ Failed"
+            MESSAGE="IPE Platform ${{ github.ref_name }} deployment to production failed."
+          fi
+          
+          echo "Deployment Status: $STATUS"
+          echo "Message: $MESSAGE"
+          
+          # Here you would integrate with your notification system
+          # Examples: Slack, Teams, Email, etc.
+          # curl -X POST -H 'Content-type: application/json' \
+          #   --data "{\"text\":\"$MESSAGE\"}" \
+          #   $SLACK_WEBHOOK_URL
