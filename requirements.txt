@@ -3,3 +3,4 @@ scipy>=1.10.0
 typing-extensions>=4.5.0
 PyYAML>=6.0
 pytest>=8.0.0
+pandas>=1.0.0

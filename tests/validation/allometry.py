@@ -253,9 +253,7 @@ class TestAllometricScaling:
         exponent_cv = np.std(scaling_exponents) / np.mean(scaling_exponents)
         max_cv = 0.02  # Maximum 2% coefficient of variation
 
-        assert (
-            exponent_cv <= max_cv
-        ), (
+        assert exponent_cv <= max_cv, (
             f"Scaling exponent varies too much with temperature: "
             f"CV = {exponent_cv:.3f} > {max_cv}"
         )
