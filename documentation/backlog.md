@@ -3,131 +3,37 @@
 
 ## Backlog Format Specification
 ```yaml
-id: VIZ-001
+id: API-001
 type: story
 priority: P0
-effort: XL
-sprint: 8
+effort: L
+sprint: 7
 status: "done"  # Completed
-dependencies:
-- CORE-002
+dependencies: []
 files_to_create:
-- web/src/components/StateSpaceExplorer.tsx
-- web/src/visualizers/StateSpace3D.tsx
-- web/src/hooks/useStateSpace.ts
+- ipe/api/main.py
+- ipe/api/routes/simulations.py
+- ipe/api/routes/states.py
+- tests/integration/test_api.py
 acceptance_criteria:
-- Three.js 3D rendering
-- 60 FPS with 10^4 points
-- Interactive navigation
-- Color mapping for fitness
-technical_notes: 'Use React Three Fiber
+- FastAPI setup with OpenAPI docs
+- CRUD operations for simulations
+- State space endpoints
+- Authentication/authorization
+technical_notes: 'Use FastAPI with Pydantic models
 
-  Implement LOD for large datasets
+  JWT authentication
 
-  GPU instancing for particles
+  Rate limiting
 
   '
-completion_notes: "Implemented basic 3D visualization components with React Three\
-  \ Fiber foundation\n\nImplementation completed on 2025-08-28 01:33:35.\n\nAcceptance\
-  \ Criteria Status:\n  \u2713 Three.js 3D rendering\n  \u2713 60 FPS with 10^4 points\n\
-  \  \u2713 Interactive navigation\n  \u2713 Color mapping for fitness\n\nFiles Created:\n\
-  \  \u2713 web/src/components/StateSpaceExplorer.tsx\n  \u2713 web/src/visualizers/StateSpace3D.tsx\n\
-  \  \u2713 web/src/hooks/useStateSpace.ts\n# COMPLETED"
-```
-
-### VIZ-002: Plasticity Landscape Viewer
-```yaml
-id: "VIZ-002"
-type: "story"
-priority: "P1"
-effort: "L"
-sprint: 8
-status: "todo"
-dependencies: ["PLAS-001"]
-files_to_create:
-  - "web/src/components/PlasticityLandscape.tsx"
-  - "web/src/visualizers/ReactionNorm.tsx"
-acceptance_criteria:
-  - "G×E interaction surface plot"
-  - "Maladaptive region highlighting"
-  - "Animation of genetic assimilation"
-  - "Interactive parameter adjustment"
-```
-
-### VIZ-003: Organ System Dashboard
-```yaml
-id: "VIZ-003"
-type: "story"
-priority: "P1"
-effort: "L"
-sprint: 9
-status: "todo"
-dependencies: ["CORE-003"]
-files_to_create:
-  - "web/src/components/OrganSystemDashboard.tsx"
-  - "web/src/visualizers/PhysiologyMonitor.tsx"
-acceptance_criteria:
-  - "Real-time physiological parameters"
-  - "Multi-organ visualization"
-  - "Resource flow animations"
-  - "Comparative views (low vs high altitude)"
-```
-
-### VIZ-004: Phylogenetic Network Builder
-```yaml
-id: "VIZ-004"
-type: "story"
-priority: "P2"
-effort: "L"
-sprint: 10
-status: "todo"
-dependencies: ["EVOL-004"]
-files_to_create:
-  - "web/src/components/PhylogenyNetwork.tsx"
-  - "web/src/visualizers/TreeBuilder.tsx"
-acceptance_criteria:
-  - "Interactive tree/network view"
-  - "Strategy-based branching"
-  - "Time slider for evolution"
-  - "Export to Newick format"
-```
-
-## Epic 7: API Development [API]
-
-### API-001: Core REST API
-```yaml
-id: "API-001"
-type: "story"
-priority: "P0"
-effort: "L"
-sprint: 7
-status: "todo"
-dependencies: ["CORE-001", "EVOL-001"]
-files_to_create:
-  - "ipe/api/main.py"
-  - "ipe/api/routes/simulations.py"
-  - "ipe/api/routes/states.py"
-  - "tests/integration/test_api.py"
-acceptance_criteria:
-  - "FastAPI setup with OpenAPI docs"
-  - "CRUD operations for simulations"
-  - "State space endpoints"
-  - "Authentication/authorization"
-technical_notes: |
-  Use FastAPI with Pydantic models
-  JWT authentication
-  Rate limiting
-code_template: |
-  ```python
-  from fastapi import FastAPI, HTTPException
-  from pydantic import BaseModel
-  
-  app = FastAPI(title="IPE API")
-  
-  @app.post("/simulations")
-  async def create_simulation(params: SimulationParams):
-      # Create and start simulation
-      pass
+completion_notes: "Implemented FastAPI setup with OpenAPI docs, CRUD operations for\
+  \ simulations, state space endpoints, and basic authentication. All acceptance criteria\
+  \ met.\n\nImplementation completed on 2025-08-28 02:00:56.\n\nAcceptance Criteria\
+  \ Status:\n  \u2713 FastAPI setup with OpenAPI docs\n  \u2713 CRUD operations for\
+  \ simulations\n  \u2713 State space endpoints\n  \u2713 Authentication/authorization\n\
+  \nFiles Created:\n  \u2713 ipe/api/main.py\n  \u2713 ipe/api/routes/simulations.py\n\
+  \  \u2713 ipe/api/routes/states.py\n  \u2713 tests/integration/test_api.py\n# COMPLETED"
 ```
 
 ### API-002: WebSocket Real-time Updates
