@@ -784,7 +784,7 @@ type: "story"
 priority: "P0"
 effort: "M"
 sprint: 2
-status: "todo"
+status: "done"  # Completed
 dependencies: []
 files_to_create:
   - "ipe/data/models.py"
@@ -796,6 +796,7 @@ acceptance_criteria:
   - "SQLAlchemy models"
   - "Alembic migrations"
   - "Backup strategy"
+completion_notes: "Implemented PostgreSQL database setup with TimescaleDB. Created SQLAlchemy models for organisms, simulations, environmental data, and physiological measurements. Set up Alembic migrations with initial schema. Created comprehensive db-setup.sh script with backup strategy and TimescaleDB optimization."
 ```
 
 ### INFRA-004: Monitoring & Logging
