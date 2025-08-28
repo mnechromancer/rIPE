@@ -121,9 +121,9 @@ def _create_hypertables(connection):
             result = connection.execute(
                 sa.text(
                     "SELECT * FROM timescaledb_information.hypertables "
-                    "WHERE hypertable_name = %s"
+                    "WHERE hypertable_name = :table_name"
                 ),
-                (table_name,),
+                {"table_name": table_name},
             )
 
             if result.rowcount == 0:

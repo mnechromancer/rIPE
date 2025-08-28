@@ -493,7 +493,7 @@ class TestPerformance:
                 timestamp = (base_time + timedelta(seconds=i)).strftime("%H:%M:%S")
                 vo2 = 2.5 + 0.1 * np.sin(i * 0.001)
                 vco2 = 2.0 + 0.08 * np.sin(i * 0.001)
-                f.write(f"{timestamp},{vo2:.3f},{vco2:.3f},25.0,50.0,101.3,500.0\\n")
+                f.write(f"{timestamp},{vo2:.3f},{vco2:.3f},25.0,50.0,101.3,500.0\n")
 
         # Time the import
         importer = SableSystemsImporter()
@@ -522,9 +522,7 @@ class TestPerformance:
                     timestamp = f"{i//3600:02d}:{(i % 3600)//60:02d}:{i % 60:02d}"
                     vo2 = 2.5 + 0.1 * np.random.randn()
                     vco2 = 2.0 + 0.08 * np.random.randn()
-                    f.write(
-                        f"{timestamp},{vo2:.3f},{vco2:.3f},25.0,50.0,101.3,500.0\\n"
-                    )
+                    f.write(f"{timestamp},{vo2:.3f},{vco2:.3f},25.0,50.0,101.3,500.0\n")
 
         # Time batch import
         importer = SableSystemsImporter()

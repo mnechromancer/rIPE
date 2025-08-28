@@ -1,7 +1,7 @@
 """
 Tests for State Space Management System
 
-Ensures spatial indexing, neighbor search, and dimensionality reduction 
+Ensures spatial indexing, neighbor search, and dimensionality reduction
 work as expected.
 """
 
