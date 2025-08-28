@@ -7,7 +7,10 @@ Helpers for tissue-specific allocation and validation.
 from typing import List, Dict
 import numpy as np
 
-def validate_allocation(allocation: np.ndarray, tissues: List[str], min_requirements: Dict[str, float]) -> bool:
+
+def validate_allocation(
+    allocation: np.ndarray, tissues: List[str], min_requirements: Dict[str, float]
+) -> bool:
     """
     Validate allocation vector against tissue minimums.
     Args:

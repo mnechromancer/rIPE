@@ -6,11 +6,14 @@ import pytest
 import numpy as np
 from ipe.core.games.base import GameSpecification
 
+
 class DummyGame(GameSpecification):
     def compute_payoff_matrix(self) -> np.ndarray:
         return np.array([[1, 0], [0, 1]])
+
     def validate_strategies(self, strategies):
         return True
+
 
 def test_game_specification_abstract():
     game = DummyGame(players=2, strategies=["A", "B"])
@@ -20,6 +23,7 @@ def test_game_specification_abstract():
     matrix = game.compute_payoff_matrix()
     assert isinstance(matrix, np.ndarray)
     assert matrix.shape == (2, 2)
+
 
 def test_game_serialization():
     game = DummyGame(players=2, strategies=["A", "B"])

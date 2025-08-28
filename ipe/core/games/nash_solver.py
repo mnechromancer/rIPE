@@ -7,7 +7,10 @@ Helpers for Nash equilibrium and stability analysis.
 from typing import List, Any
 import numpy as np
 
-def iterative_best_response(payoff_matrix: np.ndarray, strategies: List[str], max_iter: int = 100) -> List[Any]:
+
+def iterative_best_response(
+    payoff_matrix: np.ndarray, strategies: List[str], max_iter: int = 100
+) -> List[Any]:
     """
     Dummy iterative best response dynamics.
     Args:
@@ -19,6 +22,7 @@ def iterative_best_response(payoff_matrix: np.ndarray, strategies: List[str], ma
     """
     # Placeholder: return all strategies
     return strategies
+
 
 def stability_analysis(payoff_matrix: np.ndarray) -> bool:
     """

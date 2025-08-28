@@ -3,10 +3,12 @@ Tests for Thermodynamic Constraints Engine
 
 Ensures energy balance, heat transfer, efficiency limits, and constraint violation detection work as expected.
 """
+
 import numpy as np
 import pytest
 from ipe.core.thermodynamics.constraints import ThermodynamicConstraints
 from ipe.core.thermodynamics.energy_budget import EnergyBudget
+
 
 class TestThermodynamicConstraints:
     def test_validate_energy_balance(self):
@@ -21,6 +23,7 @@ class TestThermodynamicConstraints:
     def test_detect_constraint_violation(self):
         assert ThermodynamicConstraints.detect_constraint_violation(120.0, 100.0)
         assert not ThermodynamicConstraints.detect_constraint_violation(80.0, 100.0)
+
 
 class TestEnergyBudget:
     def test_heat_transfer(self):

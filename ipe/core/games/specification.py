@@ -13,6 +13,7 @@ class SymmetricGame(GameSpecification):
     """
     Implementation for a symmetric game.
     """
+
     def compute_payoff_matrix(self) -> np.ndarray:
         """
         Compute a symmetric payoff matrix (example: identity matrix).
@@ -39,10 +40,12 @@ class SymmetricGame(GameSpecification):
         # Additional constraints can be checked here
         return True
 
+
 class AsymmetricGame(GameSpecification):
     """
     Implementation for an asymmetric game.
     """
+
     def compute_payoff_matrix(self) -> np.ndarray:
         """
         Compute an asymmetric payoff matrix (example: random values).

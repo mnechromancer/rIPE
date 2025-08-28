@@ -3,11 +3,13 @@ Tests for State Space Management System
 
 Ensures spatial indexing, neighbor search, and dimensionality reduction work as expected.
 """
+
 import numpy as np
 import pytest
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.core.state.space import StateSpace
 from ipe.core.state.indexing import pca_reduce
+
 
 class TestStateSpace:
     def test_add_and_find_neighbors(self):
@@ -21,7 +23,7 @@ class TestStateSpace:
         assert s2 in neighbors
 
     def test_pca_reduce(self):
-        arr = np.array([[1,2,3],[4,5,6],[7,8,9]])
+        arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         reduced = pca_reduce(arr, n_components=2)
         assert reduced.shape[1] == 2
 

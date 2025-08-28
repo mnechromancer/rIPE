@@ -3,16 +3,18 @@ Tests for Metabolic Calculator Module
 
 Ensures BMR, VO2max, thermal performance, and aerobic scope calculations are correct.
 """
+
 import numpy as np
 import pytest
 from ipe.core.physiology.state import PhysiologicalState
 from ipe.core.physiology.metabolism import MetabolicCalculator
 from ipe.core.physiology.allometry import kleiber_bmr
 
+
 class TestMetabolicCalculator:
     def test_bmr(self):
         bmr = kleiber_bmr(50.0)
-        assert np.isclose(bmr, 3.4 * (50.0 ** 0.75))
+        assert np.isclose(bmr, 3.4 * (50.0**0.75))
 
     def test_vo2max(self):
         state = PhysiologicalState(po2=15.0, temperature=37.0, altitude=0.0)

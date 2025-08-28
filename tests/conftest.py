@@ -34,9 +34,9 @@ def sample_phenotype_data():
                 "heart": 0.005,
                 "liver": 0.03,
                 "kidney": 0.008,
-                "brain": 0.02
-            }
-        }
+                "brain": 0.02,
+            },
+        },
     }
 
 
@@ -47,7 +47,7 @@ def sample_environmental_data():
         "temperature": np.array([5, 10, 15, 20, 25]),  # °C
         "oxygen": np.array([21, 18, 15, 12, 9]),  # % O2
         "altitude": np.array([0, 1000, 2000, 3000, 4000]),  # m
-        "pressure": np.array([101.3, 89.9, 79.5, 69.7, 61.7])  # kPa
+        "pressure": np.array([101.3, 89.9, 79.5, 69.7, 61.7]),  # kPa
     }
 
 
@@ -57,18 +57,15 @@ def sample_genomic_data():
     return {
         "gene_expression": {
             "HIF1A": 2.5,  # Hypoxia-inducible factor
-            "EPO": 3.2,    # Erythropoietin
-            "VEGF": 1.8,   # Vascular endothelial growth factor
-            "EPAS1": 2.1   # Endothelial PAS domain protein 1
+            "EPO": 3.2,  # Erythropoietin
+            "VEGF": 1.8,  # Vascular endothelial growth factor
+            "EPAS1": 2.1,  # Endothelial PAS domain protein 1
         },
         "variants": [
             {"gene": "EPAS1", "position": 12345, "effect": "missense"},
-            {"gene": "EGLN1", "position": 67890, "effect": "synonymous"}
+            {"gene": "EGLN1", "position": 67890, "effect": "synonymous"},
         ],
-        "allele_frequencies": {
-            "EPAS1_variant": 0.85,
-            "EGLN1_variant": 0.12
-        }
+        "allele_frequencies": {"EPAS1_variant": 0.85, "EGLN1_variant": 0.12},
     }
 
 
@@ -76,18 +73,9 @@ def sample_genomic_data():
 def performance_benchmarks():
     """Define performance benchmarks for testing."""
     return {
-        "simulation_runtime": {
-            "max_seconds": 30.0,
-            "target_seconds": 10.0
-        },
-        "memory_usage": {
-            "max_mb": 500,
-            "target_mb": 200
-        },
-        "convergence": {
-            "max_iterations": 1000,
-            "tolerance": 1e-6
-        }
+        "simulation_runtime": {"max_seconds": 30.0, "target_seconds": 10.0},
+        "memory_usage": {"max_mb": 500, "target_mb": 200},
+        "convergence": {"max_iterations": 1000, "tolerance": 1e-6},
     }
 
 
@@ -102,32 +90,24 @@ def mock_api_responses():
             "results": {
                 "fitness": 0.85,
                 "traits": {"body_size": 0.16, "organ_mass": 0.025},
-                "generations": 500
-            }
+                "generations": 500,
+            },
         },
         "error_response": {
             "error": "Invalid parameters",
             "code": 400,
-            "details": "Temperature must be between -20 and 50°C"
-        }
+            "details": "Temperature must be between -20 and 50°C",
+        },
     }
 
 
 # Configure pytest settings
 def pytest_configure(config):
     """Configure pytest with custom markers and settings."""
-    config.addinivalue_line(
-        "markers", "slow: mark test as slow-running"
-    )
-    config.addinivalue_line(
-        "markers", "integration: mark test as integration test"
-    )
-    config.addinivalue_line(
-        "markers", "benchmark: mark test as performance benchmark"
-    )
-    config.addinivalue_line(
-        "markers", "validation: mark test as scientific validation"
-    )
+    config.addinivalue_line("markers", "slow: mark test as slow-running")
+    config.addinivalue_line("markers", "integration: mark test as integration test")
+    config.addinivalue_line("markers", "benchmark: mark test as performance benchmark")
+    config.addinivalue_line("markers", "validation: mark test as scientific validation")
 
 
 # Test collection customization
@@ -137,11 +117,14 @@ def pytest_collection_modifyitems(config, items):
         # Mark integration tests
         if "integration" in str(item.fspath):
             item.add_marker(pytest.mark.integration)
-        
+
         # Mark validation tests
         if "validation" in str(item.fspath):
             item.add_marker(pytest.mark.validation)
-        
+
         # Mark slow tests based on name patterns
-        if any(keyword in item.name.lower() for keyword in ["benchmark", "performance", "stress"]):
+        if any(
+            keyword in item.name.lower()
+            for keyword in ["benchmark", "performance", "stress"]
+        ):
             item.add_marker(pytest.mark.slow)

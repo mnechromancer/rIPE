@@ -7,8 +7,10 @@ import numpy as np
 from ipe.core.games.hypoxia_game import HypoxiaAllocationGame
 from ipe.core.games.tissue_allocation import validate_allocation
 
+
 class DummyEnv:
     PO2 = 0.8
+
 
 def test_valid_allocation():
     game = HypoxiaAllocationGame(players=1, strategies=["alloc"], constraints=None)
@@ -17,6 +19,7 @@ def test_valid_allocation():
     assert validate_allocation(allocation, game.tissues, game.min_requirements)
     fitness = game.compute_payoff(allocation, env)
     assert fitness > 0
+
 
 def test_invalid_allocation_sum():
     game = HypoxiaAllocationGame(players=1, strategies=["alloc"], constraints=None)

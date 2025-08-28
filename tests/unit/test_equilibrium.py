@@ -7,6 +7,7 @@ import numpy as np
 from ipe.core.games.equilibrium import EquilibriumSolver
 from ipe.core.games.nash_solver import iterative_best_response, stability_analysis
 
+
 def test_nash_equilibrium():
     game = EquilibriumSolver(players=2, strategies=["A", "B"], constraints=None)
     game.compute_payoff_matrix()

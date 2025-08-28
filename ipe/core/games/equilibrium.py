@@ -8,8 +8,11 @@ from ipe.core.games.base import GameSpecification
 from typing import Any, List, Dict
 import numpy as np
 
+
 class EquilibriumSolver(GameSpecification):
-    def __init__(self, players: int, strategies: List[str], constraints: Dict[str, Any] = None):
+    def __init__(
+        self, players: int, strategies: List[str], constraints: Dict[str, Any] = None
+    ):
         super().__init__(players, strategies, constraints)
         self.payoff_matrix = None
 
@@ -22,7 +25,11 @@ class EquilibriumSolver(GameSpecification):
         if self.payoff_matrix is None:
             self.payoff_matrix = np.eye(len(self.strategies))
         # Placeholder: return diagonal strategies
-        return [self.strategies[i] for i in range(len(self.strategies)) if self.payoff_matrix[i, i] == np.max(self.payoff_matrix[i])]
+        return [
+            self.strategies[i]
+            for i in range(len(self.strategies))
+            if self.payoff_matrix[i, i] == np.max(self.payoff_matrix[i])
+        ]
 
     def detect_ess(self) -> List[str]:
         """
@@ -44,7 +51,9 @@ class EquilibriumSolver(GameSpecification):
             self.payoff_matrix = np.eye(len(self.strategies))
         idx_res = self.strategies.index(resident)
         idx_inv = self.strategies.index(invader)
-        return float(self.payoff_matrix[idx_inv, idx_inv] - self.payoff_matrix[idx_res, idx_res])
+        return float(
+            self.payoff_matrix[idx_inv, idx_inv] - self.payoff_matrix[idx_res, idx_res]
+        )
 
     def compute_payoff_matrix(self) -> np.ndarray:
         """

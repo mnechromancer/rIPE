@@ -15,12 +15,18 @@ class GameSpecification(ABC):
     Abstract base class for game specifications.
     Supports symmetric and asymmetric games.
     """
+
     players: int
     strategies: List[str]
     constraints: Dict[str, Any]
     payoff_matrix: Optional[np.ndarray]
 
-    def __init__(self, players: int, strategies: List[str], constraints: Optional[Dict[str, Any]] = None) -> None:
+    def __init__(
+        self,
+        players: int,
+        strategies: List[str],
+        constraints: Optional[Dict[str, Any]] = None,
+    ) -> None:
         """
         Initialize a game specification.
         Args:
@@ -63,7 +69,9 @@ class GameSpecification(ABC):
             "players": self.players,
             "strategies": self.strategies,
             "constraints": self.constraints,
-            "payoff_matrix": self.payoff_matrix.tolist() if self.payoff_matrix is not None else None
+            "payoff_matrix": (
+                self.payoff_matrix.tolist() if self.payoff_matrix is not None else None
+            ),
         }
         return json.dumps(data)
 
@@ -80,7 +88,7 @@ class GameSpecification(ABC):
                 "players": {"type": "integer"},
                 "strategies": {"type": "array", "items": {"type": "string"}},
                 "constraints": {"type": "object"},
-                "payoff_matrix": {"type": "array"}
+                "payoff_matrix": {"type": "array"},
             },
-            "required": ["players", "strategies"]
+            "required": ["players", "strategies"],
         }

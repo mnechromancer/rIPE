@@ -24,8 +24,8 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 # Set the sqlalchemy.url from environment if available
-if os.environ.get('DATABASE_URL'):
-    config.set_main_option('sqlalchemy.url', os.environ['DATABASE_URL'])
+if os.environ.get("DATABASE_URL"):
+    config.set_main_option("sqlalchemy.url", os.environ["DATABASE_URL"])
 
 # add your model's MetaData object here for 'autogenerate' support
 target_metadata = Base.metadata
@@ -43,7 +43,7 @@ def include_object(object, name, type_, reflected, compare_to):
     # Skip alembic version table
     if type_ == "table" and name == "alembic_version":
         return False
-    
+
     # Include all other objects
     return True
 
@@ -96,30 +96,30 @@ def run_migrations_online() -> None:
         with context.begin_transaction():
             # Enable TimescaleDB extension if not already enabled
             connection.execute("CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;")
-            
+
             # Run the standard migrations
             context.run_migrations()
-            
+
             # Create hypertables for time-series data
             _create_hypertables(connection)
 
 
 def _create_hypertables(connection):
     """Create TimescaleDB hypertables for time-series data."""
-    logger = logging.getLogger('alembic.env')
-    
+    logger = logging.getLogger("alembic.env")
+
     for config in HYPERTABLE_CONFIGS:
-        table_name = config['table']
-        time_column = config['time_column']
-        chunk_interval = config['chunk_time_interval']
-        
+        table_name = config["table"]
+        time_column = config["time_column"]
+        chunk_interval = config["chunk_time_interval"]
+
         try:
             # Check if hypertable already exists
             result = connection.execute(
                 "SELECT * FROM timescaledb_information.hypertables WHERE hypertable_name = %s",
-                (table_name,)
+                (table_name,),
             )
-            
+
             if result.rowcount == 0:
                 # Create hypertable
                 logger.info(f"Creating hypertable for {table_name}")
@@ -127,7 +127,7 @@ def _create_hypertables(connection):
                     f"SELECT create_hypertable('{table_name}', '{time_column}', "
                     f"chunk_time_interval => INTERVAL '{chunk_interval}');"
                 )
-                
+
                 # Add compression policy (compress data older than 7 days)
                 connection.execute(
                     f"ALTER TABLE {table_name} SET (timescaledb.compress = true);"
@@ -135,11 +135,11 @@ def _create_hypertables(connection):
                 connection.execute(
                     f"SELECT add_compression_policy('{table_name}', INTERVAL '7 days');"
                 )
-                
+
                 logger.info(f"Successfully created hypertable for {table_name}")
             else:
                 logger.info(f"Hypertable {table_name} already exists")
-                
+
         except Exception as e:
             logger.warning(f"Failed to create hypertable for {table_name}: {e}")
 

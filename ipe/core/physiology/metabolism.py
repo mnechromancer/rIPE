@@ -3,6 +3,7 @@ Metabolic Calculator Module
 
 Implements BMR, VO2max, thermal performance, and aerobic scope calculations.
 """
+
 from typing import Optional
 import numpy as np
 from ipe.core.physiology.state import PhysiologicalState
@@ -10,10 +11,12 @@ from ipe.core.physiology.allometry import kleiber_bmr
 
 Q10 = 2.0  # Default Q10 coefficient
 
+
 class MetabolicCalculator:
     """
     Provides metabolic calculations for physiological states.
     """
+
     @staticmethod
     def bmr(state: PhysiologicalState, body_mass: float) -> float:
         """Calculate BMR using Kleiber's law (W)"""
@@ -23,7 +26,7 @@ class MetabolicCalculator:
     def vo2max(state: PhysiologicalState, body_mass: float) -> float:
         """Estimate VO2max from physiological parameters (mL O2/min)"""
         # Example formula: cardiac_output * (arterial O2 - venous O2)
-        return state.cardiac_output * (state.hemoglobin * 1.34 * state.hematocrit/100)
+        return state.cardiac_output * (state.hemoglobin * 1.34 * state.hematocrit / 100)
 
     @staticmethod
     def thermal_performance(state: PhysiologicalState, t_ref: float = 37.0) -> float:

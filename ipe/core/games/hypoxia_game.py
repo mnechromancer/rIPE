@@ -10,12 +10,12 @@ import numpy as np
 
 
 class HypoxiaAllocationGame(GameSpecification):
-    tissues: List[str] = ['brain', 'heart', 'muscle', 'brown_fat']
+    tissues: List[str] = ["brain", "heart", "muscle", "brown_fat"]
     min_requirements: Dict[str, float] = {
-        'brain': 0.2,
-        'heart': 0.2,
-        'muscle': 0.1,
-        'brown_fat': 0.05
+        "brain": 0.2,
+        "heart": 0.2,
+        "muscle": 0.1,
+        "brown_fat": 0.05,
     }
 
     def compute_payoff(self, allocation: np.ndarray, environment: Any) -> float:
@@ -33,7 +33,11 @@ class HypoxiaAllocationGame(GameSpecification):
             if allocation[i] < self.min_requirements[tissue]:
                 return 0.0  # Fails minimum requirement
         # Example: fitness is sum of allocation * PO2
-        po2 = environment.get('PO2', 1.0) if isinstance(environment, dict) else getattr(environment, 'PO2', 1.0)
+        po2 = (
+            environment.get("PO2", 1.0)
+            if isinstance(environment, dict)
+            else getattr(environment, "PO2", 1.0)
+        )
         tissue_perf = allocation * po2
         return float(np.sum(tissue_perf))
 

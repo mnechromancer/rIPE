@@ -8,4 +8,4 @@ from various equipment manufacturers.
 from .sable_import import SableSystemsImporter
 from .parser import RespirometryParser
 
-__all__ = ['SableSystemsImporter', 'RespirometryParser']
+__all__ = ["SableSystemsImporter", "RespirometryParser"]

@@ -3,15 +3,20 @@ Thermodynamic Constraints Engine
 
 Implements energy balance validation, efficiency limits, and constraint violation detection.
 """
+
 from typing import Dict
 import numpy as np
+
 
 class ThermodynamicConstraints:
     """
     Validates energy balance and thermodynamic constraints.
     """
+
     @staticmethod
-    def validate_energy_balance(inputs: Dict[str, float], outputs: Dict[str, float]) -> bool:
+    def validate_energy_balance(
+        inputs: Dict[str, float], outputs: Dict[str, float]
+    ) -> bool:
         """Check if energy input equals output within tolerance."""
         tolerance = 1e-3
         in_sum = sum(inputs.values())
