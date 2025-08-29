@@ -1,541 +1,226 @@
-# IPE Engine Development Lifecycle Framework
-**Version 1.0 - Software Development Process & Engineering Workflow**
+# RIPE - Interactionist Phylogeny Engine
 
-## Executive Summary
+[![License: Public Domain](https://img.shields.io/badge/License-Public%20Domain-blue.svg)](https://unlicense.org/)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=flat&logo=docker&logoColor=white)](https://www.docker.com/)
 
-This document defines the software development lifecycle (SDLC) for building the Interactionist Phylogeny Engine. It establishes development methodology, technical workflows, quality assurance processes, and deployment strategies for creating a robust, maintainable, and scalable scientific computing platform.
+> A computational platform for simulating evolutionary processes in physiological state spaces with environmental interactions.
 
-## Development Methodology
+**RIPE** (Repository for **I**nteractionist **P**hylogeny **E**ngine) enables researchers to predict evolutionary responses to environmental challenges like high-altitude adaptation, temperature stress, and rapid environmental change by modeling evolution as navigation through physiologically-explicit trait spaces.
 
-### Agile-Scientific Hybrid Approach
-**Core Framework**: Scrum with research-oriented adaptations
-- **Sprint Length**: 3 weeks (aligns with lab meeting cycles)
-- **Research Spikes**: Dedicated exploration time for novel algorithms
-- **Validation Gates**: Scientific correctness checkpoints
-- **Publication Cycles**: Feature freezes for paper submissions
+## Table of Contents
 
-### Team Structure
+- [🔬 What is IPE?](#-what-is-ipe)
+- [🚀 Quick Start](#-quick-start)
+- [📖 Documentation](#-documentation)
+- [🔬 Key Features](#-key-features)
+- [💻 Technology Stack](#-technology-stack)
+- [🏗️ Architecture](#️-architecture)
+- [📊 Example Use Cases](#-example-use-cases)
+- [🤝 Contributing](#-contributing)
+- [📧 Support](#-support)
+
+## 🔬 What is IPE?
+
+The Interactionist Phylogeny Engine treats evolution as a strategic game played in multi-dimensional physiological state space. Unlike traditional phylogenetic reconstruction, IPE **predicts** evolutionary trajectories by computing equilibria between organisms and their environments.
+
+**Key capabilities:**
+- **Physiological Evolution**: Model heart mass, hematocrit, lung capacity, metabolic rate, and other traits
+- **Environmental Interactions**: Simulate responses to altitude, temperature, oxygen availability, and salinity
+- **Plasticity Evolution**: Track adaptive and maladaptive phenotypic plasticity
+- **Game-Theoretic Modeling**: Strategic interactions between organisms and environments
+- **High-Altitude Specialization**: Purpose-built for altitude adaptation research
+
+## 🚀 Quick Start
+
+### Prerequisites
+- **Docker** and **Docker Compose** (recommended)
+- **Python 3.9+** (for development)
+- **8GB+ RAM** (16GB+ recommended for large simulations)
+
+### Installation
+
+#### Option 1: Docker (Recommended)
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/mnechromancer/RIPE.git
+   cd RIPE
+   ```
+
+2. **Start all services**
+   ```bash
+   docker-compose up -d
+   ```
+
+3. **Verify installation**
+   - API: http://localhost:8000/docs
+   - Web Interface: http://localhost:3000 (if enabled)
+   - Health Check: http://localhost:8000/health
+
+#### Option 2: Local Development Setup
+
+1. **Clone and install dependencies**
+   ```bash
+   git clone https://github.com/mnechromancer/RIPE.git
+   cd RIPE
+   pip install -r requirements.txt
+   ```
+
+2. **Test the installation**
+   ```bash
+   python demo_core_001.py
+   ```
+
+3. **Start development services** (requires Docker for database)
+   ```bash
+   docker-compose up db redis -d  # Start database and cache
+   python -m ipe.api.server      # Start API server
+   ```
+
+### Your First Simulation
+
+#### Using Python API
+```python
+from ipe.simulation import AltitudeAdaptationSimulation
+
+# Create a high-altitude adaptation simulation
+sim = AltitudeAdaptationSimulation(
+    population_size=1000,
+    generations=500,
+    altitude_range=(0, 4000),  # Sea level to 4000m
+    selection_strength=0.1
+)
+
+# Run simulation
+results = sim.run()
+
+# Analyze results
+print(f"Final mean heart mass: {results.final_heart_mass:.2f}g")
+print(f"Final mean hematocrit: {results.final_hematocrit:.1f}%")
 ```
-Principal Investigator (Product Owner)
-    ├── Technical Lead (Scrum Master)
-    ├── Core Development Team
-    │   ├── Backend Engineers (2-3)
-    │   ├── Frontend Developer (1-2)
-    │   ├── Scientific Programmer (1-2)
-    │   └── Data Engineer (1)
-    ├── Science Team
-    │   ├── Postdocs (Algorithm Design)
-    │   ├── PhD Students (Feature Testing)
-    │   └── Undergrads (Data Preparation)
-    └── DevOps/Infrastructure (1)
+
+#### Using the Web Interface
+1. Navigate to http://localhost:3000
+2. Click "New Simulation" 
+3. Select "Altitude Adaptation" template
+4. Configure parameters and click "Start"
+5. Monitor progress in real-time
+
+#### Using the REST API
+```bash
+# Create simulation
+curl -X POST "http://localhost:8000/api/v1/simulations" \
+     -H "Content-Type: application/json" \
+     -d '{
+       "type": "altitude_adaptation",
+       "population_size": 1000,
+       "generations": 500,
+       "parameters": {"altitude_range": [0, 4000]}
+     }'
 ```
 
-## Phase 1: Planning & Architecture
+For more examples, see the [Complete Getting Started Guide](docs/user/getting-started.md).
 
-### 1.1 Requirements Engineering
-**Stakeholder Analysis**
-- Research scientists (primary users)
-- Collaborating labs (extended users)
-- Students (educational users)
-- IT department (infrastructure)
+## 📖 Documentation
 
-**Requirement Gathering Process**
-```mermaid
-graph LR
-    A[User Stories] --> B[Scientific Use Cases]
-    B --> C[Technical Requirements]
-    C --> D[Architecture Decisions]
-    D --> E[Development Backlog]
-```
+### For Users
+- **[Getting Started Guide](docs/user/getting-started.md)** - Complete installation and setup
+- **[Tutorials](docs/user/tutorials/)** - Step-by-step examples for common use cases
+  - [Altitude Adaptation Simulation](docs/user/tutorials/altitude-adaptation.md)
+- **[FAQ](docs/user/faq.md)** - Common questions and troubleshooting
 
-**Requirement Categories**
-- **Functional**: Simulation capabilities, analysis tools
-- **Scientific**: Accuracy requirements, validation needs
-- **Performance**: Speed, scalability, memory limits
-- **Usability**: Interface design, workflow efficiency
-- **Integration**: Data formats, external tools
+### For Developers  
+- **[API Reference](docs/api/README.md)** - REST API documentation
+- **[Architecture Guide](docs/developer/architecture.md)** - System design and components
+- **[Development Lifecycle](docs/developer/development-lifecycle.md)** - Development process and workflows
 
-### 1.2 System Architecture Design
-**Architecture Decision Records (ADRs)**
-- ADR-001: Python for scientific computing (NumPy ecosystem)
-- ADR-002: React for interactive visualizations
-- ADR-003: PostgreSQL for time-series physiological data
-- ADR-004: Microservices for simulation distribution
-- ADR-005: Three.js for 3D state space visualization
+### For Scientists
+- **[Scientific Algorithms](docs/science/algorithms.md)** - Mathematical foundations
+- **[Validation Methods](docs/science/validation.md)** - How IPE ensures accuracy
+- **[Publications Guide](docs/science/publications.md)** - How to cite IPE in your research
 
-**Component Architecture**
+### Operations
+- **[Deployment Guide](docs/operations/deployment.md)** - Production deployment
+- **[Monitoring Setup](docs/operations/monitoring.md)** - System monitoring and alerts
+
+## 🔬 Key Features
+
+### Physiological State Modeling
+- **Multi-organ systems**: Heart, lungs, blood, muscle, kidneys
+- **Environmental gradients**: Altitude, temperature, oxygen, salinity
+- **Performance metrics**: Aerobic scope, thermal tolerance, locomotor capacity
+
+### Evolutionary Mechanisms
+- **Natural selection** with physiological constraints
+- **Phenotypic plasticity** (adaptive and maladaptive responses)
+- **Genetic drift** and population effects
+- **Migration** between environments
+- **Rapid evolution** scenarios
+
+### Research Applications
+- **High-altitude adaptation** in small mammals
+- **Climate change responses** across species
+- **Physiological trade-offs** and constraints
+- **Reaction norm evolution** and plasticity costs
+- **Contemporary evolution** in changing environments
+
+## 💻 Technology Stack
+
+- **Backend**: Python 3.9+, FastAPI, NumPy, SciPy
+- **Database**: PostgreSQL with TimescaleDB extension
+- **Cache**: Redis
+- **Frontend**: React, TypeScript, Three.js (for 3D visualizations)
+- **Deployment**: Docker, Docker Compose
+- **Monitoring**: Prometheus, Grafana
+
+## 🏗️ Architecture
+
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                   Frontend (React/TypeScript)           │
+│              Web Interface (React/TypeScript)           │
 ├─────────────────────────────────────────────────────────┤
 │                   API Gateway (FastAPI)                 │
 ├──────────────┬──────────────┬──────────────┬──────────┤
 │  Simulation  │   Analysis   │     Data     │   Lab    │
-│   Service    │   Service    │   Service    │  Integration│
+│   Engine     │   Service    │   Pipeline   │Integration│
 ├──────────────┴──────────────┴──────────────┴──────────┤
-│                  Message Queue (RabbitMQ)              │
-├─────────────────────────────────────────────────────────┤
-│                  Data Layer (PostgreSQL + Redis)        │
+│              Database (PostgreSQL + Redis)             │
 └─────────────────────────────────────────────────────────┘
 ```
 
-### 1.3 Technology Evaluation
-**Proof of Concepts (PoCs)**
-- Week 1-2: 3D visualization performance test
-- Week 3-4: Parallel simulation benchmarks
-- Week 5-6: Real-time data streaming
-- Week 7-8: Integration with lab equipment
+## 📊 Example Use Cases
 
-**Technology Selection Criteria**
-- Scientific computing ecosystem maturity
-- Performance benchmarks
-- Community support
-- Long-term maintainability
-- License compatibility
+1. **Predict cardiac adaptation** to high altitude in deer mice
+2. **Model thermoregulatory evolution** across temperature gradients  
+3. **Simulate rapid adaptation** to environmental change
+4. **Explore plasticity evolution** and its costs
+5. **Generate testable predictions** for field/lab experiments
 
-## Phase 2: Development Process
+## 🤝 Contributing
 
-### 2.1 Sprint Workflow
-**Sprint Structure**
-```
-Week 1: Planning & Design
-├── Sprint Planning (Monday AM)
-├── Technical Design (Monday PM - Tuesday)
-├── Design Review (Wednesday)
-└── Implementation Start (Thursday)
+We welcome contributions from the scientific computing and evolutionary biology communities!
 
-Week 2: Core Development
-├── Daily Standups (15 min)
-├── Pair Programming Sessions
-├── Code Reviews (ongoing)
-└── Integration Testing (Friday)
+- **Report Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Request Features**: Use issue templates for new functionality
+- **Submit Code**: Follow our [development guidelines](docs/developer/development-lifecycle.md)
+- **Scientific Validation**: Help validate algorithms against empirical data
 
-Week 3: Testing & Refinement
-├── Scientific Validation (Monday-Tuesday)
-├── Performance Testing (Wednesday)
-├── Bug Fixes (Thursday)
-└── Sprint Review & Retro (Friday)
-```
+## 📜 License
 
-### 2.2 Development Workflow
-**Git Branch Strategy**
-```
-main
-├── develop
-│   ├── feature/hypoxia-game
-│   ├── feature/plasticity-viz
-│   └── feature/rnaseq-import
-├── release/v1.1
-└── hotfix/critical-bug
-```
+This project is released into the public domain under [The Unlicense](LICENSE). You are free to use, modify, and distribute this software without restriction.
 
-**Commit Standards**
-```bash
-# Format: <type>(<scope>): <subject>
-feat(simulation): add genetic assimilation algorithm
-fix(viz): correct 3D rotation in state space
-perf(calc): optimize fitness calculation with numba
-docs(api): update REST endpoint documentation
-test(plasticity): add maladaptive response tests
-refactor(games): extract common game logic
-```
+## 🙏 Acknowledgments
 
-### 2.3 Code Quality Standards
-**Python Standards**
-```python
-# Style Guide: PEP 8 + Black formatter
-# Type Hints: Required for all public APIs
-# Docstrings: NumPy style
+Developed for the **Velotta Lab** and the broader evolutionary physiology research community. Special thanks to contributors, collaborators, and the open-source scientific computing ecosystem.
 
-def calculate_fitness(
-    phenotype: np.ndarray,
-    environment: PhysiologicalState,
-    weights: Optional[Dict[str, float]] = None
-) -> float:
-    """
-    Calculate organism fitness in given environment.
-    
-    Parameters
-    ----------
-    phenotype : np.ndarray
-        Phenotypic trait values
-    environment : PhysiologicalState
-        Environmental conditions
-    weights : Dict[str, float], optional
-        Trait importance weights
-        
-    Returns
-    -------
-    float
-        Fitness value (0-1 scale)
-    """
-```
+## 📧 Support
 
-**TypeScript/React Standards**
-```typescript
-// Style: ESLint + Prettier
-// Types: Strict mode enabled
-// Components: Functional with hooks
+- **Documentation**: [Complete User Guide](docs/user/getting-started.md)
+- **API Docs**: [Interactive API Documentation](docs/api/README.md) (also at `/docs` when running)
+- **Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Scientific Questions**: See our [FAQ](docs/user/faq.md) and [Publications Guide](docs/science/publications.md)
 
-interface SimulationProps {
-  initialState: PhysiologicalState;
-  generations: number;
-  onComplete: (results: SimulationResults) => void;
-}
+---
 
-export const SimulationRunner: React.FC<SimulationProps> = ({
-  initialState,
-  generations,
-  onComplete
-}) => {
-  // Component implementation
-};
-```
-
-## Phase 3: Testing Strategy
-
-### 3.1 Testing Pyramid
-```
-        /\
-       /  \    E2E Tests (10%)
-      /    \   - Full workflow validation
-     /──────\  - Multi-user scenarios
-    /        \ 
-   /          \  Integration Tests (30%)
-  /            \ - Service communication
- /              \- Database operations
-/────────────────\
-                  Unit Tests (60%)
-                  - Algorithm correctness
-                  - Component behavior
-                  - Utility functions
-```
-
-### 3.2 Scientific Validation Testing
-**Validation Framework**
-```python
-class ScientificValidation:
-    """Ensure biological/physical accuracy"""
-    
-    def test_thermodynamic_constraints(self):
-        """Energy balance must be maintained"""
-        
-    def test_allometric_scaling(self):
-        """Scaling relationships must hold"""
-        
-    def test_known_adaptations(self):
-        """Reproduce documented evolutionary outcomes"""
-        
-    def test_parameter_sensitivity(self):
-        """Results robust to parameter variation"""
-```
-
-### 3.3 Performance Testing
-**Benchmark Suite**
-- State space operations (< 100ms for 10⁶ states)
-- Simulation speed (1000 generations/minute)
-- Memory usage (< 4GB for typical simulation)
-- Concurrent users (support 20 simultaneous)
-- Data import (process 1GB RNA-seq in < 5 min)
-
-**Load Testing Scenarios**
-```yaml
-scenarios:
-  - name: "Single Large Simulation"
-    users: 1
-    population: 10000
-    generations: 1000
-    
-  - name: "Multiple Small Simulations"
-    users: 20
-    population: 100
-    generations: 100
-    
-  - name: "Data Processing Pipeline"
-    files: 50
-    size_per_file: "100MB"
-    processing: "parallel"
-```
-
-## Phase 4: Continuous Integration/Deployment
-
-### 4.1 CI Pipeline
-```yaml
-name: CI Pipeline
-on: [push, pull_request]
-
-jobs:
-  lint:
-    - Python: flake8, mypy, black --check
-    - TypeScript: eslint, prettier --check
-    
-  test:
-    - Unit tests with coverage (> 80%)
-    - Integration tests
-    - Scientific validation tests
-    
-  build:
-    - Docker images
-    - Frontend bundle
-    - Documentation
-    
-  deploy:
-    - Development (automatic on develop)
-    - Staging (automatic on release/*)
-    - Production (manual approval)
-```
-
-### 4.2 Deployment Strategy
-**Environment Progression**
-```
-Local Development
-    ↓ (commit)
-Development Server (dev.ipe.velottalab.com)
-    ↓ (test)
-Staging Server (staging.ipe.velottalab.com)
-    ↓ (validate)
-Production (ipe.velottalab.com)
-```
-
-**Deployment Checklist**
-- [ ] All tests passing
-- [ ] Scientific validation complete
-- [ ] Performance benchmarks met
-- [ ] Documentation updated
-- [ ] Database migrations tested
-- [ ] Rollback plan prepared
-- [ ] User communication sent
-
-### 4.3 Infrastructure as Code
-```terraform
-# Infrastructure definition
-resource "aws_ecs_cluster" "ipe_cluster" {
-  name = "ipe-simulation-cluster"
-}
-
-resource "aws_rds_instance" "ipe_database" {
-  engine         = "postgres"
-  engine_version = "14.7"
-  instance_class = "db.r5.xlarge"
-  
-  backup_retention_period = 30
-  backup_window          = "03:00-04:00"
-}
-```
-
-## Phase 5: Release Management
-
-### 5.1 Versioning Strategy
-**Semantic Versioning + Research Context**
-```
-v[MAJOR].[MINOR].[PATCH]-[PAPER]
-
-v2.3.1        - Standard release
-v2.3.1-pmde   - Peromyscus maniculatus deer mouse paper
-v2.4.0-beta   - Beta release for testing
-```
-
-### 5.2 Release Process
-**Release Checklist**
-```markdown
-## Release v1.1.0 Checklist
-
-### Code Complete
-- [ ] Feature freeze declared
-- [ ] All PRs merged
-- [ ] No critical bugs
-
-### Testing
-- [ ] Full regression suite passed
-- [ ] Performance benchmarks met
-- [ ] User acceptance testing complete
-
-### Documentation
-- [ ] CHANGELOG updated
-- [ ] API documentation current
-- [ ] User guide updated
-- [ ] Migration guide (if needed)
-
-### Science
-- [ ] Validation against known results
-- [ ] Collaborator review
-- [ ] Publication alignment checked
-
-### Deployment
-- [ ] Database migrations prepared
-- [ ] Infrastructure scaled
-- [ ] Monitoring alerts configured
-- [ ] Rollback tested
-```
-
-## Phase 6: Maintenance & Support
-
-### 6.1 Issue Management
-**Issue Workflow**
-```
-Bug Report / Feature Request
-    ↓ (triage)
-Backlog → Sprint Planning → In Progress → Review → Done
-```
-
-**Priority Matrix**
-| Impact | Urgency | Priority | Response Time |
-|--------|---------|----------|---------------|
-| High   | High    | P0       | < 4 hours     |
-| High   | Low     | P1       | < 24 hours    |
-| Low    | High    | P2       | < 1 week      |
-| Low    | Low     | P3       | Next sprint   |
-
-### 6.2 Monitoring & Observability
-**Monitoring Stack**
-```
-Application Metrics → Prometheus → Grafana
-    ↓
-Alerts → PagerDuty → On-call Developer
-    ↓
-Logs → ELK Stack → Debugging
-```
-
-**Key Metrics**
-- System: CPU, memory, disk I/O
-- Application: Request latency, error rate
-- Science: Simulation completion rate, accuracy
-- Business: Active users, feature usage
-
-### 6.3 Documentation Maintenance
-**Documentation Types**
-```
-docs/
-├── user/
-│   ├── getting-started.md
-│   ├── tutorials/
-│   └── faq.md
-├── developer/
-│   ├── architecture.md
-│   ├── api-reference/
-│   └── contributing.md
-├── science/
-│   ├── algorithms.md
-│   ├── validation.md
-│   └── publications.md
-└── operations/
-    ├── deployment.md
-    ├── monitoring.md
-    └── troubleshooting.md
-```
-
-## Phase 7: Quality Assurance
-
-### 7.1 Code Review Process
-**Review Checklist**
-- [ ] Functionality: Does it work as intended?
-- [ ] Science: Is it biologically/physically accurate?
-- [ ] Performance: No regression in speed/memory?
-- [ ] Testing: Adequate test coverage?
-- [ ] Documentation: Code and API documented?
-- [ ] Security: No vulnerabilities introduced?
-
-### 7.2 Security Practices
-**Security Measures**
-- Dependency scanning (Snyk/Dependabot)
-- Container scanning
-- Secrets management (HashiCorp Vault)
-- Data encryption at rest and in transit
-- Regular security audits
-- OWASP compliance for web components
-
-### 7.3 Performance Optimization
-**Optimization Workflow**
-```
-Profile → Identify Bottleneck → Optimize → Benchmark → Validate
-```
-
-**Optimization Techniques**
-- Algorithm: Better complexity, caching
-- Code: Numba JIT, Cython extensions
-- Database: Indexing, query optimization
-- Frontend: Lazy loading, virtualization
-- Infrastructure: Horizontal scaling, CDN
-
-## Development Tools & Environment
-
-### Local Development Setup
-```bash
-# Environment setup script
-./scripts/setup-dev.sh
-
-# Starts all services locally
-docker-compose up
-
-# Run tests
-make test
-
-# Build documentation
-make docs
-
-# Performance profiling
-make profile
-```
-
-### IDE Configuration
-**VS Code Settings**
-```json
-{
-  "python.linting.enabled": true,
-  "python.formatting.provider": "black",
-  "editor.formatOnSave": true,
-  "python.testing.pytestEnabled": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
-}
-```
-
-## Success Metrics
-
-### Development Velocity
-- Story points per sprint
-- Bug discovery rate
-- Time to production
-- Code review turnaround
-
-### Code Quality
-- Test coverage (> 80%)
-- Code complexity (< 10 cyclomatic)
-- Technical debt ratio (< 5%)
-- Documentation coverage
-
-### Operational Excellence
-- Deployment frequency
-- Mean time to recovery (MTTR)
-- Change failure rate
-- System availability (> 99.9%)
-
-## Risk Management
-
-### Technical Risks
-- **Complexity creep**: Regular refactoring sprints
-- **Performance degradation**: Continuous benchmarking
-- **Technical debt**: Dedicated cleanup time
-- **Dependency issues**: Regular updates, vendoring critical libs
-
-### Process Risks
-- **Scope creep**: Clear sprint goals, change management
-- **Knowledge silos**: Pair programming, documentation
-- **Burnout**: Sustainable pace, rotation
-
-## Continuous Improvement
-
-### Retrospective Actions
-- Sprint retrospectives every 3 weeks
-- Quarterly architecture reviews
-- Annual technology assessment
-- Post-incident reviews
-
-### Innovation Time
-- 20% time for exploration
-- Hackathons for new features
-- Conference attendance
-- Paper reading groups
-
-## Conclusion
-
-This development lifecycle framework provides a comprehensive approach to building the IPE system with scientific rigor, engineering excellence, and sustainable practices. By combining agile methodologies with research needs, we create a development process that delivers both innovative science and robust software.
+*IPE is designed for researchers studying evolutionary responses to environmental challenges, with special focus on high-altitude adaptation, phenotypic plasticity, and rapid contemporary evolution.*
