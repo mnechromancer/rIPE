@@ -654,7 +654,8 @@ class EnvironmentalDataImporter:
                 writer.writerow([f"# Dataset: {dataset.dataset_id}"])
                 writer.writerow(
                     [
-                        f"# Time range: {dataset.time_range[0]} to {dataset.time_range[1]}"
+                        f"# Time range: {dataset.time_range[0]} to "
+                        f"{dataset.time_range[1]}"
                     ]
                 )
                 writer.writerow([f"# Stations: {len(dataset.stations)}"])

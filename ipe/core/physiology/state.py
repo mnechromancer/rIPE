@@ -193,11 +193,13 @@ class PhysiologicalState:
             )
         if not (50.0 <= self.blood_volume <= 120.0):
             raise ValueError(
-                f"blood_volume {self.blood_volume} mL/kg outside valid range 50-120 mL/kg"
+                f"blood_volume {self.blood_volume} mL/kg outside valid "
+                f"range 50-120 mL/kg"
             )
         if not (100.0 <= self.cardiac_output <= 500.0):
             raise ValueError(
-                f"cardiac_output {self.cardiac_output} mL/min/kg outside valid range 100-500 mL/min/kg"
+                f"cardiac_output {self.cardiac_output} mL/min/kg outside valid "
+                f"range 100-500 mL/min/kg"
             )
 
         # Respiratory validation
@@ -211,7 +213,8 @@ class PhysiologicalState:
             )
         if not (10.0 <= self.ventilation_rate <= 100.0):
             raise ValueError(
-                f"ventilation_rate {self.ventilation_rate} breaths/min outside valid range 10-100"
+                f"ventilation_rate {self.ventilation_rate} breaths/min "
+                f"outside valid range 10-100"
             )
         if not (5.0 <= self.tidal_volume <= 15.0):
             raise ValueError(
@@ -227,21 +230,25 @@ class PhysiologicalState:
             )
         if not (0.7 <= self.respiratory_exchange_ratio <= 1.0):
             raise ValueError(
-                f"respiratory_exchange_ratio {self.respiratory_exchange_ratio} outside valid range 0.7-1.0"
+                f"respiratory_exchange_ratio {self.respiratory_exchange_ratio} "
+                f"outside valid range 0.7-1.0"
             )
 
         # Thermoregulation validation
         if not (1.0 <= self.thermal_conductance <= 5.0):
             raise ValueError(
-                f"thermal_conductance {self.thermal_conductance} outside valid range 1-5"
+                f"thermal_conductance {self.thermal_conductance} "
+                f"outside valid range 1-5"
             )
         if not (-10.0 <= self.lower_critical_temp <= 25.0):
             raise ValueError(
-                f"lower_critical_temp {self.lower_critical_temp}°C outside valid range -10 to 25°C"
+                f"lower_critical_temp {self.lower_critical_temp}°C "
+                f"outside valid range -10 to 25°C"
             )
         if not (25.0 <= self.upper_critical_temp <= 45.0):
             raise ValueError(
-                f"upper_critical_temp {self.upper_critical_temp}°C outside valid range 25 to 45°C"
+                f"upper_critical_temp {self.upper_critical_temp}°C "
+                f"outside valid range 25 to 45°C"
             )
         if not (50.0 <= self.max_thermogenesis <= 300.0):
             raise ValueError(
@@ -251,7 +258,8 @@ class PhysiologicalState:
         # Temperature logic validation
         if self.lower_critical_temp >= self.upper_critical_temp:
             raise ValueError(
-                f"lower_critical_temp {self.lower_critical_temp}°C must be < upper_critical_temp {self.upper_critical_temp}°C"
+                f"lower_critical_temp {self.lower_critical_temp}°C must be < "
+                f"upper_critical_temp {self.upper_critical_temp}°C"
             )
 
         # Mitochondrial density validation
@@ -259,7 +267,8 @@ class PhysiologicalState:
             for tissue, density in self.mitochondrial_density.items():
                 if not (0.5 <= density <= 2.0):
                     raise ValueError(
-                        f"mitochondrial_density for {tissue.value} outside valid range 0.5-2.0"
+                        f"mitochondrial_density for {tissue.value} "
+                        f"outside valid range 0.5-2.0"
                     )
 
         # Tissue perfusion validation
@@ -275,7 +284,8 @@ class PhysiologicalState:
             total_perfusion = sum(self.tissue_perfusion.values())
             if not (0.95 <= total_perfusion <= 1.05):  # Allow small rounding errors
                 raise ValueError(
-                    f"tissue_perfusion fractions sum to {total_perfusion}, should sum to ~1.0"
+                    f"tissue_perfusion fractions sum to {total_perfusion}, "
+                    f"should sum to ~1.0"
                 )
 
         # Osmoregulation validation (if present)
@@ -283,7 +293,8 @@ class PhysiologicalState:
             250.0 <= self.plasma_osmolality <= 400.0
         ):
             raise ValueError(
-                f"plasma_osmolality {self.plasma_osmolality} mOsm/kg outside valid range 250-400"
+                f"plasma_osmolality {self.plasma_osmolality} mOsm/kg "
+                f"outside valid range 250-400"
             )
         if self.gill_na_k_atpase is not None and not (
             1.0 <= self.gill_na_k_atpase <= 20.0

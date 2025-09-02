@@ -432,7 +432,10 @@ class MorphologyDataImporter:
             unit = row.get("unit", self._infer_unit(trait_name))
 
             measurement = MorphologicalMeasurement(
-                measurement_id=f"{specimen_id}_{trait_name}_{len(specimens_dict[specimen_id].measurements)}",
+                measurement_id=(
+                    f"{specimen_id}_{trait_name}_"
+                    f"{len(specimens_dict[specimen_id].measurements)}"
+                ),
                 specimen_id=specimen_id,
                 trait_name=trait_name,
                 value=value,

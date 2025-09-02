@@ -204,7 +204,7 @@ class TestGeneticAssimilationEngine:
             assert time > 0
 
         # Test with very low threshold (may never reach)
-        time_impossible = engine.predict_time_to_assimilation(
+        _ = engine.predict_time_to_assimilation(
             norm, target_environment=20.0, threshold_plasticity=0.001
         )
 

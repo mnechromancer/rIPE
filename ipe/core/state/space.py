@@ -1,7 +1,8 @@
 """
 State Space Management System
 
-Implements efficient state storage, spatial indexing, and neighbor search for physiological states.
+Implements efficient state storage, spatial indexing, and neighbor search for 
+physiological states.
 """
 
 from typing import List, Optional, Dict

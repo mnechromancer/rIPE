@@ -140,7 +140,8 @@ class TestWorkflowIntegration:
         assert "fitness" in result["results"], "No fitness data in results"
 
         print(
-            f"✅ Full workflow completed in {execution_time:.1f}s with {len(completed_steps)} steps"
+            f"✅ Full workflow completed in {execution_time:.1f}s with "
+            f"{len(completed_steps)} steps"
         )
 
     @pytest.mark.integration
@@ -186,7 +187,8 @@ class TestWorkflowIntegration:
                 ), f"Too many steps completed on error {i+1}"
 
         print(
-            f"✅ Error handling validated for {len(invalid_configs)} invalid configurations"
+            f"✅ Error handling validated for {len(invalid_configs)} invalid "
+            f"configurations"
         )
 
     @pytest.mark.integration
@@ -281,7 +283,8 @@ class TestWorkflowIntegration:
         ), "All scenarios produced identical fitness values"
 
         print(
-            f"✅ Simulation-analysis pipeline validated for {len(test_scenarios)} scenarios"
+            f"✅ Simulation-analysis pipeline validated for {len(test_scenarios)} "
+            f"scenarios"
         )
 
     @pytest.mark.integration
@@ -340,7 +343,10 @@ class TestWorkflowIntegration:
         unique_results = len(set(result_hashes))
         assert (
             unique_results >= 2
-        ), f"Only {unique_results} unique results from {len(configs)} concurrent workflows"
+        ), (
+            f"Only {unique_results} unique results from {len(configs)} concurrent "
+            f"workflows"
+        )
 
         print(
             f"✅ Concurrent execution validated: {len(results)} workflows, "

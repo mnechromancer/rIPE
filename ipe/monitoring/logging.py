@@ -1,6 +1,7 @@
 """
 Structured logging system for IPE (Integrated Phenotypic Evolution) platform.
-Provides comprehensive logging with JSON formatting, correlation IDs, and integration with monitoring systems.
+Provides comprehensive logging with JSON formatting, correlation IDs, and 
+integration with monitoring systems.
 """
 
 import json

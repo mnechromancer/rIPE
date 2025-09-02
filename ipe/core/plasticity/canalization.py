@@ -258,7 +258,8 @@ class CanalizationEngine:
             variance_array[gen] = current_variance
             sensitivity_array[gen] = 1.0 - current_canalization
 
-            # Update canalization (increases with selection, decreases with mutation/drift)
+            # Update canalization (increases with selection, decreases with 
+            # mutation/drift)
             canalization_change = canalization_rate * (1 - current_canalization)
             noise = np.random.normal(0, 0.001)  # Small random fluctuations
 

@@ -1,6 +1,7 @@
 """
 SQLAlchemy models for IPE (Integrated Phenotypic Evolution) platform.
-Includes models for organisms, simulations, environmental data, and temporal series data.
+Includes models for organisms, simulations, environmental data, and temporal 
+series data.
 Optimized for PostgreSQL with TimescaleDB for time-series performance.
 """
 
@@ -263,7 +264,8 @@ class GeneticMarker(Base, TimestampMixin):
         CheckConstraint("effect_size >= 0", name="positive_effect_size"),
         CheckConstraint("dominance >= -1 AND dominance <= 1", name="valid_dominance"),
         CheckConstraint(
-            "allele_frequency IS NULL OR (allele_frequency >= 0 AND allele_frequency <= 1)",
+            "allele_frequency IS NULL OR "
+            "(allele_frequency >= 0 AND allele_frequency <= 1)",
             name="valid_allele_frequency",
         ),
     )

@@ -318,7 +318,10 @@ class TestEndToEndSimulationFlow:
         max_hematocrit_change = max(hematocrit_changes.values())
         assert (
             max_hematocrit_change > 0.05
-        ), f"Insufficient adaptation response: max hematocrit change = {max_hematocrit_change}"
+        ), (
+            f"Insufficient adaptation response: max hematocrit change = "
+            f"{max_hematocrit_change}"
+        )
 
         # Fitness should generally decrease with more severe conditions
         # (unless strong adaptation compensates)
@@ -328,7 +331,8 @@ class TestEndToEndSimulationFlow:
 
         print(
             f"✅ Multi-scenario study validated: {len(scenarios)} scenarios, "
-            f"fitness range: {min(final_fitnesses.values()):.3f}-{max(final_fitnesses.values()):.3f}"
+            f"fitness range: {min(final_fitnesses.values()):.3f}-"
+            f"{max(final_fitnesses.values()):.3f}"
         )
 
     @pytest.mark.e2e
@@ -389,7 +393,8 @@ class TestEndToEndSimulationFlow:
             )
 
             status_response = requests.get(
-                f"http://localhost:8080/api/simulations/{result['simulation_id']}/status"
+                f"http://localhost:8080/api/simulations/"
+                f"{result['simulation_id']}/status"
             )
 
             assert status_response.status_code == 200, "Status check failed"

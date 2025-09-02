@@ -432,7 +432,8 @@ class TestDataPipelineIntegration:
             ), f"Processing too slow: {records_per_second:.0f} records/second"
 
         print(
-            f"✅ Large dataset pipeline validated: {large_dataset_size:,} records processed"
+            f"✅ Large dataset pipeline validated: {large_dataset_size:,} records "
+            f"processed"
         )
 
     @pytest.mark.integration

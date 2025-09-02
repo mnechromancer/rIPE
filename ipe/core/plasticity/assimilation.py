@@ -100,7 +100,8 @@ class GeneticAssimilationEngine:
         if initial_plasticity == 0:
             return 0.0  # Already no plasticity
 
-        # Assimilation rate depends on selection strength, population size, and environmental stability
+        # Assimilation rate depends on selection strength, population size, and 
+        # environmental stability
         effective_selection = selection_coefficient * self.environmental_stability
         genetic_drift_effect = 1.0 / (2 * self.population_size)
         mutation_effect = self.mutation_rate
