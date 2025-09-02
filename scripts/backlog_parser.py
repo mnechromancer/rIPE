@@ -111,7 +111,7 @@ class BacklogParser:
         try:
             # Find the YAML block for this story
             pattern = (
-                rf'(### {re.escape(story_id)}:.*?\n```yaml\n)'
+                rf"(### {re.escape(story_id)}:.*?\n```yaml\n)"
                 rf'(.*?)(\nstatus: "[^"]*")(.*?\n```)'
             )
 

@@ -341,9 +341,7 @@ class TestWorkflowIntegration:
 
         # Not all results should be identical (some variation expected)
         unique_results = len(set(result_hashes))
-        assert (
-            unique_results >= 2
-        ), (
+        assert unique_results >= 2, (
             f"Only {unique_results} unique results from {len(configs)} concurrent "
             f"workflows"
         )

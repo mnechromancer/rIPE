@@ -316,9 +316,7 @@ class TestEndToEndSimulationFlow:
 
         # At least one scenario should show substantial adaptation
         max_hematocrit_change = max(hematocrit_changes.values())
-        assert (
-            max_hematocrit_change > 0.05
-        ), (
+        assert max_hematocrit_change > 0.05, (
             f"Insufficient adaptation response: max hematocrit change = "
             f"{max_hematocrit_change}"
         )
