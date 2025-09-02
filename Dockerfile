@@ -69,7 +69,7 @@ COPY requirements.txt .
 
 # Set Python path and user paths
 ENV PATH="/home/ipe/.local/bin:$PATH"
-ENV PYTHONPATH="/app:$PYTHONPATH"
+ENV PYTHONPATH="/app"
 ENV PYTHONUNBUFFERED=1
 
 # Change ownership to non-root user

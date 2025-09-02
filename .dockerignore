@@ -87,7 +87,6 @@ docker-compose*.yml
 # Documentation and markdown
 *.md
 docs/
-documentation/
 
 # Logs
 logs/
@@ -120,7 +119,6 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific excludes
-demo_*.py
 examples/
 tutorials/
 .github/
