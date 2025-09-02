@@ -1,7 +1,7 @@
 """
 State Space Management System
 
-Implements efficient state storage, spatial indexing, and neighbor search for 
+Implements efficient state storage, spatial indexing, and neighbor search for
 physiological states.
 """
 

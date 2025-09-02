@@ -106,7 +106,7 @@ class EnvironmentalChange:
                         final_val - initial_val
                     )
                 else:
-                    # For non-numeric values (dicts, etc.), use initial value for 
+                    # For non-numeric values (dicts, etc.), use initial value for
                     # first half, final for second half
                     interpolated[key] = initial_val if progress < 0.5 else final_val
             else:

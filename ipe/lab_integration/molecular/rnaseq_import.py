@@ -3,7 +3,7 @@ DATA-002: RNA-seq Integration
 
 This module implements functionality for importing RNA-seq analysis results
 from DESeq2, EdgeR, and other differential expression analysis tools.
-Includes gene ID mapping, expression matrix handling, and pathway enrichment 
+Includes gene ID mapping, expression matrix handling, and pathway enrichment
 integration.
 """
 

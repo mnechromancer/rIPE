@@ -1,7 +1,7 @@
 """
 GAME-004: Equilibrium Solver
 
-Implements Nash equilibrium computation, ESS detection, and invasion fitness 
+Implements Nash equilibrium computation, ESS detection, and invasion fitness
 calculations.
 """
 

@@ -1,7 +1,7 @@
 """
 Thermodynamic Constraints Engine
 
-Implements energy balance validation, efficiency limits, and constraint violation 
+Implements energy balance validation, efficiency limits, and constraint violation
 detection.
 """
 

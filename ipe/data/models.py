@@ -1,6 +1,6 @@
 """
 SQLAlchemy models for IPE (Integrated Phenotypic Evolution) platform.
-Includes models for organisms, simulations, environmental data, and temporal 
+Includes models for organisms, simulations, environmental data, and temporal
 series data.
 Optimized for PostgreSQL with TimescaleDB for time-series performance.
 """

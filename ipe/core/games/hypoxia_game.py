@@ -51,7 +51,7 @@ class HypoxiaAllocationGame(GameSpecification):
 
     def validate_strategies(self, strategies: List[str]) -> bool:
         """
-        Dummy implementation for abstract method. Checks if all strategies are 
+        Dummy implementation for abstract method. Checks if all strategies are
         valid tissues.
         """
         allowed = set(self.tissues)

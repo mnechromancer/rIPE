@@ -1,6 +1,6 @@
 """
 Prometheus metrics collection for IPE (Integrated Phenotypic Evolution) platform.
-Provides comprehensive monitoring of simulation performance, system resources, 
+Provides comprehensive monitoring of simulation performance, system resources,
 and business metrics.
 """
 
