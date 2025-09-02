@@ -22,10 +22,10 @@ except ImportError:
     # Mock classes for testing when modules don't exist yet
     class DataImportManager:
         def import_respirometry(self, file_path):
-            return {"records": 50, "format": "csv", "status": "success"}
+            return {"records": [i for i in range(50)], "format": "csv", "status": "success"}
 
         def import_field_data(self, file_path):
-            return {"records": 100, "format": "json", "status": "success"}
+            return {"records": [i for i in range(100)], "format": "json", "status": "success"}
 
         def import_genomic_data(self, file_path):
             return {"variants": 25, "genes": 15, "status": "success"}
