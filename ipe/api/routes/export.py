@@ -18,9 +18,9 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
 import matplotlib
+import matplotlib.pyplot as plt
 
 matplotlib.use("Agg")  # Use non-GUI backend
-import matplotlib.pyplot as plt
 
 logger = logging.getLogger(__name__)
 
