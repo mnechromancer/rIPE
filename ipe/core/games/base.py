@@ -44,7 +44,8 @@ class GameSpecification(ABC):
         """
         Compute the payoff matrix for the game.
         Returns:
-            np.ndarray: Payoff matrix of shape (n_strategies, n_strategies) or appropriate for game type.
+            np.ndarray: Payoff matrix of shape (n_strategies, n_strategies) or
+                appropriate for game type.
         """
 
     @abstractmethod

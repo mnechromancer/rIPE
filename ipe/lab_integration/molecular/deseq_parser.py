@@ -95,7 +95,9 @@ class DESeqParser:
             "GO:0006412": PathwayTerm(
                 term_id="GO:0006412",
                 term_name="translation",
-                description="The cellular metabolic process in which a protein is formed",
+                description=(
+                    "The cellular metabolic process in which a protein is formed"
+                ),
                 category="GO_BP",
                 gene_count=500,
                 genes={"Eef1a1", "Rpl1", "Rps1", "Rpl2", "Rps2"},

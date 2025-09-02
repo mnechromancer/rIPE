@@ -110,7 +110,10 @@ class BacklogParser:
         """Update the backlog file with the new story status."""
         try:
             # Find the YAML block for this story
-            pattern = rf'(### {re.escape(story_id)}:.*?\n```yaml\n)(.*?)(\nstatus: "[^"]*")(.*?\n```)'
+            pattern = (
+                rf"(### {re.escape(story_id)}:.*?\n```yaml\n)"
+                rf'(.*?)(\nstatus: "[^"]*")(.*?\n```)'
+            )
 
             def replace_status(match):
                 header = match.group(1)
@@ -119,7 +122,7 @@ class BacklogParser:
                 yaml_after = match.group(4)
 
                 # Replace the status
-                new_status_line = f'\nstatus: "done"  # Completed'
+                new_status_line = '\nstatus: "done"  # Completed'
 
                 # Add completion notes if they don't exist and we have notes
                 if story.completion_notes and "completion_notes:" not in yaml_after:

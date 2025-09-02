@@ -1,7 +1,8 @@
 """
 Thermodynamic Constraints Engine
 
-Implements energy balance validation, efficiency limits, and constraint violation detection.
+Implements energy balance validation, efficiency limits, and constraint violation
+detection.
 """
 
 from typing import Dict

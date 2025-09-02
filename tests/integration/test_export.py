@@ -2,14 +2,14 @@
 Tests for API-003: Data Export Endpoints
 """
 
-from fastapi.testclient import TestClient
 import sys
 from pathlib import Path
+from fastapi.testclient import TestClient
 
 # Add the project root to the path so we can import from ipe
 sys.path.insert(0, str(Path(__file__).parent.parent.parent))
 
-from ipe.api.main import app
+from ipe.api.main import app  # noqa: E402
 
 client = TestClient(app)
 

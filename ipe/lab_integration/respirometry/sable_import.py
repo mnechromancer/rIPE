@@ -211,7 +211,8 @@ class SableSystemsImporter:
                 continue
 
             try:
-                # Parse timestamp - assume format like "14:23:15" or "2024-01-01 14:23:15"
+                # Parse timestamp - assume format like "14:23:15" or
+                # "2024-01-01 14:23:15"
                 time_str = parts[0]
                 if " " in time_str:
                     timestamp = datetime.strptime(time_str, "%Y-%m-%d %H:%M:%S")
@@ -327,7 +328,8 @@ class SableSystemsImporter:
         end_vco2 = np.mean([m.vco2_ml_min for m in measurements[-n_baseline:]])
 
         # Calculate expected baseline (assume should be near zero for chamber baseline)
-        # For this implementation, we'll assume a small baseline drift rather than full subtraction
+        # For this implementation, we'll assume a small baseline drift rather than
+        # full subtraction
         baseline_vo2 = min(start_vo2, end_vo2) * 0.1  # 10% of minimum baseline
         baseline_vco2 = min(start_vco2, end_vco2) * 0.1
 
