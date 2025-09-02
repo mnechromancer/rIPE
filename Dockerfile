@@ -2,7 +2,7 @@
 # Production container size optimized to be < 1GB
 
 # Stage 1: Python build environment
-FROM python:3.12-slim as python-builder
+FROM python:3.12-slim AS python-builder
 
 WORKDIR /build
 
@@ -22,7 +22,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --user -r requirements.txt
 
 # Stage 2: Node.js build environment
-FROM node:18-alpine as web-builder
+FROM node:18-alpine AS web-builder
 
 WORKDIR /build/web
 
@@ -35,7 +35,7 @@ COPY web/ .
 RUN if [ -f package.json ]; then npm run build 2>/dev/null || echo "No build script found"; fi
 
 # Stage 3: Production runtime
-FROM python:3.12-slim as production
+FROM python:3.12-slim AS production
 
 # Install runtime dependencies only
 RUN apt-get update && apt-get install -y \
@@ -56,7 +56,9 @@ WORKDIR /app
 COPY --from=python-builder /root/.local /home/ipe/.local
 
 # Copy web build from builder stage (if exists)
-COPY --from=web-builder /build/web/dist /app/web/dist 2>/dev/null || echo "No web build to copy"
+RUN mkdir -p /app/web/dist
+COPY --from=web-builder /build/web/ /tmp/web-src/
+RUN if [ -d "/tmp/web-src/dist" ]; then cp -r /tmp/web-src/dist/* /app/web/dist/ 2>/dev/null || true; fi
 
 # Copy application code
 COPY ipe/ ./ipe/
@@ -84,7 +86,7 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 CMD ["python", "-m", "ipe.api.server"]
 
 # Stage 4: Development environment
-FROM production as development
+FROM production AS development
 
 USER root
 
