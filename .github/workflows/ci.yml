@@ -277,7 +277,7 @@ jobs:
         
       - name: Build and start services
         run: |
-          docker-compose -f docker-compose.yml up -d --build
+          docker compose -f docker-compose.yml up -d --build
           
       - name: Wait for services to be ready
         run: |
@@ -303,7 +303,7 @@ jobs:
       - name: Collect logs on failure
         if: failure()
         run: |
-          docker-compose logs > docker-logs.txt
+          docker compose logs > docker-logs.txt
           
       - name: Upload logs
         if: failure()
@@ -315,7 +315,7 @@ jobs:
       - name: Clean up
         if: always()
         run: |
-          docker-compose down -v
+          docker compose down -v
 
   # Performance benchmarks
   benchmark:
