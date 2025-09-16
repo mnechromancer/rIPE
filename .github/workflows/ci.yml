@@ -322,7 +322,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Performance Benchmarks
     needs: [test-python]
-    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: Checkout code
@@ -356,7 +355,6 @@ jobs:
     runs-on: ubuntu-latest
     name: Deployment Readiness
     needs: [test-python, test-integration, build-and-scan]
-    if: github.ref == 'refs/heads/main'
     
     steps:
       - name: Checkout code
