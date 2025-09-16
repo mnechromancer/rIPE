@@ -312,8 +312,16 @@ class TestEndToEndSimulationFlow:
             sim_result = client.start_simulation(config)
             simulation_id = sim_result["simulation_id"]
 
-            # Wait for completion (simplified for testing)
-            status = client.get_simulation_status(simulation_id)
+            # Wait for completion (polling until status is 'completed' or timeout)
+            max_wait_time = 10  # seconds
+            start_time = time.time()
+            while time.time() - start_time < max_wait_time:
+                status = client.get_simulation_status(simulation_id)
+                if status["status"] == "completed":
+                    break
+                elif status["status"] == "failed":
+                    pytest.fail(f"Simulation failed: {status}")
+                time.sleep(1)
             assert (
                 status["status"] == "completed"
             ), f"Scenario {scenario['name']} failed"
@@ -537,9 +545,7 @@ class TestEndToEndSimulationFlow:
 
         # More lenient assertion - allow at least 2/3 to complete for CI stability
         min_required = max(1, num_concurrent - 1)  # At least n-1 should complete
-        assert (
-            len(completion_times) >= min_required
-        ), (
+        assert len(completion_times) >= min_required, (
             f"Only {len(completion_times)}/{num_concurrent} simulations completed "
             f"(minimum {min_required} required). Failed: {failed_simulations}"
         )
