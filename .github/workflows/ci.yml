@@ -165,16 +165,16 @@ jobs:
     
     services:
       postgres:
-        image: timescale/timescaledb:latest-pg15
+        image: timescale/timescaledb:2.14.2-pg15
         env:
           POSTGRES_USER: ipe_test_user
           POSTGRES_PASSWORD: ipe_test_password
           POSTGRES_DB: ipe_test_db
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd "pg_isready -U ipe_test_user -d ipe_test_db"
+          --health-interval 20s
+          --health-timeout 10s
+          --health-retries 10
         ports:
           - 5432:5432
           
@@ -279,6 +279,15 @@ jobs:
         run: |
           docker compose -f docker-compose.yml up -d --build
           
+      - name: Debug container status
+        run: |
+          echo "=== Container Status ==="
+          docker ps -a
+          echo "=== Database Container Logs ==="
+          docker logs ripe-db-1 || echo "No db container found"
+          echo "=== API Container Logs ==="
+          docker logs ripe-ipe-api-1 || echo "No api container found"
+          
       - name: Wait for services to be ready
         run: |
           echo "Waiting for services to start..."
@@ -303,6 +312,14 @@ jobs:
       - name: Collect logs on failure
         if: failure()
         run: |
+          echo "=== Final Container Status ==="
+          docker ps -a
+          echo "=== Database Logs ==="
+          docker logs ripe-db-1 || echo "No db container logs available"
+          echo "=== API Logs ==="
+          docker logs ripe-ipe-api-1 || echo "No api container logs available"
+          echo "=== Redis Logs ==="
+          docker logs ripe-redis-1 || echo "No redis container logs available"
           docker compose logs > docker-logs.txt
           
       - name: Upload logs
@@ -339,8 +356,10 @@ jobs:
           pip install pytest-benchmark
           
       - name: Run performance benchmarks
+        env:
+          PYTHONPATH: ${{ github.workspace }}
         run: |
-          pytest tests/unit/ -k "benchmark" --benchmark-json=benchmark.json
+          pytest tests/unit/ -m "performance" --benchmark-json=benchmark.json
           
       - name: Store benchmark results
         uses: benchmark-action/github-action-benchmark@v1
