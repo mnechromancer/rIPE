@@ -595,8 +595,16 @@ class MorphologyDataImporter:
             report["duplicates"] = duplicates
 
         # Outlier detection for each trait
-        for trait_name in dataset.get_available_traits():
-            measurements = dataset.get_measurements_by_trait(trait_name)
+        # Collect all measurements by trait directly from specimens to include any newly added measurements
+        trait_measurements = {}
+        for specimen in dataset.specimens.values():
+            for measurement in specimen.measurements:
+                trait_name = measurement.trait_name
+                if trait_name not in trait_measurements:
+                    trait_measurements[trait_name] = []
+                trait_measurements[trait_name].append(measurement)
+
+        for trait_name, measurements in trait_measurements.items():
             values = [m.value for m in measurements]
 
             if len(values) < 5:  # Need minimum sample size
@@ -604,6 +612,9 @@ class MorphologyDataImporter:
 
             mean_val = np.mean(values)
             std_val = np.std(values)
+
+            if std_val == 0:  # Avoid division by zero
+                continue
 
             outliers = []
             for measurement in measurements:
@@ -623,8 +634,7 @@ class MorphologyDataImporter:
 
         # Data completeness by trait
         trait_completeness = {}
-        for trait_name in dataset.get_available_traits():
-            measurements = dataset.get_measurements_by_trait(trait_name)
+        for trait_name, measurements in trait_measurements.items():
             completeness = len(measurements) / len(dataset.specimens)
             trait_completeness[trait_name] = completeness
 
