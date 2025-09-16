@@ -44,8 +44,8 @@ The Interactionist Phylogeny Engine treats evolution as a strategic game played 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mnechromancer/RIPE.git
-   cd RIPE
+   git clone https://github.com/mnechromancer/rIPE.git
+   cd rIPE
    ```
 
 2. **Start all services**
@@ -62,8 +62,8 @@ The Interactionist Phylogeny Engine treats evolution as a strategic game played 
 
 1. **Clone and install dependencies**
    ```bash
-   git clone https://github.com/mnechromancer/RIPE.git
-   cd RIPE
+   git clone https://github.com/mnechromancer/rIPE.git
+   cd rIPE
    pip install -r requirements.txt
    ```
 
@@ -201,7 +201,7 @@ For more examples, see the [Complete Getting Started Guide](docs/user/getting-st
 
 We welcome contributions from the scientific computing and evolutionary biology communities!
 
-- **Report Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Report Issues**: [GitHub Issues](https://github.com/mnechromancer/rIPE/issues)
 - **Request Features**: Use issue templates for new functionality
 - **Submit Code**: Follow our [development guidelines](docs/developer/development-lifecycle.md)
 - **Scientific Validation**: Help validate algorithms against empirical data
@@ -218,7 +218,7 @@ Developed for the **Velotta Lab** and the broader evolutionary physiology resear
 
 - **Documentation**: [Complete User Guide](docs/user/getting-started.md)
 - **API Docs**: [Interactive API Documentation](docs/api/README.md) (also at `/docs` when running)
-- **Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Issues**: [GitHub Issues](https://github.com/mnechromancer/rIPE/issues)
 - **Scientific Questions**: See our [FAQ](docs/user/faq.md) and [Publications Guide](docs/science/publications.md)
 
 ---
