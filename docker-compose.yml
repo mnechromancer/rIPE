@@ -1,9 +1,7 @@
-version: '3.8'
-
 services:
   # PostgreSQL database with TimescaleDB extension
   db:
-    image: timescale/timescaledb:latest-pg15
+    image: timescale/timescaledb:2.14.2-pg15
     environment:
       POSTGRES_DB: ipe_db
       POSTGRES_USER: ipe_user
@@ -16,9 +14,9 @@ services:
       - ./scripts/init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ipe_user -d ipe_db"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+      interval: 20s
+      timeout: 10s
+      retries: 10
     restart: unless-stopped
 
   # Redis for caching and session storage
