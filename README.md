@@ -1,4 +1,4 @@
-# RIPE - Interactionist Phylogeny Engine
+# RIPE - Rudimentary Interactionist Phylogeny Engine
 
 [![License: Public Domain](https://img.shields.io/badge/License-Public%20Domain-blue.svg)](https://unlicense.org/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -6,7 +6,7 @@
 
 > A computational platform for simulating evolutionary processes in physiological state spaces with environmental interactions.
 
-**RIPE** (Repository for **I**nteractionist **P**hylogeny **E**ngine) enables researchers to predict evolutionary responses to environmental challenges like high-altitude adaptation, temperature stress, and rapid environmental change by modeling evolution as navigation through physiologically-explicit trait spaces.
+r**IPE** (rudimentary **I**nteractionist **P**hylogeny **E**ngine) enables researchers to predict evolutionary responses to environmental challenges like high-altitude adaptation, temperature stress, and rapid environmental change by modeling evolution as navigation through physiologically-explicit trait spaces.
 
 ## Table of Contents
 
