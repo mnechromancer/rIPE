@@ -537,9 +537,7 @@ class TestEndToEndSimulationFlow:
 
         # More lenient assertion - allow at least 2/3 to complete for CI stability
         min_required = max(1, num_concurrent - 1)  # At least n-1 should complete
-        assert (
-            len(completion_times) >= min_required
-        ), (
+        assert len(completion_times) >= min_required, (
             f"Only {len(completion_times)}/{num_concurrent} simulations completed "
             f"(minimum {min_required} required). Failed: {failed_simulations}"
         )
