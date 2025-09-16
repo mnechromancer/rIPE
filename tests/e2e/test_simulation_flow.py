@@ -31,7 +31,7 @@ except ImportError:
             self._simulations[sim_id] = {
                 "status": "running",
                 "start_time": time.time(),
-                "config": config
+                "config": config,
             }
             return {
                 "simulation_id": sim_id,
@@ -44,16 +44,16 @@ except ImportError:
                 return {
                     "id": simulation_id,
                     "status": "not_found",
-                    "error": "Simulation not found"
+                    "error": "Simulation not found",
                 }
-            
+
             sim = self._simulations[simulation_id]
             elapsed = time.time() - sim["start_time"]
-            
+
             # Simulate completion after a short delay
             if elapsed > 5:  # Complete after 5 seconds
                 sim["status"] = "completed"
-            
+
             return {
                 "id": simulation_id,
                 "status": sim["status"],
@@ -515,14 +515,18 @@ class TestEndToEndSimulationFlow:
                         completion_times[sim_id] = time.time() - start_time
                         break
                     elif status["status"] == "failed":
-                        failed_simulations[sim_id] = status.get("error", "Unknown error")
+                        failed_simulations[sim_id] = status.get(
+                            "error", "Unknown error"
+                        )
                         break
                 except Exception as e:
                     print(f"Error checking status for {sim_id}: {e}")
                 time.sleep(0.5)
             else:
                 # Timeout - record the last known status
-                failed_simulations[sim_id] = f"Timeout after {max_wait}s. Last status: {last_status}"
+                failed_simulations[sim_id] = (
+                    f"Timeout after {max_wait}s. Last status: {last_status}"
+                )
 
         # Provide detailed feedback about what happened
         if failed_simulations:
