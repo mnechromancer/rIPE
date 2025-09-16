@@ -595,7 +595,8 @@ class MorphologyDataImporter:
             report["duplicates"] = duplicates
 
         # Outlier detection for each trait
-        # Collect all measurements by trait directly from specimens to include any newly added measurements
+        # Collect all measurements by trait directly from specimens to include
+        # any newly added measurements
         trait_measurements = {}
         for specimen in dataset.specimens.values():
             for measurement in specimen.measurements:
