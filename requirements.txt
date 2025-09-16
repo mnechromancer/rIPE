@@ -9,3 +9,13 @@ fastapi
 httpx
 matplotlib
 black
+flake8
+mypy
+pylint
+coverage
+pytest-cov
+pytest-xdist
+alembic
+psycopg2-binary
+bandit
+pytest-benchmark
