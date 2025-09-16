@@ -205,3 +205,12 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# CI/CD Generated Files
+bandit-report.json
+benchmark.json
+trivy-results.sarif
+coverage.xml
+.coverage
+*.coverage
+deployment-artifacts/
