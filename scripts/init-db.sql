@@ -1,14 +1,17 @@
 -- IPE (Integrated Phenotypic Evolution) Database Initialization Script
 -- This script sets up the initial database schema for the IPE platform
 
--- Create schema if it doesn't exist
+-- Enable TimescaleDB extension only in the target database (not template)
+\c ipe_db;
+
+-- Create IPE schema if it doesn't exist
 CREATE SCHEMA IF NOT EXISTS ipe;
 
 -- Set default search path
 SET search_path TO ipe, public;
 
--- Enable TimescaleDB extension
-CREATE EXTENSION IF NOT EXISTS timescaledb;
+-- Enable TimescaleDB extension in the target database
+CREATE EXTENSION IF NOT EXISTS timescaledb CASCADE;
 
 -- Create basic tables for IPE data structures
 

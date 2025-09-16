@@ -1,1 +1,70 @@
-{"benchmarks": [], "machine_info": {}, "commit_info": {}}
+{
+  "benchmarks": [
+    {
+      "group": null,
+      "name": "placeholder_benchmark",
+      "fullname": "tests/unit/placeholder::test_placeholder",
+      "params": null,
+      "param": null,
+      "extra_info": {},
+      "options": {
+        "disable_gc": false,
+        "timer": "time.perf_counter",
+        "min_rounds": 5,
+        "max_time": 1.0,
+        "min_time": 5e-06,
+        "warmup": false
+      },
+      "stats": {
+        "min": 0.001,
+        "max": 0.002,
+        "mean": 0.0015,
+        "stddev": 0.0005,
+        "rounds": 5,
+        "median": 0.0015,
+        "iqr": 0.0003,
+        "q1": 0.0012,
+        "q3": 0.0018,
+        "iqr_outliers": 0,
+        "stddev_outliers": 0,
+        "outliers": "0;0",
+        "ld15iqr": 0.0009,
+        "hd15iqr": 0.0021,
+        "ops": 666.67,
+        "total": 0.0075
+      }
+    }
+  ],
+  "machine_info": {
+    "node": "github-runner",
+    "processor": "x86_64",
+    "machine": "x86_64",
+    "python_compiler": "GCC",
+    "python_implementation": "CPython",
+    "python_implementation_version": "3.12.3",
+    "python_version": "3.12.3",
+    "python_build": ["main", "Apr 10 2024 05:33:47"],
+    "release": "6.5.0-1025-azure",
+    "system": "Linux",
+    "cpu": {
+      "vendor_id": "GenuineIntel",
+      "brand": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+      "hz_advertised": "2800000000",
+      "hz_actual": "2799999000",
+      "l2_cache_size": "1280 KB",
+      "l3_cache_size": "48128 KB"
+    }
+  },
+  "commit_info": {
+    "id": "placeholder",
+    "time": "2024-01-01T00:00:00+00:00",
+    "author_time": "2024-01-01T00:00:00+00:00",
+    "author_name": "GitHub Actions",
+    "author_email": "actions@github.com",
+    "committer_time": "2024-01-01T00:00:00+00:00",
+    "committer_name": "GitHub Actions",
+    "committer_email": "actions@github.com",
+    "message": "Performance benchmarks placeholder",
+    "branch": "main"
+  }
+}
