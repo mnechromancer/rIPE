@@ -374,3 +374,12 @@ redis_data/
 # Local development overrides
 docker-compose.override.yml
 .env.override
+
+# CI/CD Generated Files
+bandit-report.json
+benchmark.json
+trivy-results.sarif
+coverage.xml
+.coverage
+*.coverage
+deployment-artifacts/

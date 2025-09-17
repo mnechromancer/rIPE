@@ -1,4 +1,4 @@
-# RIPE - Interactionist Phylogeny Engine
+# rIPE - rudimentary Interactionist Phylogeny Engine
 
 [![License: Public Domain](https://img.shields.io/badge/License-Public%20Domain-blue.svg)](https://unlicense.org/)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
@@ -6,7 +6,7 @@
 
 > A computational platform for simulating evolutionary processes in physiological state spaces with environmental interactions.
 
-**RIPE** (Repository for **I**nteractionist **P**hylogeny **E**ngine) enables researchers to predict evolutionary responses to environmental challenges like high-altitude adaptation, temperature stress, and rapid environmental change by modeling evolution as navigation through physiologically-explicit trait spaces.
+The r**IPE** (rudimentary **I**nteractionist **P**hylogeny **E**ngine) enables researchers to predict evolutionary responses to environmental challenges like high-altitude adaptation, temperature stress, and rapid environmental change by modeling evolution as navigation through physiologically-explicit trait spaces.
 
 ## Table of Contents
 
@@ -44,8 +44,8 @@ The Interactionist Phylogeny Engine treats evolution as a strategic game played 
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/mnechromancer/RIPE.git
-   cd RIPE
+   git clone https://github.com/mnechromancer/rIPE.git
+   cd rIPE
    ```
 
 2. **Start all services**
@@ -62,8 +62,8 @@ The Interactionist Phylogeny Engine treats evolution as a strategic game played 
 
 1. **Clone and install dependencies**
    ```bash
-   git clone https://github.com/mnechromancer/RIPE.git
-   cd RIPE
+   git clone https://github.com/mnechromancer/rIPE.git
+   cd rIPE
    pip install -r requirements.txt
    ```
 
@@ -201,7 +201,7 @@ For more examples, see the [Complete Getting Started Guide](docs/user/getting-st
 
 We welcome contributions from the scientific computing and evolutionary biology communities!
 
-- **Report Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Report Issues**: [GitHub Issues](https://github.com/mnechromancer/rIPE/issues)
 - **Request Features**: Use issue templates for new functionality
 - **Submit Code**: Follow our [development guidelines](docs/developer/development-lifecycle.md)
 - **Scientific Validation**: Help validate algorithms against empirical data
@@ -218,7 +218,7 @@ Developed for the **Velotta Lab** and the broader evolutionary physiology resear
 
 - **Documentation**: [Complete User Guide](docs/user/getting-started.md)
 - **API Docs**: [Interactive API Documentation](docs/api/README.md) (also at `/docs` when running)
-- **Issues**: [GitHub Issues](https://github.com/mnechromancer/RIPE/issues)
+- **Issues**: [GitHub Issues](https://github.com/mnechromancer/rIPE/issues)
 - **Scientific Questions**: See our [FAQ](docs/user/faq.md) and [Publications Guide](docs/science/publications.md)
 
 ---

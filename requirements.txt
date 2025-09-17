@@ -6,3 +6,16 @@ pytest>=8.0.0
 pandas>=1.0.0
 scikit-learn>=1.0.0
 fastapi
+httpx
+matplotlib
+black
+flake8
+mypy
+pylint
+coverage
+pytest-cov
+pytest-xdist
+alembic
+psycopg2-binary
+bandit
+pytest-benchmark
