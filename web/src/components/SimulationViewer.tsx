@@ -85,12 +85,22 @@ const SimulationViewer: React.FC<SimulationViewerProps> = ({
     const firstGen = sortedStates[0];
     const lastGen = sortedStates[sortedStates.length - 1];
 
+    const change = lastGen.fitness - firstGen.fitness;
+    
+    // Handle division by zero when initial fitness is 0
+    let percentChange = 0;
+    if (firstGen.fitness !== 0) {
+      percentChange = (change / firstGen.fitness) * 100;
+    } else if (lastGen.fitness !== 0) {
+      // If starting from 0, show as infinite improvement
+      percentChange = 100;
+    }
+
     return {
       initial: firstGen.fitness,
       final: lastGen.fitness,
-      change: lastGen.fitness - firstGen.fitness,
-      percentChange:
-        ((lastGen.fitness - firstGen.fitness) / firstGen.fitness) * 100,
+      change: change,
+      percentChange: percentChange,
     };
   };
 
@@ -437,7 +447,7 @@ const SimulationViewer: React.FC<SimulationViewerProps> = ({
             </div>
             <div>
               <span className="text-sm font-medium text-gray-500">Status</span>
-              <div className="text-gray-800 font-semibold">
+              <div className="text-gray-800 font-semibold capitalize">
                 {data.simulation.status}
               </div>
             </div>

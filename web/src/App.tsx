@@ -1,24 +1,7 @@
 import { useState, useEffect } from 'react';
 import './index.css';
 import SimulationViewer from './components/SimulationViewer';
-
-export interface Simulation {
-  id: string;
-  name: string;
-  status: 'created' | 'running' | 'completed' | 'failed';
-  parameters: {
-    duration: number;
-    population_size: number;
-    mutation_rate: number;
-    environment_params: {
-      altitude: number;
-      temperature: number;
-      oxygen_level: number;
-    };
-  };
-  progress?: number;
-  results?: any[];
-}
+import { Simulation } from './types/simulation';
 
 function App() {
   const [simulations, setSimulations] = useState<Simulation[]>([]);
