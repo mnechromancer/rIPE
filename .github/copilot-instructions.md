@@ -1,8 +1,12 @@
-# RIPE - Interactionist Phylogeny Engine
+# rIPE - rudimental Interactionist Phylogeny Engine
 
-RIPE is a Python-based phylogenetic simulation platform with FastAPI backend, PostgreSQL+TimescaleDB database, Redis cache, and optional React frontend. The platform simulates evolutionary processes with physiological constraints and environmental interactions.
+rIPE (lowercase 'r', capital 'IPE') is a Python-based phylogenetic simulation platform with FastAPI backend, PostgreSQL+TimescaleDB database, Redis cache, and React frontend. The platform simulates evolutionary processes with physiological constraints and environmental interactions.
+
+**Note:** rIPE is *rudimental* - simulations are batch-processed, not real-time. Focus is on post-simulation visualization and analysis rather than live monitoring.
 
 **Always reference these instructions first and fallback to search or bash commands only when you encounter unexpected information that does not match the info here.**
+
+**For project planning, task tracking, and development workflow guidance, see `.github/project-management.md`.**
 
 ## Working Effectively
 
@@ -215,14 +219,57 @@ curl http://localhost:8000/health  # Should return {"status":"healthy"}
 
 ### What Doesn't Work  
 - ❌ Full `docker compose up` - fails during API container build due to SSL certificate issues
-- ❌ Web frontend - React structure exists but no package.json/build system configured
 - ❌ `python -m ipe.api.server` - use `uvicorn ipe.api.main:app` instead
+
+### What Needs Development
+- 🚧 Web frontend - React/Vite structure exists with package.json, but visualization components need implementation
+- 🚧 Three.js integration for state space visualization
+- 🚧 Post-simulation analysis dashboards
+- 🚧 Data export and comparison tools
 
 ### Workarounds
 - Use local development setup instead of full Docker build
 - Start only database services with `docker compose up db redis -d` 
 - Use `uvicorn ipe.api.main:app` to start API server
 - Always set PYTHONPATH when running tests or using modules
+
+## Frontend Development and Debugging
+
+### Starting the Frontend
+```bash
+cd web/
+npm install                    # First time only
+npm run dev                    # Starts Vite dev server on http://localhost:5173
+```
+
+### Frontend Debugging
+```bash
+# Check for TypeScript errors
+cd web/
+npm run lint                   # ESLint check
+npx tsc --noEmit              # Type checking without build
+
+# Test API connectivity from frontend
+curl http://localhost:8000/health  # Ensure API is running first
+
+# Common issues:
+# - CORS errors: Check ipe/api/main.py CORS settings
+# - API not responding: Ensure uvicorn server is running on port 8000
+# - Build errors: Clear node_modules and reinstall (rm -rf node_modules && npm install)
+```
+
+### Frontend Architecture
+- **React + TypeScript** - Main UI framework
+- **Vite** - Build tool and dev server
+- **Recharts** - 2D plotting and charts
+- **Tailwind CSS** - Styling framework
+- **Axios** - HTTP client for API calls
+
+### Key Frontend Files
+- `web/src/` - Source code directory
+- `web/index.html` - Entry HTML
+- `web/vite.config.ts` - Vite configuration
+- `web/tailwind.config.js` - Tailwind CSS config
 
 ## Environment Variables (Always Required)
 ```bash
