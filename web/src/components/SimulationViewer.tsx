@@ -92,7 +92,7 @@ const SimulationViewer: React.FC<SimulationViewerProps> = ({
     if (firstGen.fitness !== 0) {
       percentChange = (change / firstGen.fitness) * 100;
     } else if (lastGen.fitness !== 0) {
-      // If starting from 0, show as infinite improvement
+      // Show as 100% improvement when starting from 0 fitness
       percentChange = 100;
     }
 
