@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './index.css';
+import SimulationViewer from './components/SimulationViewer';
 
 export interface Simulation {
   id: string;
@@ -22,6 +23,7 @@ export interface Simulation {
 function App() {
   const [simulations, setSimulations] = useState<Simulation[]>([]);
   const [isConnected, setIsConnected] = useState(false);
+  const [selectedSimulationId, setSelectedSimulationId] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: 'Alpine Evolution',
     duration: 25,
@@ -87,6 +89,16 @@ function App() {
       console.error('Failed to load simulations:', error);
     }
   };
+
+  // If a simulation is selected, show the viewer
+  if (selectedSimulationId) {
+    return (
+      <SimulationViewer
+        simulationId={selectedSimulationId}
+        onClose={() => setSelectedSimulationId(null)}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 p-6">
@@ -252,11 +264,18 @@ function App() {
                         </span>
                       </div>
                       
-                      <div className="text-sm text-gray-600 space-y-1">
+                      <div className="text-sm text-gray-600 space-y-1 mb-3">
                         <div>Population: {sim.parameters.population_size} | Generations: {sim.parameters.duration}</div>
                         <div>Altitude: {sim.parameters.environment_params.altitude}m | Temp: {sim.parameters.environment_params.temperature}°C</div>
                         <div>Oxygen: {sim.parameters.environment_params.oxygen_level} | Mutation: {sim.parameters.mutation_rate}</div>
                       </div>
+
+                      <button
+                        onClick={() => setSelectedSimulationId(sim.id)}
+                        className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                      >
+                        📊 View Details
+                      </button>
                     </div>
                   ))}
                 </div>
